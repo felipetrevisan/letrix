@@ -9,6 +9,7 @@ import MenuIcon from "@mui/icons-material/MenuRounded";
 import BarIcon from "@mui/icons-material/BarChartRounded";
 import LightModeIcon from "@mui/icons-material/LightModeRounded";
 import DarkModeIcon from "@mui/icons-material/DarkModeRounded";
+import ComputerIcon from "@mui/icons-material/ComputerRounded";
 
 import { useGame } from "@/contexts/GameContext";
 import { useApp } from "@/contexts/AppContext";
@@ -31,6 +32,9 @@ export function Header() {
   } = useApp();
   const { getName, isTerm, isDuo, isTrio, isFour } = useGame();
   const { setTheme, theme } = useTheme();
+
+
+  console.log(theme);
 
   const translate = useTranslations("global");
 
@@ -56,11 +60,6 @@ export function Header() {
             >
               <InfoIcon />
             </Button>
-          </div>
-          <div className="title">
-            <h1 className="text-4xl font-bold text-primary-foreground tracking-widest">
-              {translate(getName())}
-            </h1>
           </div>
           <div className="flex justify-end space-x-2">
             <Button

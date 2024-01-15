@@ -65,6 +65,7 @@ export default function Home() {
   const isLatestGame = getIsLatestGame();
   const gameDate = getGameDate();
   const translate = useTranslations("alerts");
+  const title = useTranslations("global");
 
   const [currentRowClass, setCurrentRowClass] = useState("");
   const [isRevealing, setIsRevealing] = useState(false);
@@ -255,7 +256,12 @@ export default function Home() {
       ) : (
         <>
           <div className={classes}>
-            <div className="flex flex-col justify-center gap-12">
+            <div className="flex flex-col items-center justify-center gap-12 w-full">
+              <div className="flex items-center justify-center text-center bg-primary rounded-b-full p-2 absolute -top-[68px]">
+                <h1 className="text-2xl font-bold text-primary-foreground tracking-widest w-80">
+                  {title(getName())}
+                </h1>
+              </div>
               <div className="flex justify-center">
                 <Boards
                   solutions={solutions.solution}
