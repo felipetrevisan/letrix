@@ -54,7 +54,7 @@ export function Keyboard({
   };
 
   return (
-    <div className="grid grid-cols-20 gap-2 auto-rows-3em">
+    <div className="grid grid-cols-keyboard gap-1">
       {["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"].map((key) => (
         <Key
           value={key}

@@ -83,13 +83,8 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       gridTemplateColumns: {
-        20: "repeat(20, minmax(0, 1.25rem))",
+        keyboard: "repeat(20, minmax(0, 2rem))",
         board: "repeat(5, 4em)",
         example: "repeat(5, 3em)",
       },
@@ -99,9 +94,6 @@ const config: Config = {
         trio: "repeat(8, 4em)",
         four: "repeat(9, 4em)",
         example: "repeat(1, 3em)",
-      },
-      gridAutoRows: {
-        "3em": "3em",
       },
       padding: {
         "1/1": "100%",
