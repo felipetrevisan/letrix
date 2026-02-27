@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Letrix PT Monorepo
 
-## Getting Started
+Monorepo com jogo estilo Letrix em português, com modos:
 
-First, run the development server:
+- `single` (1 palavra)
+- `duo` (2 palavras)
+- `trio` (3 palavras)
+- `quarteto` (4 palavras)
+
+## Stack
+
+- `bun` workspaces
+- `next@16`
+- `react@19`
+- `tailwindcss@4`
+- `biome` (lint/format)
+- `shadcn` + `motion` (base para componentes Animated UI)
+
+## Estrutura
+
+- `apps/web`: aplicação Next.js
+- `packages/game-core`: regras/utilitários compartilhados do jogo
+
+## Comandos
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
+bun run dev
+bun run build
+bun run check
+bun run format
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## App web direto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+bun --cwd apps/web run dev
+bun --cwd apps/web run build
+bun --cwd apps/web run start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Supabase (palavras + login + sync)
 
-## Learn More
+### 1. Variáveis de ambiente
 
-To learn more about Next.js, take a look at the following resources:
+Crie `apps/web/.env.local`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+NEXT_PUBLIC_SUPABASE_URL="https://SEU-PROJETO.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="SUA_ANON_KEY"
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Você pode começar com:
 
-## Deploy on Vercel
+```bash
+cp apps/web/.env.example apps/web/.env.local
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 2. Criar schema
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+No SQL Editor do Supabase, execute:
+
+1. `supabase/sql/001_init.sql`
+2. `supabase/sql/002_seed_example.sql` (apenas exemplo dev)
+
+### 3. Popular dicionário e puzzles diários
+
+- `public.words`:
+  - `language`: `pt` ou `en`
+  - `normalized_word`: sem acento/cedilha (ex: `lapis`)
+  - `display_word`: como será exibida (ex: `lápis`)
+  - `word_length`: tamanho da palavra
+- `public.daily_puzzles`:
+  - uma linha por `date + language + mode + board_index`
+  - inclui `solution_normalized` e `solution_display`
+
+Você pode importar por script:
+
+1. Copie os exemplos:
+
+```bash
+cp supabase/data/words.sample.json supabase/data/words.json
+cp supabase/data/puzzles.sample.json supabase/data/puzzles.json
+```
+
+2. Execute import:
+
+```bash
+SUPABASE_URL="https://SEU-PROJETO.supabase.co" \
+SUPABASE_SERVICE_ROLE_KEY="SUA_SERVICE_ROLE_KEY" \
+bun run supabase:import
+```
+
+Template de env para import: `supabase/.env.import.example`
+
+Opções úteis:
+
+- `--dry-run`: valida sem gravar
+- `--truncate`: apaga `words` e `daily_puzzles` antes de importar
+- `--words <caminho>` e `--puzzles <caminho>`: arquivos customizados
+
+### 4. Auth
+
+- Ative no Supabase Auth:
+  - Email (magic link)
+  - Google OAuth
+  - Discord OAuth
+- Configure URLs de redirecionamento:
+  - `http://localhost:3000/*` (dev)
+  - `https://SEU-DOMINIO/*` (produção)
+- O login fica na tela de `Configurações`.
+
+### 5. Multi-device
+
+- Usuário logado: progresso e stats salvam no Supabase.
+- Usuário anônimo: fallback em localStorage.
