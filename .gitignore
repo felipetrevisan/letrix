@@ -30,6 +30,8 @@ bun-debug.log*
 
 # local env files
 .env*.local
+apps/web/.env
+apps/web/.env copy
 
 # vercel
 .vercel
@@ -43,3 +45,6 @@ bun.lock
 
 # Sentry Config File
 .sentryclirc
+
+# supabase local temp
+supabase/.temp/
