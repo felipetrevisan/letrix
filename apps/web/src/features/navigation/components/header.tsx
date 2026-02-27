@@ -160,9 +160,13 @@ function ActionButtons({
     if (closeAfterAction) closeMenu();
   };
 
-  const actionClass = expanded
-    ? "relative isolate inline-flex h-10 w-full items-center justify-start gap-2 overflow-hidden rounded-lg border border-border/65 bg-background px-3 text-sm font-medium text-foreground transition hover:border-primary/70 hover:bg-transparent hover:text-foreground"
-    : "relative isolate inline-flex h-full w-full items-center justify-center overflow-hidden rounded-lg border border-border/65 bg-background text-foreground transition hover:border-primary/70 hover:bg-transparent hover:text-foreground";
+  const actionClass = cn(
+    "relative isolate inline-flex h-10 items-center overflow-hidden rounded-lg border border-border/65 bg-background text-foreground hover:border-primary/70 hover:bg-transparent hover:text-foreground",
+    "transition-[width,padding,gap] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+    expanded
+      ? "w-full justify-start gap-2 px-3 text-sm font-medium"
+      : "w-10 justify-center px-0",
+  );
   const actionIconClass = expanded
     ? "relative z-10 size-4"
     : "relative z-10 size-5";
@@ -180,6 +184,21 @@ function ActionButtons({
       </SidebarTooltip>
     );
   };
+
+  const renderActionLabel = (label: string) => (
+    <motion.span
+      className="relative z-10 inline-block overflow-hidden whitespace-nowrap"
+      initial={false}
+      animate={
+        expanded
+          ? { opacity: 1, x: 0, maxWidth: 160 }
+          : { opacity: 0, x: -6, maxWidth: 0 }
+      }
+      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {label}
+    </motion.span>
+  );
 
   const handleAuthAction = async () => {
     if (!isAuthReady || isAuthActionLoading) {
@@ -220,7 +239,7 @@ function ActionButtons({
             className="z-0 rounded-[inherit] border border-primary/65 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
           />
           <CircleHelp className={actionIconClass} />
-          {expanded && <span className="relative z-10">Como jogar</span>}
+          {renderActionLabel("Como jogar")}
         </Button>,
       )}
       {withCollapsedTooltip(
@@ -241,7 +260,7 @@ function ActionButtons({
             className="z-0 rounded-[inherit] border border-primary/65 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
           />
           <BarChart3 className={actionIconClass} />
-          {expanded && <span className="relative z-10">Estatísticas</span>}
+          {renderActionLabel("Estatísticas")}
         </Button>,
       )}
       {withCollapsedTooltip(
@@ -262,7 +281,7 @@ function ActionButtons({
             className="z-0 rounded-[inherit] border border-primary/65 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
           />
           <Settings className={actionIconClass} />
-          {expanded && <span className="relative z-10">Configurações</span>}
+          {renderActionLabel("Configurações")}
         </Button>,
       )}
       {withCollapsedTooltip(
@@ -287,11 +306,7 @@ function ActionButtons({
           ) : (
             <Moon className={actionIconClass} />
           )}
-          {expanded && (
-            <span className="relative z-10">
-              {isDark ? "Tema claro" : "Tema escuro"}
-            </span>
-          )}
+          {renderActionLabel(isDark ? "Tema claro" : "Tema escuro")}
         </Button>,
       )}
       {withCollapsedTooltip(
@@ -321,9 +336,7 @@ function ActionButtons({
           ) : (
             <LogIn className={actionIconClass} />
           )}
-          {expanded && (
-            <span className="relative z-10">{user ? "Sair" : "Login"}</span>
-          )}
+          {renderActionLabel(user ? "Sair" : "Login")}
         </Button>,
       )}
     </>
@@ -437,67 +450,54 @@ export function Header() {
           >
             {modeItems.map(({ value, label, icon: Icon }) => {
               const active = Number(value) === gameMode;
-              if (!isSidebarExpanded) {
-                return (
-                  <SidebarTooltip key={value} label={label}>
-                    <Link
-                      href={`/${locale}/${value}`}
-                      title={label}
-                      aria-label={label}
-                      onMouseEnter={() => setHoveredModeDesktop(value)}
-                      onMouseLeave={() => setHoveredModeDesktop(null)}
-                      className={cn(
-                        "relative inline-flex items-center overflow-hidden rounded-lg border font-medium transition",
-                        "h-10 w-10 justify-center",
-                        active
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border/65 bg-background text-foreground hover:border-primary/70 hover:bg-muted",
-                      )}
-                    >
-                      <MotionHighlight
-                        active={hoveredModeDesktop === value}
-                        layoutId="sidebar-mode-highlight"
-                        className="z-0 rounded-lg border border-primary/60 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
-                      />
-                      <Icon className="relative z-10 size-5 shrink-0" />
-                    </Link>
-                  </SidebarTooltip>
-                );
-              }
-
               return (
-                <Link
+                <SidebarTooltip
                   key={value}
-                  href={`/${locale}/${value}`}
-                  title={label}
-                  aria-label={label}
-                  onMouseEnter={() => setHoveredModeDesktop(value)}
-                  onMouseLeave={() => setHoveredModeDesktop(null)}
-                  className={cn(
-                    "relative inline-flex items-center overflow-hidden rounded-lg border font-medium transition",
-                    isSidebarExpanded
-                      ? "h-10 w-full justify-start gap-2 px-3"
-                      : "h-10 w-10 justify-center",
-                    active
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border/65 bg-background text-foreground hover:border-primary/70 hover:bg-muted",
-                  )}
+                  label={label}
+                  disabled={isSidebarExpanded}
                 >
-                  <MotionHighlight
-                    active={hoveredModeDesktop === value}
-                    layoutId="sidebar-mode-highlight"
-                    className="z-0 rounded-lg border border-primary/60 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
-                  />
-                  <Icon
+                  <Link
+                    href={`/${locale}/${value}`}
+                    title={label}
+                    aria-label={label}
+                    onMouseEnter={() => setHoveredModeDesktop(value)}
+                    onMouseLeave={() => setHoveredModeDesktop(null)}
                     className={cn(
-                      "relative z-10 shrink-0",
-                      isSidebarExpanded ? "size-4" : "size-5",
+                      "relative inline-flex h-10 items-center overflow-hidden rounded-lg border font-medium",
+                      "transition-[width,padding,gap] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                      isSidebarExpanded
+                        ? "w-full justify-start gap-2 px-3"
+                        : "w-10 justify-center gap-0 px-0",
+                      active
+                        ? "border-primary bg-primary text-primary-foreground"
+                        : "border-border/65 bg-background text-foreground hover:border-primary/70 hover:bg-muted",
                     )}
-                  />
-                  {isSidebarExpanded && (
-                    <span className="relative z-10">{label}</span>
-                  )}
-                </Link>
+                  >
+                    <MotionHighlight
+                      active={hoveredModeDesktop === value}
+                      layoutId="sidebar-mode-highlight"
+                      className="z-0 rounded-lg border border-primary/60 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
+                    />
+                    <Icon
+                      className={cn(
+                        "relative z-10 shrink-0",
+                        isSidebarExpanded ? "size-4" : "size-5",
+                      )}
+                    />
+                    <motion.span
+                      className="relative z-10 inline-block overflow-hidden whitespace-nowrap"
+                      initial={false}
+                      animate={
+                        isSidebarExpanded
+                          ? { opacity: 1, x: 0, maxWidth: 120 }
+                          : { opacity: 0, x: -6, maxWidth: 0 }
+                      }
+                      transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      {label}
+                    </motion.span>
+                  </Link>
+                </SidebarTooltip>
               );
             })}
           </nav>
