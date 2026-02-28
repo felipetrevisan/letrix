@@ -8,6 +8,7 @@ import { unicodeSplit } from "@/lib/words";
 import { useGame } from "@/contexts/GameContext";
 import { getBoardRowState } from "@/features/game/session/board-state";
 import { Tile } from "../Tiles";
+import { SolvedRowDefinitionTooltip } from "./solved-row-definition-tooltip";
 
 type Props = {
   index: number;
@@ -80,6 +81,8 @@ export function Row({ index, board, className = "", animation }: Props) {
   const shouldShowAccentedWord =
     shouldShowStatuses && displayedRowWord === boardSolution;
   const boardDisplayWord = solutions.displaySolution[board] ?? boardSolution;
+  const boardDefinition = solutions.definitions[board] ?? null;
+  const boardLanguage = solutions.language;
   const renderLetters = shouldShowAccentedWord
     ? unicodeSplit(boardDisplayWord)
     : displayedRowLetters;
@@ -123,6 +126,14 @@ export function Row({ index, board, className = "", animation }: Props) {
           />
         );
       })}
+      {shouldShowAccentedWord ? (
+        <SolvedRowDefinitionTooltip
+          language={boardLanguage}
+          normalizedWord={boardSolution}
+          word={boardDisplayWord}
+          definition={boardDefinition}
+        />
+      ) : null}
     </div>
   );
 }

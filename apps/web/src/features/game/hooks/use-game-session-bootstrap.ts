@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 import { REVEAL_TIME_MS } from "@/config/settings";
 import { loadStatsFromCloud } from "@/features/auth/lib/game-storage";
+import { isSupabaseConfigured } from "@/features/auth/lib/supabase-client";
 import {
   buildEmptyGameState,
   resolveInfiniteBootstrapState,
@@ -34,6 +35,7 @@ type UseGameSessionBootstrapParams = {
   setIsGameWon: (value: boolean) => void;
   setIsHydrated: (value: boolean) => void;
   setIsSubmittingGuess: (value: boolean) => void;
+  setSessionError: (value: string | null) => void;
   modeConfig: Game;
   storageScope: string;
   userId?: string;
@@ -58,6 +60,7 @@ export const useGameSessionBootstrap = ({
   setIsGameWon,
   setIsHydrated,
   setIsSubmittingGuess,
+  setSessionError,
   modeConfig,
   storageScope,
   userId,
@@ -85,6 +88,16 @@ export const useGameSessionBootstrap = ({
       setIsGameWon(false);
       setIsHydrated(false);
       setIsSubmittingGuess(false);
+      setSessionError(null);
+
+      if (!isSupabaseConfigured()) {
+        const message =
+          "Supabase não configurado. Defina NEXT_PUBLIC_SUPABASE_PROJECT_ID e NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY na Vercel.";
+        toast.error(message);
+        setSessionError(message);
+        setIsHydrated(true);
+        return;
+      }
 
       const gameDate = getGameDate();
       const baseSolutions = await getSolution(gameDate, mode, language);
@@ -94,7 +107,10 @@ export const useGameSessionBootstrap = ({
       }
 
       if (!baseSolutions.solution.length) {
-        toast.error("Palavra do dia indisponível para este idioma/modo.");
+        const message =
+          "Não foi possível carregar a palavra do dia. Verifique o schema letrix exposto na API e as permissões de leitura das tabelas.";
+        toast.error(message);
+        setSessionError(message);
         setIsHydrated(true);
         return;
       }

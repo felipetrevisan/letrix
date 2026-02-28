@@ -84,6 +84,7 @@ export const useGameSession = (mode: GameMode) => {
   const [isGameWon, setIsGameWon] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
   const [isSubmittingGuess, setIsSubmittingGuess] = useState(false);
+  const [sessionError, setSessionError] = useState<string | null>(null);
 
   const gameEnded = useMemo(
     () => isEndGame(isGameWon, isGameOver),
@@ -128,6 +129,7 @@ export const useGameSession = (mode: GameMode) => {
     setIsGameWon,
     setIsHydrated,
     setIsSubmittingGuess,
+    setSessionError,
     modeConfig,
     storageScope,
     userId: user?.id,
@@ -192,6 +194,7 @@ export const useGameSession = (mode: GameMode) => {
     isSettingsModalOpen,
     isLoading,
     isHydrated,
+    sessionError,
     language,
     solutions,
     stats,

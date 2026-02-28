@@ -435,7 +435,7 @@
   }
 
   .row {
-    @apply flex w-fit items-center justify-center rounded-xl p-1 transition-all duration-200 data-[animation=invalid]:animate-shake;
+    @apply relative flex w-fit items-center justify-center rounded-xl p-1 transition-all duration-200 data-[animation=invalid]:animate-shake;
   }
 
   .row[data-active="true"] {
@@ -630,6 +630,7 @@
     --key-bg-image: none;
     background-color: var(--key-bg) !important;
     background-image: var(--key-bg-image) !important;
+    color: hsl(var(--foreground)) !important;
     transition:
       transform 0.14s ease,
       border-color 0.2s ease,
@@ -647,6 +648,10 @@
 
   .key:disabled {
     opacity: 0.45;
+  }
+
+  .dark .key {
+    color: hsl(var(--foreground)) !important;
   }
 
   .key-absent-disabled:disabled {

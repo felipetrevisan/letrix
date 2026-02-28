@@ -49,3 +49,4 @@ bun.lock
 
 # supabase local temp
 supabase/.temp/
+**/supabase/.temp/

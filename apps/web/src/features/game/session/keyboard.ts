@@ -5,6 +5,7 @@ type KeyboardStatusesByBoard = Array<Record<string, Status | undefined>>;
 type ResolveLetterStateParams = {
   key: string;
   statusesByBoard: KeyboardStatusesByBoard;
+  activeStatusesByBoard?: KeyboardStatusesByBoard;
   disabled: boolean;
   isMultiBoardMode: boolean;
 };
@@ -34,11 +35,19 @@ export type KeyboardAction =
 export const resolveKeyboardLetterState = ({
   key,
   statusesByBoard,
+  activeStatusesByBoard,
   disabled,
   isMultiBoardMode,
 }: ResolveLetterStateParams): KeyboardLetterState => {
   const normalizedKey = key.toLocaleLowerCase();
   const statusSegments = statusesByBoard.map(
+    (boardStatus) => boardStatus[normalizedKey] as Status | undefined,
+  );
+  const relevantStatusesByBoard =
+    activeStatusesByBoard && activeStatusesByBoard.length > 0
+      ? activeStatusesByBoard
+      : statusesByBoard;
+  const activeStatusSegments = relevantStatusesByBoard.map(
     (boardStatus) => boardStatus[normalizedKey] as Status | undefined,
   );
   const statusPriority = statusSegments.reduce<Status | undefined>(
@@ -57,8 +66,8 @@ export const resolveKeyboardLetterState = ({
     undefined,
   );
   const allAbsent =
-    statusSegments.length > 0 &&
-    statusSegments.every((status) => status === "absent");
+    activeStatusSegments.length > 0 &&
+    activeStatusSegments.every((status) => status === "absent");
   const shouldDisable = isMultiBoardMode
     ? allAbsent
     : statusPriority === "absent";

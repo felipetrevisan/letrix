@@ -30,6 +30,7 @@ export const hydrateInfiniteSolutionFromState = (
   fallbackSolution: Solution,
   savedState: GameState[],
 ): Solution => {
+  const fallbackDefinitions = fallbackSolution.definitions ?? [];
   const hydratedSolutions = savedState
     .map((state) => normalizeWord(state.solution))
     .filter((solution) => solution.length > 0);
@@ -41,6 +42,9 @@ export const hydrateInfiniteSolutionFromState = (
   const hydratedDisplaySolutions = savedState.map(
     (state, index) => state.displaySolution ?? hydratedSolutions[index],
   );
+  const hydratedDefinitions = savedState.map(
+    (state, index) => state.definition ?? fallbackDefinitions[index] ?? null,
+  );
   const restoredIndex = savedState[0]?.curday ?? fallbackSolution.solutionIndex;
   const indexDelta = restoredIndex - fallbackSolution.solutionIndex;
   const restoredDate = addDays(fallbackSolution.solutionDate, indexDelta);
@@ -49,6 +53,7 @@ export const hydrateInfiniteSolutionFromState = (
     ...fallbackSolution,
     solution: hydratedSolutions,
     displaySolution: hydratedDisplaySolutions,
+    definitions: hydratedDefinitions,
     solutionIndex: restoredIndex,
     solutionDate: restoredDate,
     tomorrow: addDays(restoredDate, 1).valueOf(),
@@ -65,6 +70,7 @@ export const buildEmptyGameState = (stateSolutions: Solution): GameState[] => {
     tries: [],
     solution,
     displaySolution: stateSolutions.displaySolution[index] ?? solution,
+    definition: stateSolutions.definitions?.[index] ?? null,
     curday: stateSolutions.solutionIndex,
   }));
 };
@@ -111,6 +117,7 @@ export const buildGameStateSnapshot = ({
     tries: nextTries,
     solution,
     displaySolution: stateSolutions.displaySolution[index] ?? solution,
+    definition: stateSolutions.definitions?.[index] ?? null,
     curday: stateSolutions.solutionIndex,
   }));
 };

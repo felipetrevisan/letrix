@@ -32,6 +32,20 @@ describe("keyboard helpers", () => {
     expect(result.absentClassName).toBe("key-absent-disabled");
   });
 
+  test("in multi-board mode disables letter based only on remaining unsolved boards", () => {
+    const result = resolveKeyboardLetterState({
+      key: "A",
+      statusesByBoard: [{ a: "present" }, { a: "absent" }, { a: "absent" }],
+      activeStatusesByBoard: [{ a: "absent" }],
+      disabled: false,
+      isMultiBoardMode: true,
+    });
+
+    expect(result.disabled).toBe(true);
+    expect(result.statusSegments).toEqual(["present", "absent", "absent"]);
+    expect(result.absentClassName).toBe("key-absent-disabled");
+  });
+
   test("resolves arrow navigation within board bounds", () => {
     expect(
       resolveKeyboardAction({

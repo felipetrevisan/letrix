@@ -25,6 +25,7 @@ type DailyPuzzleRow = {
 type DictionaryWordRow = {
   normalized_word: string;
   display_word: string;
+  definition?: string | null;
 };
 
 export const unicodeSplit = (word: string) => {
@@ -246,6 +247,20 @@ const getResolvedModeConfig = (modeOrBoards: number): ResolvedModeConfig => {
   };
 };
 
+const isValidDailyPuzzleRow = (
+  row: DailyPuzzleRow,
+  boards: number,
+  wordLength: number,
+) => {
+  const normalizedWord = normalizeWord(row.solution_normalized);
+
+  return (
+    row.board_index >= 0 &&
+    row.board_index < boards &&
+    unicodeLength(normalizedWord) === wordLength
+  );
+};
+
 export const getSolution = async (
   date: Date,
   modeOrBoards: number = 1,
@@ -260,6 +275,7 @@ export const getSolution = async (
     return {
       solution: [],
       displaySolution: [],
+      definitions: [],
       solutionDate: date,
       solutionIndex: index,
       tomorrow: nextDate.valueOf(),
@@ -278,7 +294,9 @@ export const getSolution = async (
     .eq("mode", parsedMode)
     .order("board_index", { ascending: true });
 
-  const rows = (data ?? []) as DailyPuzzleRow[];
+  const rows = ((data ?? []) as DailyPuzzleRow[]).filter((row) =>
+    isValidDailyPuzzleRow(row, boards, wordLength),
+  );
 
   const boardRows =
     !error && rows.length >= boards
@@ -296,6 +314,7 @@ export const getSolution = async (
     return {
       solution: [],
       displaySolution: [],
+      definitions: [],
       solutionDate: date,
       solutionIndex: index,
       tomorrow: nextDate.valueOf(),
@@ -306,12 +325,33 @@ export const getSolution = async (
   const sortedRows = boardRows
     .slice(0, boards)
     .sort((left, right) => left.board_index - right.board_index);
+  const normalizedSolutions = sortedRows.map((entry) =>
+    normalizeWord(entry.solution_normalized),
+  );
+  const definitionsByWord = new Map<string, string | null>();
+  const { data: definitionRows } = await supabase
+    .from("words")
+    .select("normalized_word, definition")
+    .eq("language", language)
+    .eq("word_length", wordLength)
+    .eq("is_active", true)
+    .in("normalized_word", normalizedSolutions);
+
+  const safeDefinitionRows = (definitionRows ?? []) as DictionaryWordRow[];
+
+  for (const row of safeDefinitionRows) {
+    definitionsByWord.set(
+      normalizeWord(row.normalized_word),
+      row.definition?.trim() || null,
+    );
+  }
 
   return {
-    solution: sortedRows.map((entry) =>
-      normalizeWord(entry.solution_normalized),
-    ),
+    solution: normalizedSolutions,
     displaySolution: sortedRows.map((entry) => entry.solution_display),
+    definitions: normalizedSolutions.map(
+      (word) => definitionsByWord.get(word) ?? null,
+    ),
     solutionDate: date,
     solutionIndex: index,
     tomorrow: nextDate.valueOf(),

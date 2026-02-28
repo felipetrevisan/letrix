@@ -46,6 +46,7 @@ export type GameState = {
   invalids: string[];
   solution: string;
   displaySolution?: string;
+  definition?: string | null;
   gameOver: boolean;
   won: boolean;
 };
@@ -87,5 +88,6 @@ export type Solution = {
   tomorrow: number;
   solution: string[];
   displaySolution: string[];
+  definitions: Array<string | null>;
   language: GameLanguage;
 };

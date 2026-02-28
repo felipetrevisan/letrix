@@ -9,6 +9,7 @@ const fallbackSolution: Solution = {
   tomorrow: new Date("2026-03-01T00:00:00.000Z").valueOf(),
   solution: ["carta"],
   displaySolution: ["carta"],
+  definitions: ["Carta de baralho ou mensagem escrita."],
   language: "pt",
 };
 
@@ -55,6 +56,7 @@ describe("game session utils", () => {
         invalids: [],
         solution: "livro",
         displaySolution: "livro",
+        definition: "Conjunto de folhas encadernadas.",
         gameOver: false,
         won: true,
       },

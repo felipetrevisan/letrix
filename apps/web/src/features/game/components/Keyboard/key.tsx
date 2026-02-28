@@ -18,6 +18,7 @@ type Props = {
   size?: "large" | "default";
   status?: Status;
   statusSegments?: Array<Status | undefined>;
+  activeSegments?: boolean[];
   isRevealing?: boolean;
   disabled: boolean;
   solutionLength?: number;
@@ -35,6 +36,7 @@ export function Key({
   size = "default",
   status,
   statusSegments,
+  activeSegments,
   isRevealing = false,
   disabled,
   solutionLength = 0,
@@ -50,22 +52,37 @@ export function Key({
   const keyDelayMs = REVEAL_TIME_MS * solutionLength;
   const hasSegmentedStatus = (statusSegments?.length ?? 0) > 1;
 
-  const getSegmentColor = (segmentStatus: Status | undefined) => {
+  const getSegmentColor = (
+    segmentStatus: Status | undefined,
+    isActiveSegment: boolean,
+  ) => {
+    const correctColor = storage?.highContrast
+      ? "--tile-correct-contrast"
+      : "--tile-correct";
+    const presentColor = storage?.highContrast
+      ? "--tile-present-contrast"
+      : "--tile-present";
+    const absentColor = storage?.highContrast
+      ? "--tile-absent-contrast"
+      : "--tile-absent";
+
     switch (segmentStatus) {
       case "correct":
-        return storage?.highContrast
-          ? "hsl(var(--tile-correct-contrast))"
-          : "hsl(var(--tile-correct))";
+        return isActiveSegment
+          ? `hsl(var(${correctColor}))`
+          : `hsl(var(${correctColor}) / 0.24)`;
       case "present":
-        return storage?.highContrast
-          ? "hsl(var(--tile-present-contrast))"
-          : "hsl(var(--tile-present))";
+        return isActiveSegment
+          ? `hsl(var(${presentColor}))`
+          : `hsl(var(${presentColor}) / 0.24)`;
       case "absent":
-        return storage?.highContrast
-          ? "hsl(var(--tile-absent-contrast))"
-          : "hsl(var(--tile-absent))";
+        return isActiveSegment
+          ? `hsl(var(${absentColor}))`
+          : `hsl(var(${absentColor}) / 0.18)`;
       default:
-        return "hsl(var(--muted) / 0.65)";
+        return isActiveSegment
+          ? "hsl(var(--muted) / 0.65)"
+          : "hsl(var(--muted) / 0.24)";
     }
   };
 
@@ -74,7 +91,10 @@ export function Key({
         ?.map((segmentStatus, index) => {
           const start = (index * 100) / (statusSegments.length || 1);
           const end = ((index + 1) * 100) / (statusSegments.length || 1);
-          const color = getSegmentColor(segmentStatus);
+          const color = getSegmentColor(
+            segmentStatus,
+            activeSegments?.[index] ?? true,
+          );
           return `${color} ${start}% ${end}%`;
         })
         .join(", ")})`

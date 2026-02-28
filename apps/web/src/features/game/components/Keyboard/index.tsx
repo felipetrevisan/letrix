@@ -41,15 +41,34 @@ export function Keyboard({
     () => solutions.map((solution) => getStatuses(guessesWords, solution)),
     [guessesWords, solutions],
   );
+  const boardStates = useMemo(
+    () =>
+      solutions.map((solution, index) => ({
+        solution,
+        status: statusesByBoard[index],
+        solved: guessesWords.includes(solution),
+      })),
+    [guessesWords, solutions, statusesByBoard],
+  );
+  const activeStatusesByBoard = useMemo(
+    () =>
+      boardStates.filter((board) => !board.solved).map((board) => board.status),
+    [boardStates],
+  );
+  const activeSegmentMask = useMemo(
+    () => boardStates.map((board) => !board.solved),
+    [boardStates],
+  );
   const getLetterState = useCallback(
     (key: string) =>
       resolveKeyboardLetterState({
         key,
         statusesByBoard,
+        activeStatusesByBoard,
         disabled,
         isMultiBoardMode,
       }),
-    [disabled, isMultiBoardMode, statusesByBoard],
+    [activeStatusesByBoard, disabled, isMultiBoardMode, statusesByBoard],
   );
 
   useEffect(() => {
@@ -129,6 +148,7 @@ export function Keyboard({
               disabled={letterState.disabled}
               status={letterState.status}
               statusSegments={letterState.statusSegments}
+              activeSegments={activeSegmentMask}
               onClick={onClick}
               solutionLength={solutionLength}
               motionIndex={key.charCodeAt(0)}
@@ -150,6 +170,7 @@ export function Keyboard({
                 disabled={letterState.disabled}
                 status={letterState.status}
                 statusSegments={letterState.statusSegments}
+                activeSegments={activeSegmentMask}
                 onClick={onClick}
                 solutionLength={solutionLength}
                 className={
@@ -189,6 +210,7 @@ export function Keyboard({
               disabled={letterState.disabled}
               status={letterState.status}
               statusSegments={letterState.statusSegments}
+              activeSegments={activeSegmentMask}
               onClick={onClick}
               solutionLength={solutionLength}
               motionIndex={200 + index}

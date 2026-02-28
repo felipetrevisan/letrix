@@ -9,6 +9,7 @@ type WordInput = {
   word?: string;
   normalized_word?: string;
   display_word?: string;
+  definition?: string | null;
   word_length?: number;
   is_solution?: boolean;
   is_active?: boolean;
@@ -190,6 +191,7 @@ const toWordRow = (input: WordInput) => {
     language: input.language,
     normalized_word: normalizedWord,
     display_word: displayWord || normalizedWord,
+    definition: input.definition?.trim() || null,
     word_length: wordLength,
     is_solution: input.is_solution ?? true,
     is_active: input.is_active ?? true,

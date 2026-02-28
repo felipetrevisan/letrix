@@ -15,6 +15,12 @@ create table if not exists letrix.words (
   language text not null check (language in ('pt', 'en')),
   normalized_word text not null,
   display_word text not null,
+  definition text,
+  definition_source text,
+  definition_status text default 'pending',
+  definition_model text,
+  definition_generated_at timestamptz,
+  definition_updated_at timestamptz,
   word_length smallint not null check (word_length between 2 and 32),
   is_solution boolean not null default true,
   is_active boolean not null default true,
@@ -23,8 +29,24 @@ create table if not exists letrix.words (
   unique(language, normalized_word)
 );
 
+alter table if exists letrix.words
+  add column if not exists definition text;
+
+alter table if exists letrix.words
+  add column if not exists definition_source text,
+  add column if not exists definition_status text,
+  add column if not exists definition_model text,
+  add column if not exists definition_generated_at timestamptz,
+  add column if not exists definition_updated_at timestamptz;
+
 create index if not exists words_language_length_idx
   on letrix.words (language, word_length);
+
+create index if not exists words_definition_status_idx
+  on letrix.words (definition_status);
+
+create index if not exists words_definition_lookup_idx
+  on letrix.words (language, normalized_word, definition_status);
 
 create table if not exists letrix.daily_puzzles (
   id bigserial primary key,
@@ -69,6 +91,38 @@ alter table letrix.words enable row level security;
 alter table letrix.daily_puzzles enable row level security;
 alter table letrix.user_mode_stats enable row level security;
 alter table letrix.user_game_states enable row level security;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'words_definition_source_check'
+      and conrelid = 'letrix.words'::regclass
+  ) then
+    alter table letrix.words
+      add constraint words_definition_source_check
+      check (
+        definition_source is null
+        or definition_source in ('ai', 'manual')
+      );
+  end if;
+
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'words_definition_status_check'
+      and conrelid = 'letrix.words'::regclass
+  ) then
+    alter table letrix.words
+      add constraint words_definition_status_check
+      check (
+        definition_status is null
+        or definition_status in ('pending', 'ready', 'failed')
+      );
+  end if;
+end
+$$;
 
 -- Public read-only access to dictionary and daily puzzles
 drop policy if exists "words_read_active" on letrix.words;

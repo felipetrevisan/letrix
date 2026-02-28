@@ -32,6 +32,7 @@ export const GameModePage = ({ mode }: Props) => {
     isSettingsModalOpen,
     isLoading,
     isHydrated,
+    sessionError,
     solutions,
     stats,
     guesses,
@@ -103,6 +104,21 @@ export const GameModePage = ({ mode }: Props) => {
               />
             </div>
           )}
+
+          {sessionError ? (
+            <div className="surface-panel-card mx-auto flex w-full max-w-2xl flex-col gap-2 rounded-3xl px-5 py-4 text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-200/80">
+                Falha ao carregar a rodada
+              </p>
+              <p className="text-balance text-sm leading-6 text-foreground/88">
+                {sessionError}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Depois de corrigir, faça um novo deploy na Vercel para o cliente
+                receber as variáveis públicas.
+              </p>
+            </div>
+          ) : null}
 
           <Keyboard
             guesses={guesses}

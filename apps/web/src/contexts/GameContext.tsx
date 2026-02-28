@@ -30,6 +30,7 @@ const buildEmptySolution = (language: GameLanguage = "pt"): Solution => {
   return {
     solution: [],
     displaySolution: [],
+    definitions: [],
     solutionDate: gameDate,
     solutionIndex: getIndex(gameDate),
     tomorrow: getNextGameDate(gameDate).valueOf(),
