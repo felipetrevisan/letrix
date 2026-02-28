@@ -7,12 +7,13 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "bun run --cwd apps/web dev",
-    "build": "bun run --cwd apps/web build",
+    "dev": "turbo run dev --filter=@letrix/web",
+    "dev:web": "turbo run dev --filter=@letrix/web",
+    "build": "turbo run build",
     "start": "bun run --cwd apps/web start",
-    "typecheck": "bun run --cwd apps/web typecheck",
-    "test": "bun run --cwd apps/web test",
-    "check": "bun run typecheck",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "check": "turbo run typecheck test",
     "format": "biome format --write .",
     "supabase:import": "bun run --cwd apps/web supabase:import",
     "supabase:extract-legacy": "bun run --cwd apps/web supabase:extract-legacy",
@@ -20,6 +21,7 @@
     "words:fetch-papalavras": "bun run --cwd apps/web words:fetch-papalavras"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.4"
+    "@biomejs/biome": "2.4.4",
+    "turbo": "^2.5.6"
   }
 }
