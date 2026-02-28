@@ -33,10 +33,13 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
 
-  --animate-shake: rownope 0.75s ease-in-out;
-  --animate-revealing: flip 0.45s ease-in-out backwards;
-  --animate-flip: flip-letter 0.45s ease-in-out backwards;
-  --animate-jump: jump 0.3s ease-out;
+  --animate-shake: rownope var(--motion-row-shake-duration)
+    var(--motion-ease-standard);
+  --animate-revealing: flip var(--motion-tile-flip-duration)
+    var(--motion-ease-standard) backwards;
+  --animate-flip: flip-letter var(--motion-tile-flip-duration)
+    var(--motion-ease-standard) backwards;
+  --animate-jump: jump var(--motion-jump-duration) var(--motion-ease-out);
 }
 
 @utility container {
@@ -53,6 +56,18 @@
 :root {
   --inset: env(safe-area-inset-top);
   --max-size: 720px;
+  --motion-ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-row-shake-duration: 750ms;
+  --motion-row-focus-duration: 2400ms;
+  --motion-tile-flip-duration: 450ms;
+  --motion-jump-duration: 300ms;
+  --motion-typing-duration: 450ms;
+  --motion-delete-duration: 170ms;
+  --motion-toast-pop-duration: 240ms;
+  --motion-toast-glow-duration: 1600ms;
+  --motion-toast-shake-duration: 340ms;
 
   --background: 214 100% 97%;
   --foreground: 226 42% 14%;
@@ -381,6 +396,30 @@
     padding: 0.08rem;
   }
 
+  .surface-panel {
+    @apply rounded-xl border border-border/65 bg-background/80;
+  }
+
+  .surface-panel-subtle {
+    @apply rounded-xl border border-border/60 bg-muted/35;
+  }
+
+  .surface-panel-card {
+    @apply rounded-lg border border-border/55 bg-muted/35;
+  }
+
+  .surface-panel-frame {
+    @apply rounded-xl border border-border/60 bg-background/70;
+  }
+
+  .surface-icon {
+    @apply rounded-lg border border-border/60 bg-muted/60 p-2;
+  }
+
+  .surface-shortcut {
+    @apply inline-flex items-center gap-1 rounded-md border border-border/65 bg-muted/45 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.04em] text-foreground;
+  }
+
   @media (height <= 860px) {
     .boards[data-mode="4"] {
       --tile-large-size: clamp(1.95rem, min(2.55vw, 3.75dvh), 2.5rem);
@@ -400,7 +439,8 @@
   }
 
   .row[data-active="true"] {
-    animation: row-focus 2.4s ease-in-out infinite;
+    animation: row-focus var(--motion-row-focus-duration)
+      var(--motion-ease-standard) infinite;
     background: hsl(var(--primary) / 0.07);
   }
 
@@ -421,73 +461,75 @@
   }
 
   .row[data-status="done"] > .tile:nth-child(1) {
-    animation: jump 0.3s ease-out backwards;
+    animation: jump var(--motion-jump-duration) var(--motion-ease-out) backwards;
     animation-delay: 0.05s;
   }
 
   .row[data-status="done"] > .tile:nth-child(2) {
-    animation: jump 0.3s ease-out backwards;
+    animation: jump var(--motion-jump-duration) var(--motion-ease-out) backwards;
     animation-delay: 0.1s;
   }
 
   .row[data-status="done"] > .tile:nth-child(3) {
-    animation: jump 0.3s ease-out backwards;
+    animation: jump var(--motion-jump-duration) var(--motion-ease-out) backwards;
     animation-delay: 0.15s;
   }
 
   .row[data-status="done"] > .tile:nth-child(4) {
-    animation: jump 0.3s ease-out backwards;
+    animation: jump var(--motion-jump-duration) var(--motion-ease-out) backwards;
     animation-delay: 0.2s;
   }
 
   .row[data-status="done"] > .tile:nth-child(5) {
-    animation: jump 0.3s ease-out backwards;
+    animation: jump var(--motion-jump-duration) var(--motion-ease-out) backwards;
     animation-delay: 0.25s;
   }
 
   .row[data-status="done"] > .tile:nth-child(6) {
-    animation: jump 0.3s ease-out backwards;
+    animation: jump var(--motion-jump-duration) var(--motion-ease-out) backwards;
     animation-delay: 0.3s;
   }
 
   .row[data-status="done"] > .tile:nth-child(7) {
-    animation: jump 0.3s ease-out backwards;
+    animation: jump var(--motion-jump-duration) var(--motion-ease-out) backwards;
     animation-delay: 0.35s;
   }
 
   .row[data-status="done"] > .tile:nth-child(8) {
-    animation: jump 0.3s ease-out backwards;
+    animation: jump var(--motion-jump-duration) var(--motion-ease-out) backwards;
     animation-delay: 0.4s;
   }
 
   .row[data-status="done"] > .tile:nth-child(9) {
-    animation: jump 0.3s ease-out backwards;
+    animation: jump var(--motion-jump-duration) var(--motion-ease-out) backwards;
     animation-delay: 0.45s;
   }
 
   .row[data-status="done"] > .tile:nth-child(10) {
-    animation: jump 0.3s ease-out backwards;
+    animation: jump var(--motion-jump-duration) var(--motion-ease-out) backwards;
     animation-delay: 0.5s;
   }
 
   .row[data-animation="revealing"]:not([data-status="done"])
     > .tile[data-revealed="true"]
     > .tile-inner {
-    animation: flip-letter 0.45s ease-in-out forwards;
+    animation: flip-letter var(--motion-tile-flip-duration)
+      var(--motion-ease-standard) forwards;
     animation-delay: var(--reveal-delay, 0ms);
   }
 
   .row[data-animation="revealing"]:not([data-status="done"])
     > .tile[data-revealed="true"]
     .tile-face-front {
-    animation: flip-front-visibility 0.45s linear both;
+    animation: flip-front-visibility var(--motion-tile-flip-duration) linear
+      both;
     animation-delay: var(--reveal-delay, 0ms);
   }
 
   .row[data-animation="revealing"]:not([data-status="done"])
     > .tile[data-revealed="true"]
     .tile-face-back {
-    animation: flip-back-visibility 0.45s linear both;
+    animation: flip-back-visibility var(--motion-tile-flip-duration) linear both;
     animation-delay: var(--reveal-delay, 0ms);
   }
 
@@ -495,6 +537,7 @@
     @apply relative m-[0.15rem] flex select-none items-center justify-center overflow-hidden rounded-lg border border-border/70 font-bold uppercase text-foreground transition-colors duration-150;
     background-color: hsl(var(--background));
     box-shadow: inset 0 1px 0 hsl(var(--foreground) / 0.05);
+    will-change: transform;
   }
 
   .tile-inner {
@@ -502,6 +545,7 @@
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
+    will-change: transform;
   }
 
   .tile[data-revealed="true"] > .tile-inner {
@@ -573,11 +617,11 @@
   }
 
   .tile.typing {
-    animation: typing 0.45s linear;
+    animation: typing var(--motion-typing-duration) var(--motion-ease-out);
   }
 
   .tile.deleting {
-    animation: deleting 0.17s ease-out;
+    animation: deleting var(--motion-delete-duration) var(--motion-ease-out);
   }
 
   .key {
@@ -672,7 +716,7 @@
   .toaster .toast {
     position: relative;
     overflow: hidden;
-    animation: toast-pop 0.24s ease-out;
+    animation: toast-pop var(--motion-toast-pop-duration) var(--motion-ease-out);
   }
 
   .toaster .toast::before {
@@ -700,8 +744,9 @@
       ),
       hsl(var(--background) / 0.94) !important;
     animation:
-      toast-pop 0.24s ease-out,
-      toast-glow 1.6s ease-in-out infinite;
+      toast-pop var(--motion-toast-pop-duration) var(--motion-ease-out),
+      toast-glow var(--motion-toast-glow-duration) var(--motion-ease-standard)
+        infinite;
   }
 
   .toast-word-miss {
@@ -713,8 +758,57 @@
       ),
       hsl(var(--background) / 0.94) !important;
     animation:
-      toast-pop 0.2s ease-out,
-      toast-shake 0.34s ease-out;
+      toast-pop var(--motion-toast-pop-duration) var(--motion-ease-out),
+      toast-shake var(--motion-toast-shake-duration) var(--motion-ease-out);
+  }
+
+  .toast-game-over {
+    border-color: hsl(var(--accent) / 0.72) !important;
+    background: linear-gradient(
+        145deg,
+        hsl(var(--accent) / 0.18),
+        transparent 48%
+      ),
+      hsl(var(--background) / 0.94) !important;
+    animation:
+      toast-pop var(--motion-toast-pop-duration) var(--motion-ease-out),
+      toast-glow var(--motion-toast-glow-duration) var(--motion-ease-standard)
+        infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-row-shake-duration: 1ms;
+    --motion-row-focus-duration: 1ms;
+    --motion-tile-flip-duration: 1ms;
+    --motion-jump-duration: 1ms;
+    --motion-typing-duration: 1ms;
+    --motion-delete-duration: 1ms;
+    --motion-toast-pop-duration: 1ms;
+    --motion-toast-glow-duration: 1ms;
+    --motion-toast-shake-duration: 1ms;
+  }
+
+  .row[data-active="true"] {
+    animation: none;
+  }
+
+  .row[data-status="done"] > .tile,
+  .row[data-animation="revealing"] > .tile[data-revealed="true"] > .tile-inner,
+  .row[data-animation="revealing"]
+    > .tile[data-revealed="true"]
+    .tile-face-front,
+  .row[data-animation="revealing"]
+    > .tile[data-revealed="true"]
+    .tile-face-back,
+  .tile.typing,
+  .tile.deleting,
+  .toaster .toast,
+  .toast-win,
+  .toast-word-miss,
+  .toast-game-over {
+    animation: none !important;
   }
 }
 

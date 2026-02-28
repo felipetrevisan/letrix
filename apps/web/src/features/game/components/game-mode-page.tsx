@@ -1,12 +1,13 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { Boards } from "@/features/game/components/Board";
 import { Keyboard } from "@/features/game/components/Keyboard";
 import { SessionStatus } from "@/features/game/components/session-status";
 import { StatsModal } from "@/features/stats/components/stats-modal";
 import { Loading } from "@/components/ui/loading";
 import { Toaster } from "@/components/ui/sonner";
+import { createFadeUpMotion } from "@/config/motion-variants";
 import { useGameSession } from "@/features/game/hooks/use-game-session";
 import { GameMode } from "@/interfaces/game";
 import { cn } from "@/lib/utils";
@@ -16,6 +17,7 @@ type Props = {
 };
 
 export const GameModePage = ({ mode }: Props) => {
+  const shouldReduceMotion = useReducedMotion() ?? false;
   const {
     modeMaxChallenges,
     isLatestGame,
@@ -62,9 +64,7 @@ export const GameModePage = ({ mode }: Props) => {
       >
         <motion.div
           className="flex h-full min-h-0 w-full flex-1 flex-col items-center justify-center gap-4 overflow-y-auto p-2 md:p-3"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.22 }}
+          {...createFadeUpMotion({ reducedMotion: shouldReduceMotion })}
         >
           {isInfiniteMode ? (
             <div className="flex w-full flex-col gap-3 xl:grid xl:grid-cols-[20rem_minmax(0,1fr)_20rem] xl:items-start">

@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import type { ComponentType, ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
 import {
@@ -20,6 +21,7 @@ import { FcGoogle } from "react-icons/fc";
 import { gameSettings } from "@/config/game";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { createFadeUpMotion, staggerDelay } from "@/config/motion-variants";
 import { useGame } from "@/contexts/GameContext";
 import { useApp } from "@/contexts/AppContext";
 import { Switch } from "@/components/ui/switch";
@@ -50,10 +52,10 @@ const SettingCard = ({
   description,
   control,
 }: SettingCardProps) => (
-  <section className="rounded-xl border border-border/65 bg-background/80 p-4">
+  <section className="surface-panel p-4">
     <div className="flex items-start justify-between gap-3">
       <div className="flex items-start gap-3">
-        <div className="mt-0.5 rounded-lg border border-border/60 bg-muted/60 p-2">
+        <div className="surface-icon mt-0.5">
           <Icon className="size-4 text-foreground/85" />
         </div>
         <div>
@@ -74,6 +76,7 @@ export const SettingsModal = ({
   disableHardModeOption,
 }: Props) => {
   const { setTheme, theme } = useTheme();
+  const shouldReduceMotion = useReducedMotion() ?? false;
   const {
     storage,
     saveConfig,
@@ -170,7 +173,13 @@ export const SettingsModal = ({
       ]}
     >
       <div className="space-y-4">
-        <div className="rounded-xl border border-border/60 bg-muted/35 p-4">
+        <motion.div
+          className="surface-panel-subtle p-4"
+          {...createFadeUpMotion({
+            distance: 10,
+            reducedMotion: shouldReduceMotion,
+          })}
+        >
           <h3 className="flex items-center gap-2 text-sm font-semibold text-foreground">
             <Palette className="size-4" />
             Personalize sua experiência
@@ -178,9 +187,16 @@ export const SettingsModal = ({
           <p className="mt-1 text-sm text-muted-foreground">
             Essas opções alteram apenas este dispositivo.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="space-y-3">
+        <motion.div
+          className="space-y-3"
+          {...createFadeUpMotion({
+            distance: 10,
+            delay: staggerDelay(1, 0.04, 0.18),
+            reducedMotion: shouldReduceMotion,
+          })}
+        >
           {isSingleWordMode && (
             <SettingCard
               icon={Lock}
@@ -233,9 +249,9 @@ export const SettingsModal = ({
             }
           />
 
-          <section className="rounded-xl border border-border/65 bg-background/80 p-4">
+          <section className="surface-panel p-4">
             <div className="flex items-start gap-3">
-              <div className="mt-0.5 rounded-lg border border-border/60 bg-muted/60 p-2">
+              <div className="surface-icon mt-0.5">
                 <UserRound className="size-4 text-foreground/85" />
               </div>
               <div className="w-full space-y-3">
@@ -312,7 +328,7 @@ export const SettingsModal = ({
               </div>
             </div>
           </section>
-        </div>
+        </motion.div>
       </div>
     </Base>
   );

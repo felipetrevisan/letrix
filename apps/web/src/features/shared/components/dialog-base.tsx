@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -11,6 +12,7 @@ import {
   DialogTitle,
 } from "@/components/animate-ui/primitives/dialog";
 import { VariantProps } from "class-variance-authority";
+import { createFadeUpMotion } from "@/config/motion-variants";
 import { cn } from "@/lib/utils";
 
 type ButtonVariantProps = VariantProps<typeof buttonVariants>;
@@ -43,6 +45,8 @@ export const Base = ({
   handleClose,
   buttons,
 }: Props) => {
+  const shouldReduceMotion = useReducedMotion() ?? false;
+
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className={cn("overflow-hidden", className)}>
@@ -51,10 +55,26 @@ export const Base = ({
         </DialogHeader>
         {contentScrollable ? (
           <ScrollArea className="max-h-[min(74vh,44rem)] pr-3">
-            <div className="text-md text-card-foreground">{children}</div>
+            <motion.div
+              className="text-md text-card-foreground"
+              {...createFadeUpMotion({
+                distance: 10,
+                reducedMotion: shouldReduceMotion,
+              })}
+            >
+              {children}
+            </motion.div>
           </ScrollArea>
         ) : (
-          <div className="text-md text-card-foreground">{children}</div>
+          <motion.div
+            className="text-md text-card-foreground"
+            {...createFadeUpMotion({
+              distance: 10,
+              reducedMotion: shouldReduceMotion,
+            })}
+          >
+            {children}
+          </motion.div>
         )}
         {buttons && buttons.length > 0 && (
           <DialogFooter className="border-t border-border/60 pt-3">

@@ -1,10 +1,12 @@
 "use client";
 
+import { motion, useReducedMotion } from "motion/react";
 import Countdown from "react-countdown";
 import { Clock3, Trophy } from "lucide-react";
 import { StatsHeader } from "@/features/stats/components/stats-header";
 import { StatsHistogram } from "@/features/stats/components/stats-histogram";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { createFadeUpMotion, staggerDelay } from "@/config/motion-variants";
 import { useGame } from "@/contexts/GameContext";
 import { GameStats } from "@/interfaces/game";
 import { statsCopy } from "@/lib/copy";
@@ -30,6 +32,7 @@ export function StatsModal({
   isGameWon,
 }: Props) {
   const { solutions, guesses, getMaxChallenges } = useGame();
+  const shouldReduceMotion = useReducedMotion() ?? false;
   const perfectRate = gameStats.wins
     ? Math.round((gameStats.perfectWins / gameStats.wins) * 100)
     : 0;
@@ -50,10 +53,24 @@ export function StatsModal({
       className="max-w-4xl"
     >
       <div className="space-y-4">
-        <StatsHeader gameStats={gameStats} />
+        <motion.div
+          {...createFadeUpMotion({
+            distance: 10,
+            reducedMotion: shouldReduceMotion,
+          })}
+        >
+          <StatsHeader gameStats={gameStats} />
+        </motion.div>
 
-        <section className="grid grid-cols-1 gap-3 rounded-xl border border-border/65 bg-background/80 p-4 md:grid-cols-3">
-          <article className="rounded-lg border border-border/55 bg-muted/35 p-3">
+        <motion.section
+          className="surface-panel grid grid-cols-1 gap-3 p-4 md:grid-cols-3"
+          {...createFadeUpMotion({
+            distance: 10,
+            delay: staggerDelay(1, 0.04, 0.18),
+            reducedMotion: shouldReduceMotion,
+          })}
+        >
+          <article className="surface-panel-card p-3">
             <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
               precisão total
             </h4>
@@ -62,7 +79,7 @@ export function StatsModal({
             </p>
           </article>
 
-          <article className="rounded-lg border border-border/55 bg-muted/35 p-3">
+          <article className="surface-panel-card p-3">
             <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
               precisão sem erro
             </h4>
@@ -71,7 +88,7 @@ export function StatsModal({
             </p>
           </article>
 
-          <article className="rounded-lg border border-border/55 bg-muted/35 p-3">
+          <article className="surface-panel-card p-3">
             <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
               recorde perfeito
             </h4>
@@ -79,10 +96,17 @@ export function StatsModal({
               {gameStats.bestPerfectStreak}
             </p>
           </article>
-        </section>
+        </motion.section>
 
-        <section className="grid grid-cols-1 gap-3 rounded-xl border border-border/65 bg-background/80 p-4 md:grid-cols-3">
-          <article className="rounded-lg border border-border/55 bg-muted/35 p-3">
+        <motion.section
+          className="surface-panel grid grid-cols-1 gap-3 p-4 md:grid-cols-3"
+          {...createFadeUpMotion({
+            distance: 10,
+            delay: staggerDelay(2, 0.04, 0.18),
+            reducedMotion: shouldReduceMotion,
+          })}
+        >
+          <article className="surface-panel-card p-3">
             <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
               sessão atual
             </h4>
@@ -92,7 +116,7 @@ export function StatsModal({
             <p className="text-xs text-muted-foreground">tentativas usadas</p>
           </article>
 
-          <article className="rounded-lg border border-border/55 bg-muted/35 p-3">
+          <article className="surface-panel-card p-3">
             <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
               tabuleiros resolvidos
             </h4>
@@ -104,7 +128,7 @@ export function StatsModal({
             </p>
           </article>
 
-          <article className="rounded-lg border border-border/55 bg-muted/35 p-3">
+          <article className="surface-panel-card p-3">
             <h4 className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
               tentativas restantes
             </h4>
@@ -113,9 +137,16 @@ export function StatsModal({
             </p>
             <p className="text-xs text-muted-foreground">antes de encerrar</p>
           </article>
-        </section>
+        </motion.section>
 
-        <section className="rounded-xl border border-border/65 bg-background/80 p-4">
+        <motion.section
+          className="surface-panel p-4"
+          {...createFadeUpMotion({
+            distance: 10,
+            delay: staggerDelay(3, 0.04, 0.18),
+            reducedMotion: shouldReduceMotion,
+          })}
+        >
           <h3 className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.08em] text-foreground">
             <Trophy className="size-4" />
             {statsCopy.guessDistributionTitle}
@@ -129,10 +160,17 @@ export function StatsModal({
               numberOfGuessesMade={guesses.length}
             />
           </ScrollArea>
-        </section>
+        </motion.section>
 
         {(isGameOver || isGameWon) && isLatestGame && (
-          <section className="flex flex-col items-center justify-center pt-1 text-center">
+          <motion.section
+            className="flex flex-col items-center justify-center pt-1 text-center"
+            {...createFadeUpMotion({
+              distance: 10,
+              delay: staggerDelay(4, 0.04, 0.18),
+              reducedMotion: shouldReduceMotion,
+            })}
+          >
             <h3 className="mb-2 flex items-center justify-center gap-2 text-sm font-semibold uppercase tracking-[0.08em] text-foreground">
               <Clock3 className="size-4" />
               {statsCopy.nextWordIn}
@@ -142,7 +180,7 @@ export function StatsModal({
               daysInHours={true}
               className="font-mono text-5xl font-semibold leading-none tracking-tight text-foreground tabular-nums md:text-6xl"
             />
-          </section>
+          </motion.section>
         )}
       </div>
     </Base>

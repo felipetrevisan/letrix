@@ -33,7 +33,7 @@ function StatCard({
   return (
     <article
       className={cn(
-        "rounded-xl border border-border/65 bg-background/80",
+        "surface-panel",
         large ? "px-4 py-4" : "px-3 py-2",
         pulse && "border-primary/45 shadow-[0_0_0_1px_hsl(var(--primary)/0.2)]",
       )}
@@ -131,7 +131,7 @@ export function SessionStatus({
         />
         <article
           className={cn(
-            "rounded-xl border border-border/65 bg-background/80",
+            "surface-panel",
             isSidebarLayout ? "px-4 py-4" : "px-3 py-2",
           )}
         >
@@ -154,7 +154,7 @@ export function SessionStatus({
               <span
                 key={item.key}
                 className={cn(
-                  "inline-flex items-center gap-1 rounded-md border border-border/65 bg-muted/45 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.04em] text-foreground",
+                  "surface-shortcut",
                   isSidebarLayout && "px-2.5 py-1 text-[11px]",
                 )}
               >

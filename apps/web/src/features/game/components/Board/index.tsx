@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { gameSettings } from "@/config/game";
+import { createScaleInMotion, staggerDelay } from "@/config/motion-variants";
 import { useGame } from "@/contexts/GameContext";
 import { cn } from "@/lib/utils";
 import { Grid } from "../Grid";
@@ -29,6 +30,7 @@ export function Boards({
     solutions: { solution },
   } = useGame();
   const boardsCount = solution.length || gameSettings[gameMode]?.boards || 1;
+  const shouldReduceMotion = useReducedMotion() ?? false;
 
   return (
     <div
@@ -45,13 +47,10 @@ export function Boards({
         <motion.div
           key={`board_${index}`}
           className="w-fit max-w-full"
-          initial={{ opacity: 0, y: 14, scale: 0.94, filter: "blur(2px)" }}
-          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          transition={{
-            duration: 0.24,
-            delay: Math.min(index * 0.06, 0.22),
-            ease: "easeOut",
-          }}
+          {...createScaleInMotion({
+            reducedMotion: shouldReduceMotion,
+            delay: staggerDelay(index, 0.06, 0.22),
+          })}
         >
           <Grid
             index={index}

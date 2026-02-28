@@ -15,7 +15,7 @@ type StatCardProps = {
 };
 
 const StatCard = ({ label, value, suffix, delay = 0 }: StatCardProps) => (
-  <div className="flex h-24 flex-col items-center justify-center rounded-xl border border-border/65 bg-background/80 px-3 py-3 text-center">
+  <div className="surface-panel flex h-24 flex-col items-center justify-center px-3 py-3 text-center">
     <div className="inline-flex items-end justify-center gap-0.5 leading-none text-foreground">
       <SlidingNumber
         number={value}

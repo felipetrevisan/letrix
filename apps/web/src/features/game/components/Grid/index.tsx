@@ -18,7 +18,7 @@ export function Grid({ index, currentRowClass, rowAnimation }: Props) {
   const { getMaxChallenges } = useGame();
 
   return (
-    <div className="board-shell w-fit max-w-full rounded-xl border border-border/60 bg-background/70 p-2 md:p-2.5">
+    <div className="board-shell surface-panel-frame w-fit max-w-full p-2 md:p-2.5">
       {Array.from({ length: getMaxChallenges() }).map((_, rowIndex) => (
         <Fragment key={`fragment_row_${index}_${rowIndex}`}>
           <Row

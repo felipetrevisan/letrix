@@ -1,8 +1,9 @@
 import { cva } from "class-variance-authority";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { CSSProperties, ReactNode } from "react";
 import { MotionHighlight } from "@/components/animate-ui/primitives/motion-highlight";
 import { Button } from "@/components/ui/button";
+import { createFadeUpMotion, staggerDelay } from "@/config/motion-variants";
 import { REVEAL_TIME_MS } from "@/config/settings";
 import { useApp } from "@/contexts/AppContext";
 import { Status } from "@/lib/statuses";
@@ -45,6 +46,7 @@ export function Key({
   onHoverEnd,
 }: Props) {
   const { storage } = useApp();
+  const shouldReduceMotion = useReducedMotion() ?? false;
   const keyDelayMs = REVEAL_TIME_MS * solutionLength;
   const hasSegmentedStatus = (statusSegments?.length ?? 0) > 1;
 
@@ -121,11 +123,14 @@ export function Key({
 
   return (
     <MotionButton
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
+      {...createFadeUpMotion({
+        distance: 6,
+        duration: 0.18,
+        reducedMotion: shouldReduceMotion,
+        delay: staggerDelay(motionIndex, 0.012, 0.2),
+      })}
       whileHover={!disabled ? { y: -1 } : undefined}
       whileTap={{ scale: !disabled ? 0.97 : 1 }}
-      transition={{ duration: 0.18, delay: Math.min(motionIndex * 0.012, 0.2) }}
       style={keyStyle}
       className={cn(
         classes({
