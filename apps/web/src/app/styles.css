@@ -384,6 +384,11 @@
     --tile-large-font: clamp(1.16rem, 1.55vw, 1.55rem);
   }
 
+  .boards[data-word-length="10"] {
+    --tile-small-size: clamp(1.42rem, 5.45vw, 2.05rem);
+    --tile-small-font: clamp(0.78rem, 2.55vw, 1.06rem);
+  }
+
   .board-shell {
     padding: clamp(0.32rem, 0.65vw, 0.58rem);
   }
@@ -394,6 +399,15 @@
 
   .boards[data-mode="4"] .row {
     padding: 0.08rem;
+  }
+
+  .boards[data-word-length="10"] .board-shell {
+    width: min(100%, calc(100vw - 1rem));
+    padding: clamp(0.2rem, 0.5vw, 0.38rem);
+  }
+
+  .boards[data-word-length="10"] .row {
+    padding: 0.03rem;
   }
 
   .surface-panel {
@@ -540,6 +554,10 @@
     will-change: transform;
   }
 
+  .boards[data-word-length="10"] .tile {
+    margin: 0.08rem;
+  }
+
   .tile-inner {
     position: relative;
     width: 100%;
@@ -594,6 +612,22 @@
     width: var(--tile-small-size, clamp(1.7rem, 6vw, 2.9rem));
     height: var(--tile-small-size, clamp(1.7rem, 6vw, 2.9rem));
     font-size: var(--tile-small-font, clamp(0.95rem, 2.9vw, 1.45rem));
+  }
+
+  @media (width <= 420px) {
+    .boards[data-word-length="10"] {
+      --tile-small-size: clamp(1.28rem, 5.1vw, 1.72rem);
+      --tile-small-font: clamp(0.72rem, 2.35vw, 0.94rem);
+    }
+
+    .boards[data-word-length="10"] .board-shell {
+      width: min(100%, calc(100vw - 0.5rem));
+      padding: 0.16rem;
+    }
+
+    .boards[data-word-length="10"] .tile {
+      margin: 0.05rem;
+    }
   }
 
   .tile.absent {

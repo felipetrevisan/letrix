@@ -30,11 +30,14 @@ export function Boards({
     solutions: { solution },
   } = useGame();
   const boardsCount = solution.length || gameSettings[gameMode]?.boards || 1;
+  const boardWordLength =
+    solution[0]?.length || gameSettings[gameMode]?.wordLength || 5;
   const shouldReduceMotion = useReducedMotion() ?? false;
 
   return (
     <div
       data-mode={boardsCount}
+      data-word-length={boardWordLength}
       className={cn(
         "boards grid w-full flex-1 content-start items-start justify-items-center gap-3 md:gap-5",
         boardsCount === 1 && "grid-cols-1",
