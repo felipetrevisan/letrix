@@ -83,6 +83,8 @@ export function Row({ index, board, className = "", animation }: Props) {
   const boardDisplayWord = solutions.displaySolution[board] ?? boardSolution;
   const boardDefinition = solutions.definitions[board] ?? null;
   const boardLanguage = solutions.language;
+  const shouldShowDefinitionTooltip =
+    shouldShowAccentedWord && Boolean(boardDefinition?.trim());
   const renderLetters = shouldShowAccentedWord
     ? unicodeSplit(boardDisplayWord)
     : displayedRowLetters;
@@ -126,7 +128,7 @@ export function Row({ index, board, className = "", animation }: Props) {
           />
         );
       })}
-      {shouldShowAccentedWord ? (
+      {shouldShowDefinitionTooltip ? (
         <SolvedRowDefinitionTooltip
           language={boardLanguage}
           normalizedWord={boardSolution}
