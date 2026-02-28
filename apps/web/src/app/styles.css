@@ -780,6 +780,34 @@
       toast-glow var(--motion-toast-glow-duration) var(--motion-ease-standard)
         infinite;
   }
+
+  .toast-win [data-button],
+  .toast-game-over [data-button] {
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+
+  .toast-win [data-button]::before,
+  .toast-game-over [data-button]::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(
+      120deg,
+      hsl(var(--primary) / 0.08),
+      hsl(var(--secondary) / 0.14),
+      hsl(var(--accent) / 0.1)
+    );
+    pointer-events: none;
+  }
+
+  .toast-win [data-button] > *,
+  .toast-game-over [data-button] > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

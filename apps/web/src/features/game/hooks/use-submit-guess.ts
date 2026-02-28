@@ -41,6 +41,7 @@ import {
   getSolution,
   isWordInWordList,
   localeAwareLowerCase,
+  sanitizeSolutionPayload,
 } from "@/lib/words";
 
 type UseSubmitGuessParams = {
@@ -253,7 +254,12 @@ export const useSubmitGuess = ({
             );
 
             if (nextRoundSolutions.solution.length) {
-              setSolutions(nextRoundSolutions);
+              setSolutions(
+                sanitizeSolutionPayload(nextRoundSolutions, {
+                  boards: modeConfig.boards,
+                  wordLength: modeConfig.wordLength,
+                }),
+              );
               clearGuesses();
               setCurrentRow(0);
               resetCurrentGuess();

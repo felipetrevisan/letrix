@@ -21,7 +21,7 @@ import type {
 } from "@/interfaces/game";
 import { loadStatsFromLocalStorage } from "@/lib/localStorage";
 import { loadStats, normalizeStats } from "@/lib/stats";
-import { getGameDate, getSolution } from "@/lib/words";
+import { getGameDate, getSolution, sanitizeSolutionPayload } from "@/lib/words";
 
 type UseGameSessionBootstrapParams = {
   isAuthReady: boolean;
@@ -153,7 +153,12 @@ export const useGameSessionBootstrap = ({
           savedState,
         });
 
-        setSolutions(restoredSolutions);
+        setSolutions(
+          sanitizeSolutionPayload(restoredSolutions, {
+            boards: modeConfig.boards,
+            wordLength: modeConfig.wordLength,
+          }),
+        );
 
         if (hasSavedState) {
           if (shouldAdvanceToNextRound) {
@@ -168,7 +173,12 @@ export const useGameSessionBootstrap = ({
             }
 
             if (nextRoundSolutions.solution.length) {
-              setSolutions(nextRoundSolutions);
+              setSolutions(
+                sanitizeSolutionPayload(nextRoundSolutions, {
+                  boards: modeConfig.boards,
+                  wordLength: modeConfig.wordLength,
+                }),
+              );
               updateGameFromSave([]);
               void persistGameState(buildEmptyGameState(nextRoundSolutions));
             } else {
@@ -194,7 +204,12 @@ export const useGameSessionBootstrap = ({
         return;
       }
 
-      setSolutions(baseSolutions);
+      setSolutions(
+        sanitizeSolutionPayload(baseSolutions, {
+          boards: modeConfig.boards,
+          wordLength: modeConfig.wordLength,
+        }),
+      );
 
       if (!savedState.length) {
         setTimeout(() => {

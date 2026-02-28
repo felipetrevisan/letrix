@@ -145,6 +145,11 @@ type ResolvedModeConfig = {
   wordLength: number;
 };
 
+type SolutionModeConfig = {
+  boards: number;
+  wordLength: number;
+};
+
 const hashString = (value: string) => {
   let hash = 2166136261;
 
@@ -247,6 +252,27 @@ const getResolvedModeConfig = (modeOrBoards: number): ResolvedModeConfig => {
   };
 };
 
+export const sanitizeSolutionPayload = (
+  candidate: Solution,
+  { boards, wordLength }: SolutionModeConfig,
+): Solution => {
+  const entries = candidate.solution
+    .map((solution, index) => ({
+      solution: normalizeWord(solution),
+      displaySolution: candidate.displaySolution[index] ?? solution,
+      definition: candidate.definitions[index] ?? null,
+    }))
+    .filter((entry) => unicodeLength(entry.solution) === wordLength)
+    .slice(0, boards);
+
+  return {
+    ...candidate,
+    solution: entries.map((entry) => entry.solution),
+    displaySolution: entries.map((entry) => entry.displaySolution),
+    definitions: entries.map((entry) => entry.definition),
+  };
+};
+
 const isValidDailyPuzzleRow = (
   row: DailyPuzzleRow,
   boards: number,
@@ -322,41 +348,75 @@ export const getSolution = async (
     };
   }
 
-  const sortedRows = boardRows
-    .slice(0, boards)
-    .sort((left, right) => left.board_index - right.board_index);
-  const normalizedSolutions = sortedRows.map((entry) =>
-    normalizeWord(entry.solution_normalized),
-  );
-  const definitionsByWord = new Map<string, string | null>();
-  const { data: definitionRows } = await supabase
-    .from("words")
-    .select("normalized_word, definition")
-    .eq("language", language)
-    .eq("word_length", wordLength)
-    .eq("is_active", true)
-    .in("normalized_word", normalizedSolutions);
-
-  const safeDefinitionRows = (definitionRows ?? []) as DictionaryWordRow[];
-
-  for (const row of safeDefinitionRows) {
-    definitionsByWord.set(
-      normalizeWord(row.normalized_word),
-      row.definition?.trim() || null,
+  const buildSolutionPayload = async (rowsToBuild: DailyPuzzleRow[]) => {
+    const sortedRows = rowsToBuild
+      .slice(0, boards)
+      .sort((left, right) => left.board_index - right.board_index);
+    const normalizedSolutions = sortedRows.map((entry) =>
+      normalizeWord(entry.solution_normalized),
     );
+    const definitionsByWord = new Map<string, string | null>();
+    const { data: definitionRows } = await supabase
+      .from("words")
+      .select("normalized_word, definition")
+      .eq("language", language)
+      .eq("word_length", wordLength)
+      .eq("is_active", true)
+      .in("normalized_word", normalizedSolutions);
+
+    const safeDefinitionRows = (definitionRows ?? []) as DictionaryWordRow[];
+
+    for (const row of safeDefinitionRows) {
+      definitionsByWord.set(
+        normalizeWord(row.normalized_word),
+        row.definition?.trim() || null,
+      );
+    }
+
+    return sanitizeSolutionPayload(
+      {
+        solution: normalizedSolutions,
+        displaySolution: sortedRows.map((entry) => entry.solution_display),
+        definitions: normalizedSolutions.map(
+          (word) => definitionsByWord.get(word) ?? null,
+        ),
+        solutionDate: date,
+        solutionIndex: index,
+        tomorrow: nextDate.valueOf(),
+        language,
+      },
+      { boards, wordLength },
+    );
+  };
+
+  const resolvedSolution = await buildSolutionPayload(boardRows);
+
+  if (resolvedSolution.solution.length === boards) {
+    return resolvedSolution;
   }
 
-  return {
-    solution: normalizedSolutions,
-    displaySolution: sortedRows.map((entry) => entry.solution_display),
-    definitions: normalizedSolutions.map(
-      (word) => definitionsByWord.get(word) ?? null,
-    ),
-    solutionDate: date,
-    solutionIndex: index,
-    tomorrow: nextDate.valueOf(),
+  const fallbackRows = await getFallbackRowsFromDictionary({
+    supabase,
+    dateLabel,
     language,
-  };
+    mode: parsedMode,
+    boards,
+    wordLength,
+  });
+
+  if (!fallbackRows.length) {
+    return {
+      solution: [],
+      displaySolution: [],
+      definitions: [],
+      solutionDate: date,
+      solutionIndex: index,
+      tomorrow: nextDate.valueOf(),
+      language,
+    };
+  }
+
+  return buildSolutionPayload(fallbackRows);
 };
 
 export const getGameDate = () => {
