@@ -2,14 +2,16 @@
 
 import {
   createContext,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useContext,
   useMemo,
   useState,
-  type Dispatch,
-  type SetStateAction,
 } from "react";
 import { gameSettings, initialGuess, initialStats } from "@/config/game";
+import { useGameStateManager } from "@/features/game/hooks/use-game-state-manager";
+import { useGuessInput } from "@/features/game/hooks/use-guess-input";
 import { type ContextProps, type GameContextValue } from "@/interfaces/context";
 import {
   type GameLanguage,
@@ -20,12 +22,7 @@ import {
   type Solution,
 } from "@/interfaces/game";
 import { loadStats } from "@/lib/stats";
-import {
-  getGameDate,
-  getIndex,
-  getNextGameDate,
-  localeAwareLowerCase,
-} from "@/lib/words";
+import { getGameDate, getIndex, getNextGameDate } from "@/lib/words";
 
 const buildEmptySolution = (language: GameLanguage = "pt"): Solution => {
   const gameDate = getGameDate();
@@ -102,40 +99,6 @@ export const GameProvider: React.FC<ContextProps> = ({ children }) => {
     return gameSettings[gameMode].name ?? "";
   }, [gameMode]);
 
-  const clearGuesses = useCallback(() => {
-    setGuesses([]);
-  }, []);
-
-  const resetCurrentGuess = useCallback(() => {
-    setCurrentGuess(initialGuess);
-  }, []);
-
-  const changeGameMode = useCallback((mode: GameMode) => {
-    setGameMode(mode);
-    setStats(initialStats);
-    setCurrentRow(0);
-    setCurrentGuess(initialGuess);
-    setGuesses([]);
-    setInvalidGuesses([]);
-    setSelectedTileIndex(0);
-    setSelectedRowIndex(0);
-  }, []);
-
-  const updateGameFromSave = useCallback((savedGuesses: string[]) => {
-    const hydratedGuesses: Guess[] = savedGuesses.map((word, row) => ({
-      row,
-      word,
-      letters: word.split(""),
-      status: "complete",
-      guessedRow: null,
-    }));
-
-    setGuesses(hydratedGuesses);
-    setCurrentRow(savedGuesses.length);
-    setCurrentGuess(initialGuess);
-    setSelectedTileIndex(0);
-  }, []);
-
   const updateGuessStatus = useCallback(
     (rowIndex: number, status: keyof typeof GuessStatus) => {
       setGuesses((prev) =>
@@ -147,105 +110,34 @@ export const GameProvider: React.FC<ContextProps> = ({ children }) => {
     [],
   );
 
-  const saveGuess = useCallback(() => {
-    setGuesses((prev) => [
-      ...prev,
-      {
-        ...currentGuess,
-        row: currentRow,
-        status: "complete",
-      },
-    ]);
-  }, [currentGuess, currentRow]);
+  const {
+    clearGuesses,
+    resetCurrentGuess,
+    changeGameMode,
+    updateGameFromSave,
+    saveGuess,
+  } = useGameStateManager({
+    setGameMode,
+    setStats,
+    setCurrentRow,
+    setCurrentGuess,
+    setGuesses,
+    setInvalidGuesses,
+    setSelectedTileIndex,
+    setSelectedRowIndex,
+    currentGuess,
+    currentRow,
+  });
 
-  const onTyping = useCallback(
-    (
-      value: string,
-      currentSolution: string,
-      maxChallenges: number,
-      isGameLocked: boolean,
-    ) => {
-      const nextLetter = localeAwareLowerCase(value);
-
-      if (guesses.length >= maxChallenges || isGameLocked) {
-        return;
-      }
-
-      const maxLength = currentSolution.length;
-      if (!maxLength) {
-        return;
-      }
-
-      const targetIndex = Math.min(
-        Math.max(selectedTileIndex, 0),
-        maxLength - 1,
-      );
-      const letters = Array.from(
-        { length: maxLength },
-        (_, index) => currentGuess.letters[index] ?? "",
-      );
-
-      letters[targetIndex] = nextLetter;
-
-      const nextEmptyAfterCurrent = letters.findIndex(
-        (letter, index) => index > targetIndex && !letter,
-      );
-      const nextTileIndex =
-        nextEmptyAfterCurrent !== -1 ? nextEmptyAfterCurrent : targetIndex;
-
-      setCurrentGuess({
-        ...currentGuess,
-        row: currentRow,
-        letters,
-        word: letters.join(""),
-      });
-      setSelectedTileIndex(nextTileIndex);
-    },
-    [guesses.length, currentGuess, currentRow, selectedTileIndex],
-  );
-
-  const onDelete = useCallback(() => {
-    const maxLength = solutions.solution[0]?.length ?? 5;
-    if (!maxLength) {
-      return;
-    }
-
-    const startIndex = Math.min(Math.max(selectedTileIndex, 0), maxLength - 1);
-    const letters = Array.from(
-      { length: maxLength },
-      (_, index) => currentGuess.letters[index] ?? "",
-    );
-
-    if (!letters.some((letter) => !!letter)) {
-      setSelectedTileIndex(0);
-      return;
-    }
-
-    let targetIndex = startIndex;
-    if (!letters[targetIndex]) {
-      while (targetIndex > 0 && !letters[targetIndex]) {
-        targetIndex -= 1;
-      }
-    }
-
-    if (!letters[targetIndex]) {
-      const lastFilledIndex = letters.findLastIndex((letter) => !!letter);
-      if (lastFilledIndex < 0) {
-        setSelectedTileIndex(0);
-        return;
-      }
-      targetIndex = lastFilledIndex;
-    }
-
-    letters[targetIndex] = "";
-
-    setCurrentGuess({
-      ...currentGuess,
-      letters,
-      word: letters.join(""),
-    });
-    setSelectedTileIndex(targetIndex);
-  }, [currentGuess, selectedTileIndex, solutions.solution]);
+  const { onTyping, onDelete } = useGuessInput({
+    guessesLength: guesses.length,
+    currentGuess,
+    setCurrentGuess,
+    currentRow,
+    selectedTileIndex,
+    setSelectedTileIndex,
+    solutions,
+  });
 
   const isTerm = useCallback(() => gameMode === GameMode.term, [gameMode]);
   const isDuo = useCallback(() => gameMode === GameMode.duo, [gameMode]);

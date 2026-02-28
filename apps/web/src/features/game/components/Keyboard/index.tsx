@@ -1,8 +1,11 @@
+import { CornerDownLeft, Delete, MousePointerClick } from "lucide-react";
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
-import { Delete, CornerDownLeft, MousePointerClick } from "lucide-react";
 import { useGame } from "@/contexts/GameContext";
+import {
+  resolveKeyboardAction,
+  resolveKeyboardLetterState,
+} from "@/features/game/session/keyboard";
 import { Guess } from "@/interfaces/game";
-import { Status } from "@/lib/statuses";
 import { getStatuses } from "@/lib/statuses";
 import { Key } from "./key";
 
@@ -25,7 +28,7 @@ export function Keyboard({
   onEnter,
   onDelete,
 }: Props) {
-  const { currentGuess, setSelectedTileIndex } = useGame();
+  const { currentGuess, selectedTileIndex, setSelectedTileIndex } = useGame();
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
   const solutionLength = solutions[0]?.length ?? 5;
   const isMultiBoardMode = solutions.length > 1;
@@ -39,80 +42,44 @@ export function Keyboard({
     [guessesWords, solutions],
   );
   const getLetterState = useCallback(
-    (key: string) => {
-      const normalizedKey = key.toLocaleLowerCase();
-      const statusSegments = statusesByBoard.map(
-        (boardStatus) => boardStatus[normalizedKey] as Status | undefined,
-      );
-      const statusPriority = statusSegments.reduce<Status | undefined>(
-        (best, current) => {
-          if (current === "correct" || best === "correct") {
-            return "correct";
-          }
-          if (current === "present" || best === "present") {
-            return "present";
-          }
-          if (current === "absent" || best === "absent") {
-            return "absent";
-          }
-          return undefined;
-        },
-        undefined,
-      );
-      const allAbsent =
-        statusSegments.length > 0 &&
-        statusSegments.every((status) => status === "absent");
-      const shouldDisable = isMultiBoardMode
-        ? allAbsent
-        : statusPriority === "absent";
-
-      return {
-        status: isMultiBoardMode || shouldDisable ? undefined : statusPriority,
-        statusSegments: isMultiBoardMode ? statusSegments : undefined,
-        disabled: disabled || shouldDisable,
-        absentClassName: shouldDisable ? "key-absent-disabled" : undefined,
-      };
-    },
+    (key: string) =>
+      resolveKeyboardLetterState({
+        key,
+        statusesByBoard,
+        disabled,
+        isMultiBoardMode,
+      }),
     [disabled, isMultiBoardMode, statusesByBoard],
   );
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
-      if (disabled) {
+      const action = resolveKeyboardAction({
+        code: event.code,
+        key: event.key,
+        disabled,
+        solutionLength,
+        selectedTileIndex,
+      });
+
+      if (action.type === "move") {
+        event.preventDefault();
+        setSelectedTileIndex(action.nextTileIndex);
         return;
       }
 
-      if (event.code === "Enter") {
+      if (action.type === "enter") {
         onEnter();
         return;
       }
 
-      if (event.code === "Backspace") {
+      if (action.type === "delete") {
         onDelete();
         return;
       }
 
-      if (event.code === "ArrowLeft") {
-        event.preventDefault();
-        setSelectedTileIndex((previousIndex) => {
-          const maxIndex = Math.max(solutionLength - 1, 0);
-          return Math.max(Math.min(previousIndex - 1, maxIndex), 0);
-        });
-        return;
-      }
-
-      if (event.code === "ArrowRight") {
-        event.preventDefault();
-        setSelectedTileIndex((previousIndex) => {
-          const maxIndex = Math.max(solutionLength - 1, 0);
-          return Math.max(Math.min(previousIndex + 1, maxIndex), 0);
-        });
-        return;
-      }
-
-      const key = event.key.toUpperCase();
-      if (key.length === 1 && key >= "A" && key <= "Z") {
-        onTyping(key);
+      if (action.type === "type") {
+        onTyping(action.value);
       }
     };
 
@@ -120,10 +87,10 @@ export function Keyboard({
     return () => window.removeEventListener("keydown", listener);
   }, [
     disabled,
-    getLetterState,
     onEnter,
     onDelete,
     onTyping,
+    selectedTileIndex,
     setSelectedTileIndex,
     solutionLength,
   ]);
@@ -149,7 +116,7 @@ export function Keyboard({
   return (
     <div className="w-full max-w-[min(100vw-2rem,42rem)]">
       <div
-        className="grid grid-cols-[repeat(20,minmax(0,1fr))] gap-1 rounded-xl border border-border/60 bg-background/80 p-2.5"
+        className="surface-panel grid grid-cols-[repeat(20,minmax(0,1fr))] gap-1 p-2.5"
         onMouseLeave={() => setHoveredKey(null)}
       >
         {["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"].map((key) => {
