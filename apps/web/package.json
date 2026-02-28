@@ -8,6 +8,7 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "bun test tests",
+    "definitions:backfill": "bun run scripts/backfill-word-definitions.ts",
     "supabase:import": "bun run scripts/import-supabase-data.ts",
     "supabase:extract-legacy": "bun run scripts/extract-legacy-words.ts",
     "words:fetch-dicionario": "bun run scripts/fetch-dicionario-aberto-words.ts",

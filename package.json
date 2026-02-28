@@ -15,6 +15,7 @@
     "test": "turbo run test",
     "check": "turbo run typecheck test",
     "format": "biome format --write .",
+    "definitions:backfill": "bun run --cwd apps/web definitions:backfill",
     "supabase:import": "bun run --cwd apps/web supabase:import",
     "supabase:extract-legacy": "bun run --cwd apps/web supabase:extract-legacy",
     "words:fetch-dicionario": "bun run --cwd apps/web words:fetch-dicionario",
