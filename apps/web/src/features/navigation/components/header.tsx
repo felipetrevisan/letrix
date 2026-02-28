@@ -6,13 +6,13 @@ import {
   ChevronRight,
   CircleHelp,
   Grid2x2,
+  Infinity,
   LayoutPanelTop,
   LoaderCircle,
   LogIn,
   LogOut,
   Menu,
   Moon,
-  Infinity,
   Settings,
   Square,
   Sun,
@@ -28,15 +28,6 @@ import { toast } from "sonner";
 import { MotionHighlight } from "@/components/animate-ui/primitives/motion-highlight";
 import { Button } from "@/components/ui/button";
 import {
-  MOTION_CLASS,
-  MOTION_DELAY,
-  MOTION_DURATION,
-  MOTION_EASE,
-} from "@/config/motion";
-import { useApp } from "@/contexts/AppContext";
-import { useGame } from "@/contexts/GameContext";
-import { cn } from "@/lib/utils";
-import {
   Sheet,
   SheetContent,
   SheetHeader,
@@ -48,6 +39,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  MOTION_CLASS,
+  MOTION_DELAY,
+  MOTION_DURATION,
+  MOTION_EASE,
+} from "@/config/motion";
+import { useApp } from "@/contexts/AppContext";
+import { useGame } from "@/contexts/GameContext";
+import { cn } from "@/lib/utils";
 
 const modeItems = [
   { value: "1", label: "Termo", icon: Square },
