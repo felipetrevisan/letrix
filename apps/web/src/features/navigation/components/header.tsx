@@ -26,6 +26,7 @@ import { useTheme } from "next-themes";
 import { type ReactNode, useState } from "react";
 import { toast } from "sonner";
 import { MotionHighlight } from "@/components/animate-ui/primitives/motion-highlight";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -45,6 +46,11 @@ import {
   MOTION_DURATION,
   MOTION_EASE,
 } from "@/config/motion";
+import {
+  getUserAvatarUrl,
+  getUserDisplayName,
+  getUserInitials,
+} from "@/features/auth/lib/user-profile";
 import { useApp } from "@/contexts/AppContext";
 import { useGame } from "@/contexts/GameContext";
 import { cn } from "@/lib/utils";
@@ -174,6 +180,9 @@ function ActionButtons({
   const [hoveredAction, setHoveredAction] = useState<string | null>(null);
   const [isAuthActionLoading, setIsAuthActionLoading] = useState(false);
   const isDark = theme === "dark";
+  const userAvatarUrl = getUserAvatarUrl(user);
+  const userDisplayName = getUserDisplayName(user);
+  const userInitials = getUserInitials(user);
 
   const run = (fn: () => void) => {
     fn();
@@ -222,6 +231,35 @@ function ActionButtons({
       {label}
     </motion.span>
   );
+
+  const renderAuthLabel = () => {
+    if (!user) {
+      return renderActionLabel("Login");
+    }
+
+    return (
+      <motion.span
+        className="relative z-10 min-w-0 overflow-hidden"
+        initial={false}
+        animate={
+          expanded
+            ? { opacity: 1, x: 0, maxWidth: 160 }
+            : { opacity: 0, x: reducedMotion ? 0 : -6, maxWidth: 0 }
+        }
+        transition={{
+          duration: reducedMotion ? MOTION_DURATION.xs : MOTION_DURATION.md,
+          ease: MOTION_EASE.standard,
+        }}
+      >
+        <span className="block truncate text-sm font-medium text-current">
+          {userDisplayName}
+        </span>
+        <span className="block truncate text-[11px] leading-tight text-current/70">
+          Sair
+        </span>
+      </motion.span>
+    );
+  };
 
   const handleAuthAction = async () => {
     if (!isAuthReady || isAuthActionLoading) {
@@ -355,11 +393,28 @@ function ActionButtons({
           {!isAuthReady || isAuthActionLoading ? (
             <LoaderCircle className={cn(actionIconClass, "animate-spin")} />
           ) : user ? (
-            <LogOut className={actionIconClass} />
+            <Avatar
+              className={cn(
+                "relative z-10 border-current/20 bg-background/40",
+                expanded ? "size-5" : "size-6",
+              )}
+            >
+              {userAvatarUrl ? (
+                <AvatarImage src={userAvatarUrl} alt="Avatar do usuário" />
+              ) : null}
+              <AvatarFallback
+                className={cn(
+                  "bg-transparent font-semibold text-current",
+                  expanded ? "text-[10px]" : "text-xs",
+                )}
+              >
+                {userInitials}
+              </AvatarFallback>
+            </Avatar>
           ) : (
             <LogIn className={actionIconClass} />
           )}
-          {renderActionLabel(user ? "Sair" : "Login")}
+          {renderAuthLabel()}
         </Button>,
       )}
     </>

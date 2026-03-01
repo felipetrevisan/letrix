@@ -19,9 +19,15 @@ import {
 import { FaDiscord } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { gameSettings } from "@/config/game";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { createFadeUpMotion, staggerDelay } from "@/config/motion-variants";
+import {
+  getUserAvatarUrl,
+  getUserDisplayName,
+  getUserInitials,
+} from "@/features/auth/lib/user-profile";
 import { useGame } from "@/contexts/GameContext";
 import { useApp } from "@/contexts/AppContext";
 import { Switch } from "@/components/ui/switch";
@@ -90,6 +96,9 @@ export const SettingsModal = ({
   const isSingleWordMode = gameSettings[gameMode].boards === 1;
   const [email, setEmail] = useState("");
   const [isAuthLoading, setIsAuthLoading] = useState(false);
+  const userDisplayName = getUserDisplayName(user);
+  const userAvatarUrl = getUserAvatarUrl(user);
+  const userInitials = getUserInitials(user);
 
   const handleHardMode = useCallback(
     (isHard: boolean) => {
@@ -270,19 +279,39 @@ export const SettingsModal = ({
                     Verificando sessão...
                   </p>
                 ) : user ? (
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-md border border-border/60 bg-muted/50 px-2 py-1 text-xs text-foreground">
-                      {user.email ?? "Usuário autenticado"}
-                    </span>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={handleSignOut}
-                      disabled={isAuthLoading}
-                    >
-                      <LogOut className="size-4" />
-                      Sair
-                    </Button>
+                  <div className="surface-panel-subtle flex flex-col gap-3 rounded-xl p-3">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex min-w-0 items-center gap-3">
+                        <Avatar className="size-12 border-primary/20 bg-primary/10">
+                          {userAvatarUrl ? (
+                            <AvatarImage
+                              src={userAvatarUrl}
+                              alt={`Avatar de ${userDisplayName}`}
+                            />
+                          ) : null}
+                          <AvatarFallback className="bg-primary/10 text-sm font-semibold text-primary">
+                            {userInitials}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-semibold text-foreground">
+                            {userDisplayName}
+                          </p>
+                          <p className="truncate text-sm text-muted-foreground">
+                            {user.email ?? "Usuário autenticado"}
+                          </p>
+                        </div>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleSignOut}
+                        disabled={isAuthLoading}
+                      >
+                        <LogOut className="size-4" />
+                        Sair
+                      </Button>
+                    </div>
                   </div>
                 ) : (
                   <div className="flex flex-col gap-2">
