@@ -11,6 +11,11 @@ import {
 } from "@/components/ui/tooltip";
 import { fetchDefinition } from "@/features/game/lib/definition-fetch";
 
+const normalizeDefinitionText = (value?: string | null) => {
+  const normalizedValue = value?.replace(/\\n/g, "\n").replace(/\r\n?/g, "\n");
+  return normalizedValue?.trim() || null;
+};
+
 type SolvedRowDefinitionTooltipProps = {
   language: "pt" | "en";
   normalizedWord: string;
@@ -25,8 +30,8 @@ export function SolvedRowDefinitionTooltip({
   definition,
 }: SolvedRowDefinitionTooltipProps) {
   const [open, setOpen] = useState(false);
-  const [resolvedDefinition, setResolvedDefinition] = useState(
-    definition?.trim() || null,
+  const [resolvedDefinition, setResolvedDefinition] = useState(() =>
+    normalizeDefinitionText(definition),
   );
   const [isLoading, setIsLoading] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -48,7 +53,7 @@ export function SolvedRowDefinitionTooltip({
       wordLength: Array.from(normalizedWord).length,
     })
       .then((response) => {
-        setResolvedDefinition(response.definition?.trim() || null);
+        setResolvedDefinition(normalizeDefinitionText(response.definition));
       })
       .catch((error) => {
         setLoadError(
@@ -88,7 +93,7 @@ export function SolvedRowDefinitionTooltip({
             <p className="text-sm font-semibold uppercase tracking-[0.08em] text-foreground">
               {word}
             </p>
-            <p className="text-sm leading-5 text-foreground/86">
+            <p className="whitespace-pre-line text-sm leading-5 text-foreground/86">
               {isLoading
                 ? "Gerando definição..."
                 : resolvedDefinition ||
