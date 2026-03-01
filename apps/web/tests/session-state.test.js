@@ -3,6 +3,7 @@ import {
   buildEmptyGameState,
   buildGameStateSnapshot,
   hydrateInfiniteSolutionFromState,
+  hydrateStandardSolutionFromState,
   resolveInfiniteBootstrapState,
 } from "../src/features/game/session/state";
 
@@ -105,5 +106,36 @@ describe("session state", () => {
     expect(result.savedTries).toEqual(["casa"]);
     expect(result.restoredSolutions.solution[0]).toBe("casa");
     expect(result.shouldAdvanceToNextRound).toBe(true);
+  });
+
+  it("hydrates standard solution from saved state for the same day", () => {
+    const savedState = [
+      {
+        curday: 100,
+        curRow: 1,
+        curTry: "nacao",
+        tries: ["nacao"],
+        invalids: [],
+        solution: "nacao",
+        displaySolution: "nação",
+        definition: "país organizado politicamente",
+        gameOver: false,
+        won: true,
+      },
+    ];
+
+    const hydrated = hydrateStandardSolutionFromState(
+      fallbackSolution,
+      savedState,
+      {
+        boards: 1,
+        wordLength: 5,
+      },
+    );
+
+    expect(hydrated?.solution[0]).toBe("nacao");
+    expect(hydrated?.displaySolution[0]).toBe("nação");
+    expect(hydrated?.definitions[0]).toBe("país organizado politicamente");
+    expect(hydrated?.tomorrow).toBe(fallbackSolution.tomorrow);
   });
 });

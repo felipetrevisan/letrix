@@ -287,6 +287,36 @@ const isValidDailyPuzzleRow = (
   );
 };
 
+export const resolveValidDailyPuzzleRows = (
+  rows: DailyPuzzleRow[],
+  boards: number,
+  wordLength: number,
+) => {
+  const validRows = rows.filter((row) =>
+    isValidDailyPuzzleRow(row, boards, wordLength),
+  );
+
+  if (validRows.length < boards) {
+    return [];
+  }
+
+  const boardIndexes = new Set<number>();
+
+  for (const row of validRows) {
+    if (boardIndexes.has(row.board_index)) {
+      return [];
+    }
+
+    boardIndexes.add(row.board_index);
+  }
+
+  if (boardIndexes.size !== boards) {
+    return [];
+  }
+
+  return validRows;
+};
+
 export const getSolution = async (
   date: Date,
   modeOrBoards: number = 1,
@@ -320,8 +350,10 @@ export const getSolution = async (
     .eq("mode", parsedMode)
     .order("board_index", { ascending: true });
 
-  const rows = ((data ?? []) as DailyPuzzleRow[]).filter((row) =>
-    isValidDailyPuzzleRow(row, boards, wordLength),
+  const rows = resolveValidDailyPuzzleRows(
+    (data ?? []) as DailyPuzzleRow[],
+    boards,
+    wordLength,
   );
 
   const boardRows =

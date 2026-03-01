@@ -1,7 +1,7 @@
 import { addDays } from "date-fns";
 import { hasSolvedAllBoards } from "@letrix/game-core";
 import { GameState, Solution } from "@/interfaces/game";
-import { normalizeWord } from "@/lib/words";
+import { normalizeWord, unicodeLength } from "@/lib/words";
 
 type BuildSnapshotParams = {
   stateSolutions: Solution;
@@ -24,6 +24,11 @@ type ResolveInfiniteBootstrapStateResult = {
   restoredSolutions: Solution;
   savedTries: string[];
   shouldAdvanceToNextRound: boolean;
+};
+
+type StandardHydrationConfig = {
+  boards: number;
+  wordLength: number;
 };
 
 export const hydrateInfiniteSolutionFromState = (
@@ -57,6 +62,42 @@ export const hydrateInfiniteSolutionFromState = (
     solutionIndex: restoredIndex,
     solutionDate: restoredDate,
     tomorrow: addDays(restoredDate, 1).valueOf(),
+  };
+};
+
+export const hydrateStandardSolutionFromState = (
+  fallbackSolution: Solution,
+  savedState: GameState[],
+  { boards, wordLength }: StandardHydrationConfig,
+): Solution | null => {
+  if (!savedState.length || savedState.length !== boards) {
+    return null;
+  }
+
+  const currentDay = fallbackSolution.solutionIndex;
+  const isSamePuzzleDay = savedState.every(
+    (state) => state.curday === currentDay,
+  );
+
+  if (!isSamePuzzleDay) {
+    return null;
+  }
+
+  const hydratedSolutions = savedState
+    .map((state) => normalizeWord(state.solution))
+    .filter((solution) => unicodeLength(solution) === wordLength);
+
+  if (hydratedSolutions.length !== boards) {
+    return null;
+  }
+
+  return {
+    ...fallbackSolution,
+    solution: hydratedSolutions,
+    displaySolution: savedState.map(
+      (state, index) => state.displaySolution ?? hydratedSolutions[index],
+    ),
+    definitions: savedState.map((state) => state.definition ?? null),
   };
 };
 

@@ -9,6 +9,7 @@ import { loadStatsFromCloud } from "@/features/auth/lib/game-storage";
 import { isSupabaseConfigured } from "@/features/auth/lib/supabase-client";
 import {
   buildEmptyGameState,
+  hydrateStandardSolutionFromState,
   resolveInfiniteBootstrapState,
 } from "@/features/game/session/state";
 import type {
@@ -204,14 +205,13 @@ export const useGameSessionBootstrap = ({
         return;
       }
 
-      setSolutions(
-        sanitizeSolutionPayload(baseSolutions, {
-          boards: modeConfig.boards,
-          wordLength: modeConfig.wordLength,
-        }),
-      );
-
       if (!savedState.length) {
+        setSolutions(
+          sanitizeSolutionPayload(baseSolutions, {
+            boards: modeConfig.boards,
+            wordLength: modeConfig.wordLength,
+          }),
+        );
         setTimeout(() => {
           setIsInfoModalOpen(true);
         }, REVEAL_TIME_MS);
@@ -219,17 +219,24 @@ export const useGameSessionBootstrap = ({
         return;
       }
 
-      const hasCurrentSolutions = baseSolutions.solution.every(
-        (solution, index) => savedState[index]?.solution === solution,
+      const restoredSolutions =
+        hydrateStandardSolutionFromState(baseSolutions, savedState, {
+          boards: modeConfig.boards,
+          wordLength: modeConfig.wordLength,
+        }) ?? baseSolutions;
+
+      setSolutions(
+        sanitizeSolutionPayload(restoredSolutions, {
+          boards: modeConfig.boards,
+          wordLength: modeConfig.wordLength,
+        }),
       );
 
-      if (!hasCurrentSolutions) {
-        setIsHydrated(true);
-        return;
-      }
-
       const savedTries = savedState[0]?.tries ?? [];
-      const gameWasWon = hasSolvedAllBoards(baseSolutions.solution, savedTries);
+      const gameWasWon = hasSolvedAllBoards(
+        restoredSolutions.solution,
+        savedTries,
+      );
 
       if (gameWasWon) {
         setIsGameWon(true);

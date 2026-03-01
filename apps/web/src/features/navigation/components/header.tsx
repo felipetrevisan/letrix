@@ -51,6 +51,7 @@ import {
   getUserDisplayName,
   getUserInitials,
 } from "@/features/auth/lib/user-profile";
+import { BrandWordmark } from "@/features/navigation/components/brand-wordmark";
 import { useApp } from "@/contexts/AppContext";
 import { useGame } from "@/contexts/GameContext";
 import { cn } from "@/lib/utils";
@@ -63,68 +64,6 @@ const modeItems = [
   { value: "5", label: "Deca", icon: Type },
   { value: "6", label: "Infinito", icon: Infinity },
 ] as const;
-
-const brandTail = ["E", "T", "R", "I", "X"] as const;
-
-const getBrandVariants = (reducedMotion: boolean) => ({
-  collapsed: {
-    width: 40,
-    transition: {
-      duration: reducedMotion ? MOTION_DURATION.xs : MOTION_DURATION.lg,
-      ease: MOTION_EASE.standard,
-    },
-  },
-  expanded: {
-    width: 132,
-    transition: {
-      duration: reducedMotion ? MOTION_DURATION.xs : MOTION_DURATION.xxl,
-      ease: MOTION_EASE.standard,
-      when: "beforeChildren" as const,
-      delayChildren: reducedMotion ? 0 : MOTION_DELAY.brandChildren,
-      staggerChildren: reducedMotion ? 0 : MOTION_DELAY.brandLetterStagger,
-    },
-  },
-});
-
-const getBrandLetterVariants = (reducedMotion: boolean) => ({
-  collapsed: {
-    opacity: 0,
-    y: reducedMotion ? 0 : 4,
-    transition: {
-      duration: reducedMotion ? MOTION_DURATION.xs : MOTION_DURATION.xs,
-      ease: MOTION_EASE.in,
-    },
-  },
-  expanded: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: reducedMotion ? MOTION_DURATION.xs : MOTION_DURATION.base,
-      ease: MOTION_EASE.out,
-    },
-  },
-});
-
-const getBrandWordVariants = (reducedMotion: boolean) => ({
-  collapsed: {
-    opacity: 0,
-    x: reducedMotion ? 0 : -6,
-    transition: {
-      duration: reducedMotion ? MOTION_DURATION.xs : MOTION_DURATION.sm,
-      ease: MOTION_EASE.in,
-    },
-  },
-  expanded: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: reducedMotion ? MOTION_DURATION.xs : MOTION_DURATION.md,
-      ease: MOTION_EASE.out,
-      delayChildren: reducedMotion ? 0 : MOTION_DELAY.brandWordChildren,
-      staggerChildren: reducedMotion ? 0 : MOTION_DELAY.brandLetterStagger,
-    },
-  },
-});
 
 const iconButtonClass =
   "inline-flex h-10 w-10 items-center justify-center rounded-lg border border-border/65 bg-background text-foreground transition hover:border-primary/70 hover:bg-muted hover:text-foreground";
@@ -439,9 +378,6 @@ export function Header() {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
   const locale = segments[0] ?? "pt";
-  const brandVariants = getBrandVariants(reducedMotion);
-  const brandLetterVariants = getBrandLetterVariants(reducedMotion);
-  const brandWordVariants = getBrandWordVariants(reducedMotion);
 
   return (
     <TooltipProvider delayDuration={120}>
@@ -469,43 +405,11 @@ export function Header() {
                 title="Início"
                 className="title surface-panel inline-flex h-10 items-center justify-center text-foreground/90"
               >
-                <motion.span
-                  className="relative inline-flex h-full items-center overflow-hidden whitespace-nowrap"
-                  initial={false}
-                  variants={brandVariants}
-                  animate={isSidebarExpanded ? "expanded" : "collapsed"}
-                >
-                  <motion.span
-                    className="absolute inset-0 inline-flex h-full w-10 items-center justify-center text-center text-xl leading-none tracking-normal"
-                    initial={false}
-                    animate={
-                      isSidebarExpanded ? { opacity: 0 } : { opacity: 1 }
-                    }
-                    transition={{
-                      duration: reducedMotion
-                        ? MOTION_DURATION.xs
-                        : MOTION_DURATION.sm,
-                      ease: MOTION_EASE.in,
-                    }}
-                  >
-                    L
-                  </motion.span>
-                  <motion.span
-                    className="inline-flex h-full items-center pr-3 text-lg leading-none tracking-[0.14em]"
-                    initial={false}
-                    variants={brandWordVariants}
-                    animate={isSidebarExpanded ? "expanded" : "collapsed"}
-                  >
-                    <span className="inline-flex h-full w-10 items-center justify-center text-center text-xl leading-none tracking-normal">
-                      L
-                    </span>
-                    {brandTail.map((letter) => (
-                      <motion.span key={letter} variants={brandLetterVariants}>
-                        {letter}
-                      </motion.span>
-                    ))}
-                  </motion.span>
-                </motion.span>
+                <BrandWordmark
+                  animated
+                  expanded={isSidebarExpanded}
+                  reducedMotion={reducedMotion}
+                />
               </Link>
             </SidebarTooltip>
             <SidebarTooltip
@@ -638,8 +542,8 @@ export function Header() {
         >
           <SheetContent side="left" className="w-72 p-4">
             <SheetHeader className="mb-3">
-              <SheetTitle className="title text-2xl tracking-[0.14em]">
-                LETRIX
+              <SheetTitle>
+                <BrandWordmark reducedMotion={reducedMotion} />
               </SheetTitle>
             </SheetHeader>
 
