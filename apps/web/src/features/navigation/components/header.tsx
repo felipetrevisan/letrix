@@ -129,7 +129,7 @@ function ActionButtons({
 
   const actionClass = cn(
     "relative isolate inline-flex h-10 items-center overflow-hidden rounded-lg border border-border/65 bg-background text-foreground hover:border-primary/70 hover:bg-transparent hover:text-foreground",
-    MOTION_CLASS.widthPaddingGap,
+    MOTION_CLASS.padding,
     expanded
       ? "w-full justify-start gap-2 px-3 text-sm font-medium"
       : "w-10 justify-center px-0",
@@ -461,7 +461,7 @@ export function Header() {
                     onMouseLeave={() => setHoveredModeDesktop(null)}
                     className={cn(
                       "relative inline-flex h-10 items-center overflow-hidden rounded-lg border font-medium",
-                      MOTION_CLASS.widthPaddingGap,
+                      MOTION_CLASS.padding,
                       isSidebarExpanded
                         ? "w-full justify-start gap-2 px-3"
                         : "w-10 justify-center gap-0 px-0",
