@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   getBoardGuessedIndex,
   getBoardRowState,
+  resolveDisplayedRowLetters,
 } from "../src/features/game/session/board-state";
 
 describe("board state", () => {
@@ -118,5 +119,18 @@ describe("board state", () => {
 
     expect(rowState.isGuessedRow).toBe(true);
     expect(rowState.rowStatus).toBe("done");
+  });
+
+  it("keeps the saved last guess visible on the current row after a losing submit", () => {
+    const displayedLetters = resolveDisplayedRowLetters({
+      isBoardSolved: false,
+      rowIndex: 5,
+      guessedIndex: -1,
+      isCurrentRow: true,
+      currentGuessLetters: [],
+      savedGuessLetters: ["c", "a", "s", "a", "l"],
+    });
+
+    expect(displayedLetters).toEqual(["c", "a", "s", "a", "l"]);
   });
 });

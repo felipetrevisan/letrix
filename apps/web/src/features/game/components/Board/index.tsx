@@ -44,6 +44,7 @@ export function Boards({
         boardsCount === 2 && "grid-cols-1 lg:grid-cols-2",
         boardsCount === 3 && "grid-cols-1 lg:grid-cols-2 xl:grid-cols-3",
         boardsCount === 4 && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+        boardsCount === 5 && "grid-cols-1 sm:grid-cols-2 xl:grid-cols-5",
       )}
     >
       {Array.from({ length: boardsCount }).map((_, index) => (

@@ -54,7 +54,7 @@ const modeConfig = {
   2: { boards: 2, wordLength: 5 as WordLength },
   3: { boards: 3, wordLength: 5 as WordLength },
   4: { boards: 4, wordLength: 5 as WordLength },
-  5: { boards: 1, wordLength: 10 as WordLength },
+  5: { boards: 5, wordLength: 5 as WordLength },
 } as const;
 
 const getArgValue = (flag: string) => {

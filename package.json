@@ -20,6 +20,7 @@
     "supabase:extract-legacy": "bun run --cwd apps/web supabase:extract-legacy",
     "words:remove-roman-numerals": "bun run --cwd apps/web words:remove-roman-numerals",
     "words:remove-vowelless": "bun run --cwd apps/web words:remove-vowelless",
+    "words:build-from-snippet": "bun run --cwd apps/web words:build-from-snippet",
     "words:fetch-kkrypt": "bun run --cwd apps/web words:fetch-kkrypt",
     "words:fetch-dicionario": "bun run --cwd apps/web words:fetch-dicionario",
     "words:refresh-dicionario-definitions": "bun run --cwd apps/web words:refresh-dicionario-definitions",

@@ -6,7 +6,10 @@ import { cn } from "@/lib/utils";
 import { getGuessStatuses } from "@/lib/statuses";
 import { unicodeSplit } from "@/lib/words";
 import { useGame } from "@/contexts/GameContext";
-import { getBoardRowState } from "@/features/game/session/board-state";
+import {
+  getBoardRowState,
+  resolveDisplayedRowLetters,
+} from "@/features/game/session/board-state";
 import { Tile } from "../Tiles";
 import { SolvedRowDefinitionTooltip } from "./solved-row-definition-tooltip";
 
@@ -61,13 +64,14 @@ export function Row({ index, board, className = "", animation }: Props) {
 
   const boardWordLength = boardSolution.length || 5;
   const tileSize = boardWordLength >= 10 ? "small" : "large";
-  const displayedRowLetters = isBoardSolved
-    ? index <= effectiveGuessedIndex
-      ? guesses[index]?.letters ?? []
-      : []
-    : isCurrentRow && effectiveGuessedIndex === -1
-      ? currentGuess.letters
-      : guesses[index]?.letters ?? [];
+  const displayedRowLetters = resolveDisplayedRowLetters({
+    isBoardSolved,
+    rowIndex: index,
+    guessedIndex: effectiveGuessedIndex,
+    isCurrentRow,
+    currentGuessLetters: currentGuess.letters,
+    savedGuessLetters: guesses[index]?.letters ?? [],
+  });
   const isRevealingCurrentRow =
     isAnimatingCurrentRow && animation === "revealing";
   const statuses = getGuessStatuses(

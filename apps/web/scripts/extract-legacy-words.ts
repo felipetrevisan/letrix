@@ -27,7 +27,7 @@ const modeConfig: Record<number, { boards: number; wordLength: number }> = {
   2: { boards: 2, wordLength: 5 },
   3: { boards: 3, wordLength: 5 },
   4: { boards: 4, wordLength: 5 },
-  5: { boards: 1, wordLength: 10 },
+  5: { boards: 5, wordLength: 5 },
 };
 
 const getArgValue = (flag: string) => {

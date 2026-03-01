@@ -385,6 +385,12 @@
     --tile-large-font: clamp(1.16rem, 1.55vw, 1.55rem);
   }
 
+  .boards[data-mode="5"] {
+    --board-gap: clamp(0.26rem, 0.48vw, 0.56rem);
+    --tile-large-size: clamp(1.95rem, 2.35vw, 2.58rem);
+    --tile-large-font: clamp(1rem, 1.28vw, 1.28rem);
+  }
+
   .boards[data-word-length="10"] {
     --tile-small-size: clamp(1.44rem, 5.2vw, 2rem);
     --tile-small-height: clamp(1.9rem, 6.65vw, 2.72rem);
@@ -401,6 +407,14 @@
 
   .boards[data-mode="4"] .row {
     padding: 0.08rem;
+  }
+
+  .boards[data-mode="5"] .board-shell {
+    padding: clamp(0.2rem, 0.36vw, 0.32rem);
+  }
+
+  .boards[data-mode="5"] .row {
+    padding: 0.06rem;
   }
 
   .boards[data-word-length="10"] .board-shell {
@@ -441,12 +455,22 @@
       --tile-large-size: clamp(1.95rem, min(2.55vw, 3.75dvh), 2.5rem);
       --tile-large-font: clamp(1rem, min(1.3vw, 1.95dvh), 1.32rem);
     }
+
+    .boards[data-mode="5"] {
+      --tile-large-size: clamp(1.78rem, min(2.15vw, 3.35dvh), 2.2rem);
+      --tile-large-font: clamp(0.94rem, min(1.12vw, 1.7dvh), 1.14rem);
+    }
   }
 
   @media (width >= 1400px) {
     .boards[data-mode="4"] {
       --tile-large-size: clamp(2.4rem, 2.45vw, 3.05rem);
       --tile-large-font: clamp(1.25rem, 1.45vw, 1.6rem);
+    }
+
+    .boards[data-mode="5"] {
+      --tile-large-size: clamp(2rem, 2vw, 2.55rem);
+      --tile-large-font: clamp(1.04rem, 1.15vw, 1.3rem);
     }
   }
 

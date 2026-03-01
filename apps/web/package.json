@@ -13,6 +13,7 @@
     "supabase:extract-legacy": "bun run scripts/extract-legacy-words.ts",
     "words:remove-roman-numerals": "bun run scripts/remove-roman-numerals.ts",
     "words:remove-vowelless": "bun run scripts/remove-vowelless-words.ts",
+    "words:build-from-snippet": "bun run scripts/build-wordlist-from-raw-snippet.ts",
     "words:fetch-kkrypt": "bun run scripts/fetch-kkrypt-portuguese-words.ts",
     "words:fetch-dicionario": "bun run scripts/fetch-dicionario-aberto-words.ts",
     "words:refresh-dicionario-definitions": "bun run scripts/refresh-dicionario-definitions.ts",

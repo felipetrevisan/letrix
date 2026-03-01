@@ -52,3 +52,33 @@ export const getBoardRowState = ({
     rowStatus,
   };
 };
+
+type ResolveDisplayedRowLettersParams = {
+  isBoardSolved: boolean;
+  rowIndex: number;
+  guessedIndex: number;
+  isCurrentRow: boolean;
+  currentGuessLetters: string[];
+  savedGuessLetters: string[];
+};
+
+export const resolveDisplayedRowLetters = ({
+  isBoardSolved,
+  rowIndex,
+  guessedIndex,
+  isCurrentRow,
+  currentGuessLetters,
+  savedGuessLetters,
+}: ResolveDisplayedRowLettersParams) => {
+  if (isBoardSolved) {
+    return rowIndex <= guessedIndex ? savedGuessLetters : [];
+  }
+
+  const hasSavedGuessAtRow = savedGuessLetters.length > 0;
+
+  if (isCurrentRow && guessedIndex === -1 && !hasSavedGuessAtRow) {
+    return currentGuessLetters;
+  }
+
+  return savedGuessLetters;
+};

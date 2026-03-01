@@ -3,7 +3,7 @@ export const gameNames = {
   duo: "Dueto",
   trio: "Trieto",
   four: "Quarteto",
-  deca: "Deca",
+  deca: "Quinteto",
   infinite: "Infinito",
 } as const;
 

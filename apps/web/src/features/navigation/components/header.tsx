@@ -16,7 +16,6 @@ import {
   Settings,
   Square,
   Sun,
-  Type,
   X,
 } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
@@ -61,7 +60,7 @@ const modeItems = [
   { value: "2", label: "Dueto", icon: LayoutPanelTop },
   { value: "3", label: "Trieto", icon: Grid2x2 },
   { value: "4", label: "Quarteto", icon: BarChart3 },
-  { value: "5", label: "Deca", icon: Type },
+  { value: "5", label: "Quinteto", icon: Grid2x2 },
   { value: "6", label: "Infinito", icon: Infinity },
 ] as const;
 
