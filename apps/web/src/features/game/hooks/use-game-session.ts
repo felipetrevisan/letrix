@@ -112,7 +112,6 @@ export const useGameSession = (mode: GameMode) => {
   const { resetAutoOpenStats } = useAutoOpenStats({
     gameEnded,
     isLoading,
-    openMenu,
     setIsStatsModalOpen,
     solutions,
   });

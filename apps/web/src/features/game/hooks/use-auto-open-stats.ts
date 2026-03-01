@@ -7,7 +7,6 @@ import type { Solution } from "@/interfaces/game";
 type UseAutoOpenStatsParams = {
   gameEnded: boolean;
   isLoading: boolean;
-  openMenu: () => void;
   setIsStatsModalOpen: (open: boolean) => void;
   solutions: Solution;
 };
@@ -15,7 +14,6 @@ type UseAutoOpenStatsParams = {
 export const useAutoOpenStats = ({
   gameEnded,
   isLoading,
-  openMenu,
   setIsStatsModalOpen,
   solutions,
 }: UseAutoOpenStatsParams) => {
@@ -33,14 +31,13 @@ export const useAutoOpenStats = ({
     hasAutoOpenedStatsRef.current = true;
     const timeout = setTimeout(
       () => {
-        openMenu();
         setIsStatsModalOpen(true);
       },
       REVEAL_TIME_MS * (solutions.solution[0]?.length ?? 5),
     );
 
     return () => clearTimeout(timeout);
-  }, [gameEnded, isLoading, openMenu, setIsStatsModalOpen, solutions.solution]);
+  }, [gameEnded, isLoading, setIsStatsModalOpen, solutions.solution]);
 
   return { resetAutoOpenStats };
 };

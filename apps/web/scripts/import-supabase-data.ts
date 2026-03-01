@@ -81,14 +81,20 @@ const puzzlesFile = resolveInputPath(
 );
 const isDryRun = hasFlag("--dry-run");
 const shouldTruncate = hasFlag("--truncate");
+const shouldTruncateStats =
+  hasFlag("--truncate-stats") || hasFlag("--reset-all");
 
 const supabaseUrl =
-  process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
+  process.env.SUPABASE_URL ??
+  process.env.NEXT_PUBLIC_SUPABASE_URL ??
+  (process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ID
+    ? `https://${process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ID}.supabase.co`
+    : null);
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 if (!supabaseUrl || !supabaseServiceRoleKey) {
   console.error(
-    "Missing env vars: SUPABASE_URL (or NEXT_PUBLIC_SUPABASE_URL) and SUPABASE_SERVICE_ROLE_KEY",
+    "Missing env vars: SUPABASE_URL (or NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_PROJECT_ID) and SUPABASE_SERVICE_ROLE_KEY",
   );
   process.exit(1);
 }
@@ -293,6 +299,34 @@ const run = async () => {
     if (deleteWordsError) {
       throw new Error(
         `[truncate words] ${formatUnknownError(deleteWordsError)}`,
+      );
+    }
+  }
+
+  if (shouldTruncateStats) {
+    console.log("Truncating existing user stats and saved states...");
+
+    const { error: deleteGameStatesError } = await supabase
+      .schema(LETRIX_SCHEMA)
+      .from("user_game_states")
+      .delete()
+      .not("user_id", "is", null);
+
+    if (deleteGameStatesError) {
+      throw new Error(
+        `[truncate user_game_states] ${formatUnknownError(deleteGameStatesError)}`,
+      );
+    }
+
+    const { error: deleteUserStatsError } = await supabase
+      .schema(LETRIX_SCHEMA)
+      .from("user_mode_stats")
+      .delete()
+      .not("user_id", "is", null);
+
+    if (deleteUserStatsError) {
+      throw new Error(
+        `[truncate user_mode_stats] ${formatUnknownError(deleteUserStatsError)}`,
       );
     }
   }

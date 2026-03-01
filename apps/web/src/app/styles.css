@@ -364,6 +364,7 @@
     --tile-large-size: clamp(2.85rem, 4.9vw, 4rem);
     --tile-large-font: clamp(1.55rem, 2.8vw, 2.25rem);
     --tile-small-size: clamp(2rem, 3.25vw, 3rem);
+    --tile-small-height: var(--tile-small-size);
     --tile-small-font: clamp(1.05rem, 1.7vw, 1.5rem);
     gap: var(--board-gap);
   }
@@ -385,8 +386,9 @@
   }
 
   .boards[data-word-length="10"] {
-    --tile-small-size: clamp(1.42rem, 5.45vw, 2.05rem);
-    --tile-small-font: clamp(0.78rem, 2.55vw, 1.06rem);
+    --tile-small-size: clamp(1.44rem, 5.2vw, 2rem);
+    --tile-small-height: clamp(1.9rem, 6.65vw, 2.72rem);
+    --tile-small-font: clamp(0.82rem, 2.65vw, 1.08rem);
   }
 
   .board-shell {
@@ -403,11 +405,11 @@
 
   .boards[data-word-length="10"] .board-shell {
     width: min(100%, calc(100vw - 1rem));
-    padding: clamp(0.2rem, 0.5vw, 0.38rem);
+    padding: clamp(0.24rem, 0.52vw, 0.42rem);
   }
 
   .boards[data-word-length="10"] .row {
-    padding: 0.03rem;
+    padding: 0.08rem 0.03rem;
   }
 
   .surface-panel {
@@ -610,19 +612,23 @@
 
   .tile.small {
     width: var(--tile-small-size, clamp(1.7rem, 6vw, 2.9rem));
-    height: var(--tile-small-size, clamp(1.7rem, 6vw, 2.9rem));
+    height: var(
+      --tile-small-height,
+      var(--tile-small-size, clamp(1.7rem, 6vw, 2.9rem))
+    );
     font-size: var(--tile-small-font, clamp(0.95rem, 2.9vw, 1.45rem));
   }
 
   @media (width <= 420px) {
     .boards[data-word-length="10"] {
-      --tile-small-size: clamp(1.28rem, 5.1vw, 1.72rem);
-      --tile-small-font: clamp(0.72rem, 2.35vw, 0.94rem);
+      --tile-small-size: clamp(1.28rem, 4.95vw, 1.68rem);
+      --tile-small-height: clamp(1.72rem, 6.1vw, 2.12rem);
+      --tile-small-font: clamp(0.74rem, 2.4vw, 0.94rem);
     }
 
     .boards[data-word-length="10"] .board-shell {
       width: min(100%, calc(100vw - 0.5rem));
-      padding: 0.16rem;
+      padding: 0.18rem;
     }
 
     .boards[data-word-length="10"] .tile {
