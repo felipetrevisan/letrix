@@ -201,6 +201,8 @@ function ActionButtons({
     : "relative z-10 size-5";
   const authButtonClass = cn(
     actionClass,
+    expanded &&
+      (user ? "justify-between gap-3" : "justify-center gap-2 text-center"),
     user
       ? "border-emerald-500/45 bg-emerald-500/12 text-emerald-700 hover:border-emerald-500/70 hover:text-emerald-700 dark:text-emerald-300"
       : "border-cyan-500/45 bg-cyan-500/12 text-cyan-700 hover:border-cyan-500/70 hover:text-cyan-700 dark:text-cyan-300",
@@ -239,7 +241,7 @@ function ActionButtons({
 
     return (
       <motion.span
-        className="relative z-10 min-w-0 overflow-hidden"
+        className="relative z-10 min-w-0 flex-1 overflow-hidden"
         initial={false}
         animate={
           expanded
@@ -251,11 +253,13 @@ function ActionButtons({
           ease: MOTION_EASE.standard,
         }}
       >
-        <span className="block truncate text-sm font-medium text-current">
-          {userDisplayName}
-        </span>
-        <span className="block truncate text-[11px] leading-tight text-current/70">
-          Sair
+        <span className="flex min-w-0 items-center justify-between gap-3">
+          <span className="truncate text-sm font-medium text-current">
+            {userDisplayName}
+          </span>
+          <span className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.18em] text-current/70">
+            Sair
+          </span>
         </span>
       </motion.span>
     );
