@@ -50,3 +50,8 @@ bun.lock
 # supabase local temp
 supabase/.temp/
 **/supabase/.temp/
+
+# local tooling and raw word sources
+apps/web/scripts/
+supabase/data/raw-wordlist-snippet.txt
+supabase/data/raw-wordlist-snippet.tx

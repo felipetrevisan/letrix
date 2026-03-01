@@ -39,8 +39,7 @@ export async function POST(request: Request) {
   if (!supabase) {
     return NextResponse.json(
       {
-        error:
-          "Supabase server não configurado. Defina NEXT_PUBLIC_SUPABASE_URL/NEXT_PUBLIC_SUPABASE_PROJECT_ID e SUPABASE_SERVICE_ROLE_KEY.",
+        error: "Não foi possível carregar a definição agora.",
       },
       { status: 500 },
     );
@@ -64,7 +63,7 @@ export async function POST(request: Request) {
 
   if (error) {
     return NextResponse.json(
-      { error: "Falha ao consultar a definição no banco." },
+      { error: "Não foi possível carregar a definição agora." },
       { status: 500 },
     );
   }

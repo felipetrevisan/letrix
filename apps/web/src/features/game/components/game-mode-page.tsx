@@ -114,8 +114,7 @@ export const GameModePage = ({ mode }: Props) => {
                 {sessionError}
               </p>
               <p className="text-xs text-muted-foreground">
-                Depois de corrigir, faça um novo deploy na Vercel para o cliente
-                receber as variáveis públicas.
+                Se o problema continuar, atualize a página e tente novamente.
               </p>
             </div>
           ) : null}

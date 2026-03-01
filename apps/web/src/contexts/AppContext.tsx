@@ -104,8 +104,7 @@ export function AppProvider({ children }: ContextProps) {
 
     if (!supabase) {
       return {
-        error:
-          "Supabase não configurado. Defina NEXT_PUBLIC_SUPABASE_URL/NEXT_PUBLIC_SUPABASE_PROJECT_ID e NEXT_PUBLIC_SUPABASE_ANON_KEY/NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY.",
+        error: "Não foi possível iniciar o login agora. Tente novamente.",
       };
     }
 
@@ -142,8 +141,7 @@ export function AppProvider({ children }: ContextProps) {
 
       if (!supabase) {
         return {
-          error:
-            "Supabase não configurado. Defina NEXT_PUBLIC_SUPABASE_URL/NEXT_PUBLIC_SUPABASE_PROJECT_ID e NEXT_PUBLIC_SUPABASE_ANON_KEY/NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY.",
+          error: "Não foi possível iniciar o login agora. Tente novamente.",
         };
       }
 

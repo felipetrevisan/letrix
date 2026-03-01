@@ -153,7 +153,7 @@
       "language": "pt",
       "word": "abano",
       "display_word": "abano",
-      "definition": null,
+      "definition": "ato ou efeito de abanar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -531,7 +531,7 @@
       "language": "pt",
       "word": "abono",
       "display_word": "abono",
-      "definition": null,
+      "definition": "ato ou efeito de abonar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -594,7 +594,7 @@
       "language": "pt",
       "word": "abril",
       "display_word": "abril",
-      "definition": null,
+      "definition": "(cronônimo) quarto mês do ano civil",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -603,7 +603,7 @@
       "language": "pt",
       "word": "abrir",
       "display_word": "abrir",
-      "definition": null,
+      "definition": "levar de um estado fechado para um aberto, descerrar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -693,7 +693,7 @@
       "language": "pt",
       "word": "abuso",
       "display_word": "abuso",
-      "definition": null,
+      "definition": "comportamento inadequado e excessivo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -918,7 +918,7 @@
       "language": "pt",
       "word": "acaro",
       "display_word": "ácaro",
-      "definition": null,
+      "definition": "á.ca.ro",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -927,7 +927,7 @@
       "language": "pt",
       "word": "acaso",
       "display_word": "acaso",
-      "definition": null,
+      "definition": "a.ca.so, de modo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -1053,7 +1053,7 @@
       "language": "pt",
       "word": "aceno",
       "display_word": "aceno",
-      "definition": null,
+      "definition": "gesto com a mão ou com a cabeça",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -1116,7 +1116,7 @@
       "language": "pt",
       "word": "achar",
       "display_word": "achar",
-      "definition": null,
+      "definition": "conserva indiana (de peixe, fruta ou vegetal)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -1206,7 +1206,7 @@
       "language": "pt",
       "word": "acido",
       "display_word": "ácido",
-      "definition": null,
+      "definition": "á.ci.do",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -1224,7 +1224,7 @@
       "language": "pt",
       "word": "acima",
       "display_word": "acima",
-      "definition": null,
+      "definition": "a.ci.ma",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -1305,7 +1305,7 @@
       "language": "pt",
       "word": "acola",
       "display_word": "acolá",
-      "definition": null,
+      "definition": "a.co.lá",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -1476,7 +1476,7 @@
       "language": "pt",
       "word": "acude",
       "display_word": "açude",
-      "definition": null,
+      "definition": "a.çu.de",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -1665,7 +1665,7 @@
       "language": "pt",
       "word": "adaga",
       "display_word": "adaga",
-      "definition": null,
+      "definition": "espada, curta e larga, usada por povos bárbaros, especialmente na Idade Média",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -1719,7 +1719,7 @@
       "language": "pt",
       "word": "adega",
       "display_word": "adega",
-      "definition": null,
+      "definition": "lugar onde o vinho é armazenado",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -1800,7 +1800,7 @@
       "language": "pt",
       "word": "adeus",
       "display_word": "adeus",
-      "definition": null,
+      "definition": "a.deus",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -1827,7 +1827,7 @@
       "language": "pt",
       "word": "adiar",
       "display_word": "adiar",
-      "definition": null,
+      "definition": "deixar para outra data o que se tem para fazer",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -2277,7 +2277,7 @@
       "language": "pt",
       "word": "advir",
       "display_word": "advir",
-      "definition": null,
+      "definition": "chegar depois",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -2304,7 +2304,7 @@
       "language": "pt",
       "word": "aereo",
       "display_word": "aéreo",
-      "definition": null,
+      "definition": "a.é.re:o nota , masculino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -2322,7 +2322,7 @@
       "language": "pt",
       "word": "afago",
       "display_word": "afago",
-      "definition": null,
+      "definition": "ato de demonstrar carinho, carícia",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -2421,7 +2421,7 @@
       "language": "pt",
       "word": "afeto",
       "display_word": "afeto",
-      "definition": null,
+      "definition": "à feição, afeiçoado; dedicado; específico para:",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -3114,7 +3114,7 @@
       "language": "pt",
       "word": "agora",
       "display_word": "agora",
-      "definition": null,
+      "definition": "a.go.ra, de tempo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -3258,7 +3258,7 @@
       "language": "pt",
       "word": "agudo",
       "display_word": "agudo",
-      "definition": null,
+      "definition": "a.gu.do",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -3375,7 +3375,7 @@
       "language": "pt",
       "word": "ainda",
       "display_word": "ainda",
-      "definition": null,
+      "definition": "a.in.da",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -3627,7 +3627,7 @@
       "language": "pt",
       "word": "ajuda",
       "display_word": "ajuda",
-      "definition": null,
+      "definition": "ato ou efeito de ajudar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -3726,7 +3726,7 @@
       "language": "pt",
       "word": "alado",
       "display_word": "alado",
-      "definition": null,
+      "definition": "a.la.do",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -3834,7 +3834,7 @@
       "language": "pt",
       "word": "album",
       "display_word": "álbum",
-      "definition": null,
+      "definition": "tipo de livro onde se colocam fotos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -3861,7 +3861,7 @@
       "language": "pt",
       "word": "alcar",
       "display_word": "alçar",
-      "definition": null,
+      "definition": "colocar mais alto, altear, erguer",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -4212,7 +4212,7 @@
       "language": "pt",
       "word": "algoz",
       "display_word": "algoz",
-      "definition": null,
+      "definition": "al.goz",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -4221,7 +4221,7 @@
       "language": "pt",
       "word": "algum",
       "display_word": "algum",
-      "definition": null,
+      "definition": "al.gum, indefinido",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -4293,7 +4293,7 @@
       "language": "pt",
       "word": "aliar",
       "display_word": "aliar",
-      "definition": null,
+      "definition": "fazer ligação de",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -4302,7 +4302,7 @@
       "language": "pt",
       "word": "alias",
       "display_word": "aliás",
-      "definition": null,
+      "definition": "a.li.ás",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -4311,7 +4311,7 @@
       "language": "pt",
       "word": "alibi",
       "display_word": "álibi",
-      "definition": null,
+      "definition": "prova ou argumento de inocência pelo réu estar presente em outro lugar quando certo crime aconteceu",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -4635,7 +4635,7 @@
       "language": "pt",
       "word": "altar",
       "display_word": "altar",
-      "definition": null,
+      "definition": "estrutura elevada perante a qual cerimônias religiosas são realizadas ou na qual sacrifícios podem ser oferecidos aos deuses, ancestrais, etc",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -4680,7 +4680,7 @@
       "language": "pt",
       "word": "altos",
       "display_word": "altos",
-      "definition": null,
+      "definition": "al.tos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -4806,7 +4806,7 @@
       "language": "pt",
       "word": "aluno",
       "display_word": "aluno",
-      "definition": null,
+      "definition": "pessoa que está aprendendo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -4914,7 +4914,7 @@
       "language": "pt",
       "word": "amago",
       "display_word": "âmago",
-      "definition": null,
+      "definition": "cerne, centro",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -5031,7 +5031,7 @@
       "language": "pt",
       "word": "ambar",
       "display_word": "âmbar",
-      "definition": null,
+      "definition": "resina fóssil de pinheiro, formado a cerca 50 milhões de anos, usado em joias",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -5076,7 +5076,7 @@
       "language": "pt",
       "word": "ambos",
       "display_word": "ambos",
-      "definition": null,
+      "definition": "am.bos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -5121,7 +5121,7 @@
       "language": "pt",
       "word": "ameba",
       "display_word": "ameba",
-      "definition": null,
+      "definition": "a.me.ba feminino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -5211,7 +5211,7 @@
       "language": "pt",
       "word": "ameno",
       "display_word": "ameno",
-      "definition": null,
+      "definition": "a.me.no",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -5247,7 +5247,7 @@
       "language": "pt",
       "word": "amido",
       "display_word": "amido",
-      "definition": null,
+      "definition": "polímero de cadeia alifática longa, constituído de dois polissacarídeos: amilose e amilopectina; e de fórmula genérica (C6H10O5)n",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -5409,7 +5409,7 @@
       "language": "pt",
       "word": "amora",
       "display_word": "amora",
-      "definition": null,
+      "definition": "(Botânica e fruta) fruta produzida pela amoreira (sorose)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -5445,7 +5445,7 @@
       "language": "pt",
       "word": "amplo",
       "display_word": "amplo",
-      "definition": null,
+      "definition": "am.plo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -5724,7 +5724,7 @@
       "language": "pt",
       "word": "andar",
       "display_word": "andar",
-      "definition": null,
+      "definition": "piso de um edifício sobre o qual pode-se andar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -5922,7 +5922,7 @@
       "language": "pt",
       "word": "anexo",
       "display_word": "anexo",
-      "definition": null,
+      "definition": "a.ne.xo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -6030,7 +6030,7 @@
       "language": "pt",
       "word": "animo",
       "display_word": "ânimo",
-      "definition": null,
+      "definition": "â.ni.mo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -6111,7 +6111,7 @@
       "language": "pt",
       "word": "anoes",
       "display_word": "anões",
-      "definition": null,
+      "definition": "anões masculino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -6192,7 +6192,7 @@
       "language": "pt",
       "word": "ansia",
       "display_word": "ânsia",
-      "definition": null,
+      "definition": "ân.sia feminino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -6237,7 +6237,7 @@
       "language": "pt",
       "word": "antes",
       "display_word": "antes",
-      "definition": null,
+      "definition": "an.tes",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -6264,7 +6264,7 @@
       "language": "pt",
       "word": "antro",
       "display_word": "antro",
-      "definition": null,
+      "definition": "caverna profunda e assustadora",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -6282,7 +6282,7 @@
       "language": "pt",
       "word": "anual",
       "display_word": "anual",
-      "definition": null,
+      "definition": "a.nu.al, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -6408,7 +6408,7 @@
       "language": "pt",
       "word": "anzol",
       "display_word": "anzol",
-      "definition": null,
+      "definition": "an.zol",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -6417,7 +6417,7 @@
       "language": "pt",
       "word": "aonde",
       "display_word": "aonde",
-      "definition": null,
+      "definition": "a.on.de",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -6615,7 +6615,7 @@
       "language": "pt",
       "word": "apelo",
       "display_word": "apelo",
-      "definition": null,
+      "definition": "a.pe.lo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -6678,7 +6678,7 @@
       "language": "pt",
       "word": "apice",
       "display_word": "ápice",
-      "definition": null,
+      "definition": "topo, cume",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -6813,7 +6813,7 @@
       "language": "pt",
       "word": "apoio",
       "display_word": "apoio",
-      "definition": null,
+      "definition": "encosto:",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -7002,7 +7002,7 @@
       "language": "pt",
       "word": "arabe",
       "display_word": "árabe",
-      "definition": null,
+      "definition": "á.ra.be, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -7119,7 +7119,7 @@
       "language": "pt",
       "word": "arame",
       "display_word": "arame",
-      "definition": null,
+      "definition": "liga utilizada na perfilação de fios metálicos, geralmente de bronze ou aço",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -7245,7 +7245,7 @@
       "language": "pt",
       "word": "arcar",
       "display_word": "arcar",
-      "definition": null,
+      "definition": "arquear",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -7353,7 +7353,7 @@
       "language": "pt",
       "word": "arder",
       "display_word": "arder",
-      "definition": null,
+      "definition": "inflamar-se, estar em chamas",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -7407,7 +7407,7 @@
       "language": "pt",
       "word": "ardor",
       "display_word": "ardor",
-      "definition": null,
+      "definition": "calor intenso",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -7434,7 +7434,7 @@
       "language": "pt",
       "word": "arduo",
       "display_word": "árduo",
-      "definition": null,
+      "definition": "ár.du:o nota",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -7443,7 +7443,7 @@
       "language": "pt",
       "word": "areal",
       "display_word": "areal",
-      "definition": null,
+      "definition": "a.re.al",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -7497,7 +7497,7 @@
       "language": "pt",
       "word": "areia",
       "display_word": "areia",
-      "definition": null,
+      "definition": "que tem cor de areia",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -7551,7 +7551,7 @@
       "language": "pt",
       "word": "arena",
       "display_word": "arena",
-      "definition": null,
+      "definition": "parte areada do anfiteatro onde combatiam gladiadores, feras etc.",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -7866,7 +7866,7 @@
       "language": "pt",
       "word": "arido",
       "display_word": "árido",
-      "definition": null,
+      "definition": "á.ri.do",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -8019,7 +8019,7 @@
       "language": "pt",
       "word": "armar",
       "display_word": "armar",
-      "definition": null,
+      "definition": "prover de armas",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -8145,7 +8145,7 @@
       "language": "pt",
       "word": "aroma",
       "display_word": "aroma",
-      "definition": null,
+      "definition": "odor agradável",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -8280,7 +8280,7 @@
       "language": "pt",
       "word": "arroz",
       "display_word": "arroz",
-      "definition": null,
+      "definition": "(Botânica) planta da família das gramíneas com algumas espécies e muitas variedades bastante cultivadas cujo fruto é comestível",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -8595,7 +8595,7 @@
       "language": "pt",
       "word": "aspas",
       "display_word": "aspas",
-      "definition": null,
+      "definition": "o mesmo que asa (caixilhos)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -8649,7 +8649,7 @@
       "language": "pt",
       "word": "assar",
       "display_word": "assar",
-      "definition": null,
+      "definition": "cozinhar em seco, diretamente sobre o fogo ou no forno",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -8703,7 +8703,7 @@
       "language": "pt",
       "word": "assim",
       "display_word": "assim",
-      "definition": null,
+      "definition": "as.sim (Datação: 1192)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -8793,7 +8793,7 @@
       "language": "pt",
       "word": "astro",
       "display_word": "astro",
-      "definition": null,
+      "definition": "as.tro",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -9198,7 +9198,7 @@
       "language": "pt",
       "word": "atlas",
       "display_word": "atlas",
-      "definition": null,
+      "definition": "a.tlas, invariável, masculino (Datação: século XV)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -9270,7 +9270,7 @@
       "language": "pt",
       "word": "atomo",
       "display_word": "átomo",
-      "definition": null,
+      "definition": "menor partícula em que se pode dividir um elemento, exibindo ainda todas as características típicas do comportamento químico desse elemento",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -9324,7 +9324,7 @@
       "language": "pt",
       "word": "atras",
       "display_word": "atrás",
-      "definition": null,
+      "definition": "a.trás, de lugar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -9351,7 +9351,7 @@
       "language": "pt",
       "word": "atriz",
       "display_word": "atriz",
-      "definition": null,
+      "definition": "Foi também um dos grandes papéis da vida de Jane Fonda, sua atriz para esse filme magnífico. (notícia do jornal O Estado de S. Paulo de 27 de maio de 2008)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -9369,7 +9369,7 @@
       "language": "pt",
       "word": "atroz",
       "display_word": "atroz",
-      "definition": null,
+      "definition": "a.troz, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -9648,7 +9648,7 @@
       "language": "pt",
       "word": "aureo",
       "display_word": "áureo",
-      "definition": null,
+      "definition": "áu.re:o nota",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -9828,7 +9828,7 @@
       "language": "pt",
       "word": "aveia",
       "display_word": "aveia",
-      "definition": null,
+      "definition": "planta da família dos poáceos, da espécie Avena sativa",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -9927,7 +9927,7 @@
       "language": "pt",
       "word": "avido",
       "display_word": "ávido",
-      "definition": null,
+      "definition": "á.vi.do",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -10116,7 +10116,7 @@
       "language": "pt",
       "word": "axila",
       "display_word": "axila",
-      "definition": null,
+      "definition": "(Anatomia) cavidade na parte inferior da junção entre braço e ombro",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -10539,7 +10539,7 @@
       "language": "pt",
       "word": "bacia",
       "display_word": "bacia",
-      "definition": null,
+      "definition": "recipiente redondo, de bordas largas, próprio para lavagens",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -10827,7 +10827,7 @@
       "language": "pt",
       "word": "baita",
       "display_word": "baita",
-      "definition": null,
+      "definition": "bai.ta, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -10881,7 +10881,7 @@
       "language": "pt",
       "word": "balao",
       "display_word": "balão",
-      "definition": null,
+      "definition": "recipiente de forma oval que, cheio de um fluido mais leve que o ar, flutua sem auxílio de um sistema de propulsão",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -11043,7 +11043,7 @@
       "language": "pt",
       "word": "balsa",
       "display_word": "balsa",
-      "definition": null,
+      "definition": "depósito de água que se forma naturalmente ao inundar-se uma depressão",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -11115,7 +11115,7 @@
       "language": "pt",
       "word": "banca",
       "display_word": "banca",
-      "definition": null,
+      "definition": "bancada, mesa de trabalho",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -11214,7 +11214,7 @@
       "language": "pt",
       "word": "banho",
       "display_word": "banho",
-      "definition": null,
+      "definition": "imersão de um corpo em água, vapor, lama, etc, para limpeza ou tratamento médico",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -11403,7 +11403,7 @@
       "language": "pt",
       "word": "barco",
       "display_word": "barco",
-      "definition": null,
+      "definition": "veículo de transporte aquático",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -11610,7 +11610,7 @@
       "language": "pt",
       "word": "basta",
       "display_word": "basta",
-      "definition": null,
+      "definition": "bas.ta",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -11844,7 +11844,7 @@
       "language": "pt",
       "word": "beata",
       "display_word": "beata",
-      "definition": null,
+      "definition": "be.a.ta",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -13041,7 +13041,7 @@
       "language": "pt",
       "word": "bioma",
       "display_word": "bioma",
-      "definition": null,
+      "definition": "bi.o.ma",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -13374,7 +13374,7 @@
       "language": "pt",
       "word": "bloco",
       "display_word": "bloco",
-      "definition": null,
+      "definition": "massa volumosa e compacta de uma substância pesada",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -13473,7 +13473,7 @@
       "language": "pt",
       "word": "boate",
       "display_word": "boate",
-      "definition": null,
+      "definition": "bo.a.te feminino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -13869,7 +13869,7 @@
       "language": "pt",
       "word": "boina",
       "display_word": "boina",
-      "definition": null,
+      "definition": "(vestuário) chapéu de lã ou pano semelhante a um boné, mas sem a aba",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -14094,7 +14094,7 @@
       "language": "pt",
       "word": "bolsa",
       "display_word": "bolsa",
-      "definition": null,
+      "definition": "sacola com alças onde se guardam objetos pessoais",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -14112,7 +14112,7 @@
       "language": "pt",
       "word": "bomba",
       "display_word": "bomba",
-      "definition": null,
+      "definition": "(Militar) artefato explosivo usado como arma, empregado em guerras contra alvos militares ou civis, que pode ser lançado ou plantado:",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -14139,7 +14139,7 @@
       "language": "pt",
       "word": "bonde",
       "display_word": "bonde",
-      "definition": null,
+      "definition": "(Economia) título da dívida pública pagável ao portador",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -14247,7 +14247,7 @@
       "language": "pt",
       "word": "borda",
       "display_word": "borda",
-      "definition": null,
+      "definition": "beira",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -14436,7 +14436,7 @@
       "language": "pt",
       "word": "botao",
       "display_word": "botão",
-      "definition": null,
+      "definition": "dispositivo encontrado em máquinas usado - pressionando - para mudar o estado da máquina, começar ou parar um processo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -14886,7 +14886,7 @@
       "language": "pt",
       "word": "breve",
       "display_word": "breve",
-      "definition": null,
+      "definition": "bre.ve",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -15048,7 +15048,7 @@
       "language": "pt",
       "word": "broca",
       "display_word": "broca",
-      "definition": null,
+      "definition": "pua",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -15273,7 +15273,7 @@
       "language": "pt",
       "word": "bucal",
       "display_word": "bucal",
-      "definition": null,
+      "definition": "bu.cal",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -15363,7 +15363,7 @@
       "language": "pt",
       "word": "bufao",
       "display_word": "bufão",
-      "definition": null,
+      "definition": "bu.fão",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -15840,7 +15840,7 @@
       "language": "pt",
       "word": "busto",
       "display_word": "busto",
-      "definition": null,
+      "definition": "bus.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -16191,7 +16191,7 @@
       "language": "pt",
       "word": "cacar",
       "display_word": "caçar",
-      "definition": null,
+      "definition": "perseguir uma presa e, usualmente, matá-la",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -16884,7 +16884,7 @@
       "language": "pt",
       "word": "calca",
       "display_word": "calça",
-      "definition": null,
+      "definition": "(Vestuário) peça de vestuário para as pernas",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -17010,7 +17010,7 @@
       "language": "pt",
       "word": "calma",
       "display_word": "calma",
-      "definition": null,
+      "definition": "cal.ma!",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -17019,7 +17019,7 @@
       "language": "pt",
       "word": "calmo",
       "display_word": "calmo",
-      "definition": null,
+      "definition": "cal.mo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -17199,7 +17199,7 @@
       "language": "pt",
       "word": "campo",
       "display_word": "campo",
-      "definition": null,
+      "definition": "região fora da cidade",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -17361,7 +17361,7 @@
       "language": "pt",
       "word": "canoa",
       "display_word": "canoa",
-      "definition": null,
+      "definition": "(transporte) pequeno bote movido a remos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -17577,7 +17577,7 @@
       "language": "pt",
       "word": "capim",
       "display_word": "capim",
-      "definition": null,
+      "definition": "(Brasil) tipo de gramínea usada como forragem para o gado",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -17667,7 +17667,7 @@
       "language": "pt",
       "word": "capuz",
       "display_word": "capuz",
-      "definition": null,
+      "definition": "espécie de touca que cobre a maior parte da cabeça e do pescoço, e às vezes a própria face, normalmente presa de alguma forma a um casaco ou a uma blusa",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -17739,7 +17739,7 @@
       "language": "pt",
       "word": "carga",
       "display_word": "carga",
-      "definition": null,
+      "definition": "o que pode ser ou é transportado por pessoas, animais ou veículos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -17820,7 +17820,7 @@
       "language": "pt",
       "word": "carma",
       "display_word": "carma",
-      "definition": null,
+      "definition": "segundo o hinduísmo e o budismo, a lei de causa e efeito, na qual todas as ações, boas ou más, de uma pessoa geram reações correspondentes nesta vida ou em encarnações futuras",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -17847,7 +17847,7 @@
       "language": "pt",
       "word": "carne",
       "display_word": "carne",
-      "definition": null,
+      "definition": "tecido muscular do homem e dos animais",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -17883,7 +17883,7 @@
       "language": "pt",
       "word": "carpa",
       "display_word": "carpa",
-      "definition": null,
+      "definition": "(ictiologia) peixe de água doce da família dos ciprinídeos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -17928,7 +17928,7 @@
       "language": "pt",
       "word": "carro",
       "display_word": "carro",
-      "definition": null,
+      "definition": "veículo com a capacidade de se movimentar guiado por um motorista, geralmente com a finalidade de transportar pessoas",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -18000,7 +18000,7 @@
       "language": "pt",
       "word": "casal",
       "display_word": "casal",
-      "definition": null,
+      "definition": "par afetivo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -18063,7 +18063,7 @@
       "language": "pt",
       "word": "casco",
       "display_word": "casco",
-      "definition": null,
+      "definition": "invólucro do crânio",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -18207,7 +18207,7 @@
       "language": "pt",
       "word": "catar",
       "display_word": "catar",
-      "definition": null,
+      "definition": "ca.tar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -18405,7 +18405,7 @@
       "language": "pt",
       "word": "causa",
       "display_word": "causa",
-      "definition": null,
+      "definition": "aquilo ou aquele que ocasiona um acontecimento ou faz que uma coisa exista",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -19017,7 +19017,7 @@
       "language": "pt",
       "word": "censo",
       "display_word": "censo",
-      "definition": null,
+      "definition": "pesquisa que visa a coleta de dados estatísticos de um determinado lugar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -19161,7 +19161,7 @@
       "language": "pt",
       "word": "cerne",
       "display_word": "cerne",
-      "definition": null,
+      "definition": "(Botânica) parte central do tronco das árvores, que tem funções estruturais",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -19242,7 +19242,7 @@
       "language": "pt",
       "word": "cervo",
       "display_word": "cervo",
-      "definition": null,
+      "definition": "mamífero ruminante da família dos cervídeos, com chifres ramificados, que vive em rebanhos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -19332,7 +19332,7 @@
       "language": "pt",
       "word": "cetim",
       "display_word": "cetim",
-      "definition": null,
+      "definition": "tecido de seda lustroso e macio",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -19359,7 +19359,7 @@
       "language": "pt",
       "word": "cetro",
       "display_word": "cetro",
-      "definition": null,
+      "definition": "bastão de apoio usado outrora pelos reis e generais",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -19593,7 +19593,7 @@
       "language": "pt",
       "word": "chata",
       "display_word": "chata",
-      "definition": null,
+      "definition": "barca larga e pouco funda",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -19701,7 +19701,7 @@
       "language": "pt",
       "word": "chefe",
       "display_word": "chefe",
-      "definition": null,
+      "definition": "che.fe, comum aos dois géneros singular",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -20142,7 +20142,7 @@
       "language": "pt",
       "word": "choro",
       "display_word": "choro",
-      "definition": null,
+      "definition": "ato de chorar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -20448,7 +20448,7 @@
       "language": "pt",
       "word": "ciclo",
       "display_word": "ciclo",
-      "definition": null,
+      "definition": "ci.clo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -20601,7 +20601,7 @@
       "language": "pt",
       "word": "cinco",
       "display_word": "cinco",
-      "definition": null,
+      "definition": "cin.co, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -20709,7 +20709,7 @@
       "language": "pt",
       "word": "cinza",
       "display_word": "cinza",
-      "definition": null,
+      "definition": "cin.za, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -20952,7 +20952,7 @@
       "language": "pt",
       "word": "citar",
       "display_word": "citar",
-      "definition": null,
+      "definition": "ci.tar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -21114,7 +21114,7 @@
       "language": "pt",
       "word": "claro",
       "display_word": "claro",
-      "definition": null,
+      "definition": "que clareia, ilumina",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -21222,7 +21222,7 @@
       "language": "pt",
       "word": "clipe",
       "display_word": "clipe",
-      "definition": null,
+      "definition": "grampo para prender papéis",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -21330,7 +21330,7 @@
       "language": "pt",
       "word": "clube",
       "display_word": "clube",
-      "definition": null,
+      "definition": "grupo de pessoas que se reúnem para estudo, diversão, jogos, esportes, etc",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -21420,7 +21420,7 @@
       "language": "pt",
       "word": "coala",
       "display_word": "coala",
-      "definition": null,
+      "definition": "mamífero marsupial pertencente à família Phascolarctidae, possui pelo cinza e branco, vive no Sudeste e Nordeste da Austrália",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -21546,7 +21546,7 @@
       "language": "pt",
       "word": "cobra",
       "display_word": "cobra",
-      "definition": null,
+      "definition": "co.bra",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -21555,7 +21555,7 @@
       "language": "pt",
       "word": "cobre",
       "display_word": "cobre",
-      "definition": null,
+      "definition": "(Elemento químico) elemento de símbolo Cu, possui o número atômico 29 e massa atômica relativa de 63,536 u; é um metal avermelhado, encontrado na natureza associado a minérios como a cuprita, malaquita, calcopirita e a bornita; por ser excelente condutor de eletricidade e muito resistente à corrosão, é empregado em condutores elétricos, motores, eletroímãs e encanamentos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -21618,7 +21618,7 @@
       "language": "pt",
       "word": "cocar",
       "display_word": "coçar",
-      "definition": null,
+      "definition": "esfregar com as unhas, ou com outro objeto, qualquer parte do corpo onde se sente comichão",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -21807,7 +21807,7 @@
       "language": "pt",
       "word": "coeso",
       "display_word": "coeso",
-      "definition": null,
+      "definition": "co.e.so",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -21843,7 +21843,7 @@
       "language": "pt",
       "word": "cofre",
       "display_word": "cofre",
-      "definition": null,
+      "definition": "local onde se guardam dinheiro e objetos de valor",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -21897,7 +21897,7 @@
       "language": "pt",
       "word": "coice",
       "display_word": "coice",
-      "definition": null,
+      "definition": "pancada defensiva que certos quadrúpedes desferem, lançando a pata para trás ou para os lados",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -22194,7 +22194,7 @@
       "language": "pt",
       "word": "colon",
       "display_word": "cólon",
-      "definition": null,
+      "definition": "(Anatomia) porção média do intestino grosso que vai do ceco ao reto, composto pelos cólons ascendente, transverso, descendente e sigmoide; colo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -22392,7 +22392,7 @@
       "language": "pt",
       "word": "conde",
       "display_word": "conde",
-      "definition": null,
+      "definition": "con.de",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -22536,7 +22536,7 @@
       "language": "pt",
       "word": "copas",
       "display_word": "copas",
-      "definition": null,
+      "definition": "(ludologia) naipe de cartas de baralho em que cada ponto é representado por um coração vermelho (♥)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -22842,7 +22842,7 @@
       "language": "pt",
       "word": "coroa",
       "display_word": "coroa",
-      "definition": null,
+      "definition": "(Brasil e gíria) qualidade de pessoa mais velha, que está na meia idade",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -23337,7 +23337,7 @@
       "language": "pt",
       "word": "couro",
       "display_word": "couro",
-      "definition": null,
+      "definition": "pele animal curtida",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -23634,7 +23634,7 @@
       "language": "pt",
       "word": "cravo",
       "display_word": "cravo",
-      "definition": null,
+      "definition": "(botânica) a planta craveiro; a flor do craveiro",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -23751,7 +23751,7 @@
       "language": "pt",
       "word": "creme",
       "display_word": "creme",
-      "definition": null,
+      "definition": "cre.me",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -23922,7 +23922,7 @@
       "language": "pt",
       "word": "crime",
       "display_word": "crime",
-      "definition": null,
+      "definition": "(Crime e direito) conduta descrita na legislação penal como sendo proibida, por meio de um tipo penal",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -24381,7 +24381,7 @@
       "language": "pt",
       "word": "cueca",
       "display_word": "cueca",
-      "definition": null,
+      "definition": "(Vestuário) roupa interior feminina e masculina que cobre os órgãos genitais",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -24597,7 +24597,7 @@
       "language": "pt",
       "word": "culto",
       "display_word": "culto",
-      "definition": null,
+      "definition": "cul.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -24849,7 +24849,7 @@
       "language": "pt",
       "word": "curar",
       "display_word": "curar",
-      "definition": null,
+      "definition": "restabelecer a saúde de",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -25182,7 +25182,7 @@
       "language": "pt",
       "word": "custo",
       "display_word": "custo",
-      "definition": null,
+      "definition": "cus.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -25398,7 +25398,7 @@
       "language": "pt",
       "word": "damas",
       "display_word": "damas",
-      "definition": null,
+      "definition": "jogo de tabuleiro para dois jogadores que usa um tabuleiro quadrado com sessenta e quatro quadrados menores alternados claros e escuros, chamados casas; cada jogador tem doze peças; o objetivo do jogo é capturar ou imobilizar as peças do adversário",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -25830,7 +25830,7 @@
       "language": "pt",
       "word": "debil",
       "display_word": "débil",
-      "definition": null,
+      "definition": "dé.bil, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -26082,7 +26082,7 @@
       "language": "pt",
       "word": "delta",
       "display_word": "delta",
-      "definition": null,
+      "definition": "quarta letra do alfabeto grego e tem um valor numérico de 4",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -26181,7 +26181,7 @@
       "language": "pt",
       "word": "dente",
       "display_word": "dente",
-      "definition": null,
+      "definition": "estrutura calcárea, dura, geralmente esmaltada, presente na boca dos animais vertebrados, usada para cortar, arrancar, triturar e moer alimentos, assim como para defesa e ataque",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -26208,7 +26208,7 @@
       "language": "pt",
       "word": "depor",
       "display_word": "depor",
-      "definition": null,
+      "definition": "pôr de parte",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -26361,7 +26361,7 @@
       "language": "pt",
       "word": "desde",
       "display_word": "desde",
-      "definition": null,
+      "definition": "des.de",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -26442,7 +26442,7 @@
       "language": "pt",
       "word": "deter",
       "display_word": "deter",
-      "definition": null,
+      "definition": "proceder à detenção; prender; reter à força",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -26451,7 +26451,7 @@
       "language": "pt",
       "word": "deusa",
       "display_word": "deusa",
-      "definition": null,
+      "definition": "numa religião, ser sobrenatural de poderes sobre-humanos, de gênero feminino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -26748,7 +26748,7 @@
       "language": "pt",
       "word": "dieta",
       "display_word": "dieta",
-      "definition": null,
+      "definition": "regime especial de alimentação",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -26811,7 +26811,7 @@
       "language": "pt",
       "word": "digno",
       "display_word": "digno",
-      "definition": null,
+      "definition": "dig.no masculino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -26919,7 +26919,7 @@
       "language": "pt",
       "word": "diodo",
       "display_word": "diodo",
-      "definition": null,
+      "definition": "(Eletrônica) componente que basicamente permite a passagem da corrente elétrica majoritária somente num sentido",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -27387,7 +27387,7 @@
       "language": "pt",
       "word": "dobro",
       "display_word": "dobro",
-      "definition": null,
+      "definition": "o duplo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -27495,7 +27495,7 @@
       "language": "pt",
       "word": "dogma",
       "display_word": "dogma",
-      "definition": null,
+      "definition": "ponto inquestionável de uma doutrina",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -27900,7 +27900,7 @@
       "language": "pt",
       "word": "dosar",
       "display_word": "dosar",
-      "definition": null,
+      "definition": "do.sar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -28143,7 +28143,7 @@
       "language": "pt",
       "word": "drama",
       "display_word": "drama",
-      "definition": null,
+      "definition": "peça teatral",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -28449,7 +28449,7 @@
       "language": "pt",
       "word": "dueto",
       "display_word": "dueto",
-      "definition": null,
+      "definition": "grupo de duas pessoas que atuam conjuntamente",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -28557,7 +28557,7 @@
       "language": "pt",
       "word": "duplo",
       "display_word": "duplo",
-      "definition": null,
+      "definition": "que tem duplicidade; ambíguo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -28611,7 +28611,7 @@
       "language": "pt",
       "word": "durar",
       "display_word": "durar",
-      "definition": null,
+      "definition": "não se gastar;",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -29898,7 +29898,7 @@
       "language": "pt",
       "word": "enfim",
       "display_word": "enfim",
-      "definition": null,
+      "definition": "en.fim",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -30240,7 +30240,7 @@
       "language": "pt",
       "word": "epico",
       "display_word": "épico",
-      "definition": null,
+      "definition": "é.pi.co",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -30249,7 +30249,7 @@
       "language": "pt",
       "word": "epoca",
       "display_word": "época",
-      "definition": null,
+      "definition": "em geral, determinado momento do tempo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -30897,7 +30897,7 @@
       "language": "pt",
       "word": "esqui",
       "display_word": "esqui",
-      "definition": null,
+      "definition": "prancha fina e alongada que quando calçadas ou acopladas (a um carrinho, por exemplo) ajudam a deslizar sobre a neve, água, grama ou outra superfície lisa",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -31122,7 +31122,7 @@
       "language": "pt",
       "word": "etica",
       "display_word": "ética",
-      "definition": null,
+      "definition": "estudo filosófico das leis morais que regem as ações humanas",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -31356,7 +31356,7 @@
       "language": "pt",
       "word": "exame",
       "display_word": "exame",
-      "definition": null,
+      "definition": "e.xa.me",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -31401,7 +31401,7 @@
       "language": "pt",
       "word": "exato",
       "display_word": "exato",
-      "definition": null,
+      "definition": "e.xa.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -31617,7 +31617,7 @@
       "language": "pt",
       "word": "expor",
       "display_word": "expor",
-      "definition": null,
+      "definition": "ex.por",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -31932,7 +31932,7 @@
       "language": "pt",
       "word": "falar",
       "display_word": "falar",
-      "definition": null,
+      "definition": "emitir sons com significado coerente segundo uma convenção linguística qualquer",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -32301,7 +32301,7 @@
       "language": "pt",
       "word": "farao",
       "display_word": "faraó",
-      "definition": null,
+      "definition": "título dos antigos reis egípcios",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -32418,7 +32418,7 @@
       "language": "pt",
       "word": "farpa",
       "display_word": "farpa",
-      "definition": null,
+      "definition": "ponta metálica aguda com finalidade de penetração usada em flechas, dardos, etc.",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -32472,7 +32472,7 @@
       "language": "pt",
       "word": "farto",
       "display_word": "farto",
-      "definition": null,
+      "definition": "far.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -32553,7 +32553,7 @@
       "language": "pt",
       "word": "fatal",
       "display_word": "fatal",
-      "definition": null,
+      "definition": "fa.tal, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -32697,7 +32697,7 @@
       "language": "pt",
       "word": "favor",
       "display_word": "favor",
-      "definition": null,
+      "definition": "fa.vor",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -32985,7 +32985,7 @@
       "language": "pt",
       "word": "feixe",
       "display_word": "feixe",
-      "definition": null,
+      "definition": "molho",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -33327,7 +33327,7 @@
       "language": "pt",
       "word": "ferro",
       "display_word": "ferro",
-      "definition": null,
+      "definition": "(Elemento químico) elemento químico de símbolo Fe, possui o número atômico 26 e massa atômica relativa 55,845 u; é o quarto elemento mais abundante na crosta terrestre; é um metal duro e muito reativo, formando ligas com os mais diversos elementos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -33435,7 +33435,7 @@
       "language": "pt",
       "word": "feudo",
       "display_word": "feudo",
-      "definition": null,
+      "definition": "(história) posse concedida pelo suserano ao vassalo em troca de serviços",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -33525,7 +33525,7 @@
       "language": "pt",
       "word": "fibra",
       "display_word": "fibra",
-      "definition": null,
+      "definition": "fi.bra",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -33831,7 +33831,7 @@
       "language": "pt",
       "word": "filha",
       "display_word": "filha",
-      "definition": null,
+      "definition": "mulher ou fêmea que foi gerada pela mãe e concebida pelo pai",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -33930,7 +33930,7 @@
       "language": "pt",
       "word": "final",
       "display_word": "final",
-      "definition": null,
+      "definition": "fi.nal, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -34155,7 +34155,7 @@
       "language": "pt",
       "word": "firma",
       "display_word": "firma",
-      "definition": null,
+      "definition": "assinatura comercial representando uma sociedade ou uma companhia",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -34182,7 +34182,7 @@
       "language": "pt",
       "word": "fisco",
       "display_word": "fisco",
-      "definition": null,
+      "definition": "(História) recursos destinados à manutenção do príncipe da Roma Imperial",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -34704,7 +34704,7 @@
       "language": "pt",
       "word": "fluor",
       "display_word": "flúor",
-      "definition": null,
+      "definition": "(Elemento químico) elemento químico de símbolo F, possui o número atômico 9 e massa atômica relativa 18,998; está situado no grupo dos halogênios da tabela periódica; encontra-se distribuído na crosta terrestre, porém, alguns minérios são mais ricos em flúor, como a fluorite; é utilizado na fabricação de plásticos, produtos farmacêuticos e fluidos refrigerantes",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -34812,7 +34812,7 @@
       "language": "pt",
       "word": "focar",
       "display_word": "focar",
-      "definition": null,
+      "definition": "dirigir o foco luminoso a um ponto",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -35118,7 +35118,7 @@
       "language": "pt",
       "word": "folia",
       "display_word": "folia",
-      "definition": null,
+      "definition": "antiga dança portuguesa rápida e animada, acompanhada por adufes e pandeiros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -35379,7 +35379,7 @@
       "language": "pt",
       "word": "forno",
       "display_word": "forno",
-      "definition": null,
+      "definition": "(alimentação) construção abobadada onde se coze o pão, se assam alimentos, se coze louça, etc",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -35577,7 +35577,7 @@
       "language": "pt",
       "word": "frade",
       "display_word": "frade",
-      "definition": null,
+      "definition": "(Catolicismo) membro de uma ordem religiosa, em especial as ordens franciscanas, dominicanas, carmelitas e augustinianas; freire",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -35793,7 +35793,7 @@
       "language": "pt",
       "word": "frevo",
       "display_word": "frevo",
-      "definition": null,
+      "definition": "ritmo de dança",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -36045,7 +36045,7 @@
       "language": "pt",
       "word": "fruta",
       "display_word": "fruta",
-      "definition": null,
+      "definition": "(alimentação) alimento encontrado na natureza",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -36216,7 +36216,7 @@
       "language": "pt",
       "word": "fugir",
       "display_word": "fugir",
-      "definition": null,
+      "definition": "retirar-se",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -36567,7 +36567,7 @@
       "language": "pt",
       "word": "funil",
       "display_word": "funil",
-      "definition": null,
+      "definition": "utensílio com a forma de pirâmide ou de cone invertido em cujo vértice há um tubo que serve para transvasar líquidos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -36702,7 +36702,7 @@
       "language": "pt",
       "word": "furor",
       "display_word": "furor",
-      "definition": null,
+      "definition": "agitação violenta",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -36837,7 +36837,7 @@
       "language": "pt",
       "word": "futil",
       "display_word": "fútil",
-      "definition": null,
+      "definition": "fú.til, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -37332,7 +37332,7 @@
       "language": "pt",
       "word": "galho",
       "display_word": "galho",
-      "definition": null,
+      "definition": "ramo de árvore, que contém as folhas, flores e frutos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -37692,7 +37692,7 @@
       "language": "pt",
       "word": "garca",
       "display_word": "garça",
-      "definition": null,
+      "definition": "(ornitologia) ave pernalta aquática de bico comprido",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -38088,7 +38088,7 @@
       "language": "pt",
       "word": "geada",
       "display_word": "geada",
-      "definition": null,
+      "definition": "ge.a.da",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -38457,7 +38457,7 @@
       "language": "pt",
       "word": "genio",
       "display_word": "gênio",
-      "definition": null,
+      "definition": "gê.ni:o nota , comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -38547,7 +38547,7 @@
       "language": "pt",
       "word": "gerar",
       "display_word": "gerar",
-      "definition": null,
+      "definition": "dar(-se) origem a:",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -38691,7 +38691,7 @@
       "language": "pt",
       "word": "gesto",
       "display_word": "gesto",
-      "definition": null,
+      "definition": "ges.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -38934,7 +38934,7 @@
       "language": "pt",
       "word": "giria",
       "display_word": "gíria",
-      "definition": null,
+      "definition": "gí.ri:a nota , feminino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -39240,7 +39240,7 @@
       "language": "pt",
       "word": "goela",
       "display_word": "goela",
-      "definition": null,
+      "definition": "garganta",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -39699,7 +39699,7 @@
       "language": "pt",
       "word": "gorro",
       "display_word": "gorro",
-      "definition": null,
+      "definition": "barrete comprido em forma de saco",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -39825,7 +39825,7 @@
       "language": "pt",
       "word": "gozar",
       "display_word": "gozar",
-      "definition": null,
+      "definition": "go.zar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -39960,7 +39960,7 @@
       "language": "pt",
       "word": "grana",
       "display_word": "grana",
-      "definition": null,
+      "definition": "grã, tecido",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -40032,7 +40032,7 @@
       "language": "pt",
       "word": "graus",
       "display_word": "graus",
-      "definition": null,
+      "definition": "graus masculino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -40149,7 +40149,7 @@
       "language": "pt",
       "word": "grego",
       "display_word": "grego",
-      "definition": null,
+      "definition": "relativo à Grécia ou a seus habitantes",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -40383,7 +40383,7 @@
       "language": "pt",
       "word": "grito",
       "display_word": "grito",
-      "definition": null,
+      "definition": "gri.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -40797,7 +40797,7 @@
       "language": "pt",
       "word": "gueto",
       "display_word": "gueto",
-      "definition": null,
+      "definition": "(história) bairro onde, em algumas cidades europeias, os judeus eram obrigados a morar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -41103,7 +41103,7 @@
       "language": "pt",
       "word": "guria",
       "display_word": "guria",
-      "definition": null,
+      "definition": "gu.ri.a feminino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -41391,7 +41391,7 @@
       "language": "pt",
       "word": "haste",
       "display_word": "haste",
-      "definition": null,
+      "definition": "pedaço de pau ou ferro, delgado, levantado e direito, em que se embute ou encrava alguma coisa, como uma bandeira, uma lança, uma alabarda",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -41724,7 +41724,7 @@
       "language": "pt",
       "word": "hiena",
       "display_word": "hiena",
-      "definition": null,
+      "definition": "mamífero, carnívoro, feroz e devorador de carne putrefacta",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -41895,7 +41895,7 @@
       "language": "pt",
       "word": "homem",
       "display_word": "homem",
-      "definition": null,
+      "definition": "pessoa do sexo ou gênero masculino, geralmente, mas não exclusivamente, adulta",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -42030,7 +42030,7 @@
       "language": "pt",
       "word": "horto",
       "display_word": "horto",
-      "definition": null,
+      "definition": "pequena horta",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -42444,7 +42444,7 @@
       "language": "pt",
       "word": "icone",
       "display_word": "ícone",
-      "definition": null,
+      "definition": "símbolo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -42525,7 +42525,7 @@
       "language": "pt",
       "word": "idolo",
       "display_word": "ídolo",
-      "definition": null,
+      "definition": "figura, estátua que representa uma divindade que se adora",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -42642,7 +42642,7 @@
       "language": "pt",
       "word": "igual",
       "display_word": "igual",
-      "definition": null,
+      "definition": "i.gual comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -43290,7 +43290,7 @@
       "language": "pt",
       "word": "inato",
       "display_word": "inato",
-      "definition": null,
+      "definition": "i.na.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -43479,7 +43479,7 @@
       "language": "pt",
       "word": "infra",
       "display_word": "infra",
-      "definition": null,
+      "definition": "in.fra",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -44055,7 +44055,7 @@
       "language": "pt",
       "word": "irmao",
       "display_word": "irmão",
-      "definition": null,
+      "definition": "ir.mão",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -44775,7 +44775,7 @@
       "language": "pt",
       "word": "jarro",
       "display_word": "jarro",
-      "definition": null,
+      "definition": "vasilha de corpo grosso e boca larga, geralmente com uma só asa",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -44991,7 +44991,7 @@
       "language": "pt",
       "word": "jeito",
       "display_word": "jeito",
-      "definition": null,
+      "definition": "jei.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -45675,7 +45675,7 @@
       "language": "pt",
       "word": "juizo",
       "display_word": "juízo",
-      "definition": null,
+      "definition": "julgamento",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -45864,7 +45864,7 @@
       "language": "pt",
       "word": "jurar",
       "display_word": "jurar",
-      "definition": null,
+      "definition": "ju.rar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -46098,7 +46098,7 @@
       "language": "pt",
       "word": "labia",
       "display_word": "lábia",
-      "definition": null,
+      "definition": "lá.bi:a nota , feminino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -46278,7 +46278,7 @@
       "language": "pt",
       "word": "lacre",
       "display_word": "lacre",
-      "definition": null,
+      "definition": "peça movível presa por um pedaço de metal a recipiente vedado para líquidos que permite abri-lo ao se incliná-la a aplicar pressão por meio de método de alavancagem a uma parte rompível",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -46764,7 +46764,7 @@
       "language": "pt",
       "word": "lapis",
       "display_word": "lápis",
-      "definition": null,
+      "definition": "cilindro fino de material apropriado, geralmente grafite, envolvido por uma menos fina tora de madeira usado para escrever, desenhar ou pintar:",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -46953,7 +46953,7 @@
       "language": "pt",
       "word": "latao",
       "display_word": "latão",
-      "definition": null,
+      "definition": "qualquer das várias ligas metálicas feitas principalmente de cobre e zinco; tem cor amarelo pálida",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -47061,7 +47061,7 @@
       "language": "pt",
       "word": "lauda",
       "display_word": "lauda",
-      "definition": null,
+      "definition": "cada um dos lados de uma folha",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -47277,7 +47277,7 @@
       "language": "pt",
       "word": "lebre",
       "display_word": "lebre",
-      "definition": null,
+      "definition": "(zoologia) mamífero da família Leporidae, parente do coelho, maior e mais rápido que este; seu macho é o lebrão",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -47502,7 +47502,7 @@
       "language": "pt",
       "word": "leite",
       "display_word": "leite",
-      "definition": null,
+      "definition": "(alimentação e Bebida) líquido branco segregado pelas glândulas mamárias, existentes nas fêmeas dos mamíferos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -47619,7 +47619,7 @@
       "language": "pt",
       "word": "lenco",
       "display_word": "lenço",
-      "definition": null,
+      "definition": "pedaço de pano quadrado que serve para:",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -47673,7 +47673,7 @@
       "language": "pt",
       "word": "lenha",
       "display_word": "lenha",
-      "definition": null,
+      "definition": "le.nha",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -47961,7 +47961,7 @@
       "language": "pt",
       "word": "lesar",
       "display_word": "lesar",
-      "definition": null,
+      "definition": "prejudicar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -48087,7 +48087,7 @@
       "language": "pt",
       "word": "letra",
       "display_word": "letra",
-      "definition": null,
+      "definition": "(Linguística) representação gráfica dos sons de um idioma",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -48402,7 +48402,7 @@
       "language": "pt",
       "word": "licor",
       "display_word": "licor",
-      "definition": null,
+      "definition": "bebida alcoólica, doce e aromatizada",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -48555,7 +48555,7 @@
       "language": "pt",
       "word": "ligar",
       "display_word": "ligar",
-      "definition": null,
+      "definition": "(Sul do Brasil) o mesmo que ligário",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -48690,7 +48690,7 @@
       "language": "pt",
       "word": "limbo",
       "display_word": "limbo",
-      "definition": null,
+      "definition": "no exterior de algo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -48771,7 +48771,7 @@
       "language": "pt",
       "word": "linda",
       "display_word": "linda",
-      "definition": null,
+      "definition": "raia, linha na que confluem dous territórios, duas propriedades de terreno",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -48834,7 +48834,7 @@
       "language": "pt",
       "word": "linho",
       "display_word": "linho",
-      "definition": null,
+      "definition": "tecido fabricado com as fibras do linho (planta)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -49104,7 +49104,7 @@
       "language": "pt",
       "word": "livre",
       "display_word": "livre",
-      "definition": null,
+      "definition": "li.vre, (Datação: século XIII)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -49311,7 +49311,7 @@
       "language": "pt",
       "word": "locao",
       "display_word": "loção",
-      "definition": null,
+      "definition": "líquido perfumado e levemente alcoolizado para o tratamento da pele e dos cabelos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -49590,7 +49590,7 @@
       "language": "pt",
       "word": "longe",
       "display_word": "longe",
-      "definition": null,
+      "definition": "lon.ge, comum aos dois géneros, singular",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -49725,7 +49725,7 @@
       "language": "pt",
       "word": "lotar",
       "display_word": "lotar",
-      "definition": null,
+      "definition": "distribuir em lotes",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -49806,7 +49806,7 @@
       "language": "pt",
       "word": "louco",
       "display_word": "louco",
-      "definition": null,
+      "definition": "lou.co",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -50013,7 +50013,7 @@
       "language": "pt",
       "word": "lugar",
       "display_word": "lugar",
-      "definition": null,
+      "definition": "assento",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -50589,7 +50589,7 @@
       "language": "pt",
       "word": "macio",
       "display_word": "macio",
-      "definition": null,
+      "definition": "que é suave aos sentidos. aveludado",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -50742,7 +50742,7 @@
       "language": "pt",
       "word": "magia",
       "display_word": "magia",
-      "definition": null,
+      "definition": "arte mágica",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -50904,7 +50904,7 @@
       "language": "pt",
       "word": "maior",
       "display_word": "maior",
-      "definition": null,
+      "definition": "mai.or, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -51057,7 +51057,7 @@
       "language": "pt",
       "word": "malte",
       "display_word": "malte",
-      "definition": null,
+      "definition": "produto que resulta da germinação artificial e posterior dessecação de cereais",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -51138,7 +51138,7 @@
       "language": "pt",
       "word": "mamar",
       "display_word": "mamar",
-      "definition": null,
+      "definition": "sugar o leite da mãe ou da ama",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -51363,7 +51363,7 @@
       "language": "pt",
       "word": "manga",
       "display_word": "manga",
-      "definition": null,
+      "definition": "fruto tropical, doce e comestível da mangueira (Mangifera indica)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -51489,7 +51489,7 @@
       "language": "pt",
       "word": "manta",
       "display_word": "manta",
-      "definition": null,
+      "definition": "manto; cobertura; xale",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -51921,7 +51921,7 @@
       "language": "pt",
       "word": "matar",
       "display_word": "matar",
-      "definition": null,
+      "definition": "causar morte, tirar a vida",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -52317,7 +52317,7 @@
       "language": "pt",
       "word": "media",
       "display_word": "média",
-      "definition": null,
+      "definition": "(estrangeirismo) ver média, mídia",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -52326,7 +52326,7 @@
       "language": "pt",
       "word": "medio",
       "display_word": "médio",
-      "definition": null,
+      "definition": "mé.di:o nota",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -52425,7 +52425,7 @@
       "language": "pt",
       "word": "meias",
       "display_word": "meias",
-      "definition": null,
+      "definition": "(Vestuário) o mesmo que par de meias; peúgas",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -52749,7 +52749,7 @@
       "language": "pt",
       "word": "menos",
       "display_word": "menos",
-      "definition": null,
+      "definition": "me.nos, invariável",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -52983,7 +52983,7 @@
       "language": "pt",
       "word": "mesma",
       "display_word": "mesma",
-      "definition": null,
+      "definition": "mes.ma",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -53046,7 +53046,7 @@
       "language": "pt",
       "word": "metal",
       "display_word": "metal",
-      "definition": null,
+      "definition": "(Química) toda substância simples, dotada de brilho próprio (brilho metálico), boa condutora de calor e de eletricidade, que forma óxidos básicos em contato com o oxigênio, e que na eletrólise se dirige ao pólo negativo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -53091,7 +53091,7 @@
       "language": "pt",
       "word": "meter",
       "display_word": "meter",
-      "definition": null,
+      "definition": "introduzir; fazer entrar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -53217,7 +53217,7 @@
       "language": "pt",
       "word": "mexer",
       "display_word": "mexer",
-      "definition": null,
+      "definition": "me.xer",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -53631,7 +53631,7 @@
       "language": "pt",
       "word": "milha",
       "display_word": "milha",
-      "definition": null,
+      "definition": "medida de distância imperial que equivale a 1.609 m",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -53640,7 +53640,7 @@
       "language": "pt",
       "word": "milho",
       "display_word": "milho",
-      "definition": null,
+      "definition": "(botânica) planta originária da América, da família das gramíneas, com caule reto e folhas lanceoladas, cultivada pelos seus grãos e para forragem (Zea mays)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -53667,7 +53667,7 @@
       "language": "pt",
       "word": "mimar",
       "display_word": "mimar",
-      "definition": null,
+      "definition": "mi.mar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -53901,7 +53901,7 @@
       "language": "pt",
       "word": "miojo",
       "display_word": "miojo",
-      "definition": null,
+      "definition": "(Brasil e alimentação) massa alimentícia macarrônica de certa variedade vendida em forma de fio seco em pequenas porções moldadas no formato de placa, previamente cozida, lacrada em embalagem plástica, sendo de rápido preparo na cozidura; tal massa já preparada",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -53991,7 +53991,7 @@
       "language": "pt",
       "word": "mirar",
       "display_word": "mirar",
-      "definition": null,
+      "definition": "mi.rar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -54153,7 +54153,7 @@
       "language": "pt",
       "word": "misto",
       "display_word": "misto",
-      "definition": null,
+      "definition": "mis.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -54243,7 +54243,7 @@
       "language": "pt",
       "word": "miudo",
       "display_word": "miúdo",
-      "definition": null,
+      "definition": "de pequenas dimensões; diminuto; amiudado; delicado; minucioso; sovina",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -54531,7 +54531,7 @@
       "language": "pt",
       "word": "modos",
       "display_word": "modos",
-      "definition": null,
+      "definition": "mo.dos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -55098,7 +55098,7 @@
       "language": "pt",
       "word": "monte",
       "display_word": "monte",
-      "definition": null,
+      "definition": "elevação de terreno menos extensa e menos alta do que a montanha",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -55458,7 +55458,7 @@
       "language": "pt",
       "word": "mosca",
       "display_word": "mosca",
-      "definition": null,
+      "definition": "nome de muitos insetos da ordem dos dípteros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -55629,7 +55629,7 @@
       "language": "pt",
       "word": "movel",
       "display_word": "móvel",
-      "definition": null,
+      "definition": "mó.vel, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -56088,7 +56088,7 @@
       "language": "pt",
       "word": "muito",
       "display_word": "muito",
-      "definition": null,
+      "definition": "mui.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -56421,7 +56421,7 @@
       "language": "pt",
       "word": "mural",
       "display_word": "mural",
-      "definition": null,
+      "definition": "mu.ral, comum, masculino singular",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -56637,7 +56637,7 @@
       "language": "pt",
       "word": "museu",
       "display_word": "museu",
-      "definition": null,
+      "definition": "estabelecimento, normalmente público, onde estão reunidas coleções de objetos de arte, da ciência, etc",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -56736,7 +56736,7 @@
       "language": "pt",
       "word": "mutuo",
       "display_word": "mútuo",
-      "definition": null,
+      "definition": "mú.tu:o nota , masculino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -56826,7 +56826,7 @@
       "language": "pt",
       "word": "nacao",
       "display_word": "nação",
-      "definition": null,
+      "definition": "grupo de pessoas, com um mesmo governo e localizado num determinado espaço geográfico",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -57087,7 +57087,7 @@
       "language": "pt",
       "word": "naipe",
       "display_word": "naipe",
-      "definition": null,
+      "definition": "(Baralho) cada um dos quatro símbolos com que se distinguem os quatro grupos das cartas de jogar: ouros e copas, paus e espadas",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -57555,7 +57555,7 @@
       "language": "pt",
       "word": "naval",
       "display_word": "naval",
-      "definition": null,
+      "definition": "na.val",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -57753,7 +57753,7 @@
       "language": "pt",
       "word": "negar",
       "display_word": "negar",
-      "definition": null,
+      "definition": "ne.gar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -58032,7 +58032,7 @@
       "language": "pt",
       "word": "nervo",
       "display_word": "nervo",
-      "definition": null,
+      "definition": "órgão constituído por fibras nervosas que conduz o fluxo nervoso estabelecendo a ligação entre os centros nervosos e o resto do corpo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -58500,7 +58500,7 @@
       "language": "pt",
       "word": "ninar",
       "display_word": "ninar",
-      "definition": null,
+      "definition": "(Infantil) acalentar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -58725,7 +58725,7 @@
       "language": "pt",
       "word": "nocao",
       "display_word": "noção",
-      "definition": null,
+      "definition": "conhecimento elementar sobre alguma coisa",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -59130,7 +59130,7 @@
       "language": "pt",
       "word": "notar",
       "display_word": "notar",
-      "definition": null,
+      "definition": "marcar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -59337,7 +59337,7 @@
       "language": "pt",
       "word": "nudez",
       "display_word": "nudez",
-      "definition": null,
+      "definition": "estado de estar nu",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -59427,7 +59427,7 @@
       "language": "pt",
       "word": "nunca",
       "display_word": "nunca",
-      "definition": null,
+      "definition": "nun.ca",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -59553,7 +59553,7 @@
       "language": "pt",
       "word": "oasis",
       "display_word": "oásis",
-      "definition": null,
+      "definition": "local, em meio a um deserto, onde há água e vegetação",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -59706,7 +59706,7 @@
       "language": "pt",
       "word": "obter",
       "display_word": "obter",
-      "definition": null,
+      "definition": "alcançar o que se desejava ou pedia",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -59760,7 +59760,7 @@
       "language": "pt",
       "word": "obvio",
       "display_word": "óbvio",
-      "definition": null,
+      "definition": "ób.vi:o nota , masculino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -59994,7 +59994,7 @@
       "language": "pt",
       "word": "odiar",
       "display_word": "odiar",
-      "definition": null,
+      "definition": "ter ódio a",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -60075,7 +60075,7 @@
       "language": "pt",
       "word": "oeste",
       "display_word": "oeste",
-      "definition": null,
+      "definition": "um dos pontos cardeais, oposto ao leste, equivalente ao lado esquerdo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -60732,7 +60732,7 @@
       "language": "pt",
       "word": "ontem",
       "display_word": "ontem",
-      "definition": null,
+      "definition": "on.tem, de tempo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -60948,7 +60948,7 @@
       "language": "pt",
       "word": "optar",
       "display_word": "optar",
-      "definition": null,
+      "definition": "fazer escolha",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -61236,7 +61236,7 @@
       "language": "pt",
       "word": "orgao",
       "display_word": "órgão",
-      "definition": null,
+      "definition": "(instrumento musical) instrumento musical com teclado cujo som é formado pelo vento que passa por tubos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -61902,7 +61902,7 @@
       "language": "pt",
       "word": "outro",
       "display_word": "outro",
-      "definition": null,
+      "definition": "ou.tro",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -62100,7 +62100,7 @@
       "language": "pt",
       "word": "oxido",
       "display_word": "óxido",
-      "definition": null,
+      "definition": "(Química) designação genérica dos compostos químicos binários formados por átomos de oxigênio e outros elementos, onde o oxigênio é mais eletronegativo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -62370,7 +62370,7 @@
       "language": "pt",
       "word": "pagar",
       "display_word": "pagar",
-      "definition": null,
+      "definition": "remunerar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -62622,7 +62622,7 @@
       "language": "pt",
       "word": "palco",
       "display_word": "palco",
-      "definition": null,
+      "definition": "(Música e teatro) plataforma onde se executam (interpretam) peças de teatro ou música",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -62667,7 +62667,7 @@
       "language": "pt",
       "word": "palma",
       "display_word": "palma",
-      "definition": null,
+      "definition": "(Anatomia) face interna e côncava da mão",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -62883,7 +62883,7 @@
       "language": "pt",
       "word": "panos",
       "display_word": "panos",
-      "definition": null,
+      "definition": "pa.nos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -63171,7 +63171,7 @@
       "language": "pt",
       "word": "parco",
       "display_word": "parco",
-      "definition": null,
+      "definition": "par.co",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -63279,7 +63279,7 @@
       "language": "pt",
       "word": "parir",
       "display_word": "parir",
-      "definition": null,
+      "definition": "(Biologia) a ação do parto; realizar o nascimento de uma nova vida gerada em um útero (nos animais vivíparos)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -63423,7 +63423,7 @@
       "language": "pt",
       "word": "parto",
       "display_word": "parto",
-      "definition": null,
+      "definition": "o ato de dar à luz, o ato de parir",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -63549,7 +63549,7 @@
       "language": "pt",
       "word": "pasta",
       "display_word": "pasta",
-      "definition": null,
+      "definition": "pas.ta feminino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -63774,7 +63774,7 @@
       "language": "pt",
       "word": "pausa",
       "display_word": "pausa",
-      "definition": null,
+      "definition": "uma pequena parada ou interrupção quando se está fazendo ou falando algo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -63855,7 +63855,7 @@
       "language": "pt",
       "word": "pavio",
       "display_word": "pavio",
-      "definition": null,
+      "definition": "pa.vi.o",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -64071,7 +64071,7 @@
       "language": "pt",
       "word": "pedra",
       "display_word": "pedra",
-      "definition": null,
+      "definition": "(Natureza) corpo duro e compacto que forma as rochas",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -64440,7 +64440,7 @@
       "language": "pt",
       "word": "penar",
       "display_word": "penar",
-      "definition": null,
+      "definition": "pe.nar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -64638,7 +64638,7 @@
       "language": "pt",
       "word": "pente",
       "display_word": "pente",
-      "definition": null,
+      "definition": "objeto usado para pentear o cabelo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -64890,7 +64890,7 @@
       "language": "pt",
       "word": "persa",
       "display_word": "persa",
-      "definition": null,
+      "definition": "per.sa, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -64971,7 +64971,7 @@
       "language": "pt",
       "word": "pesca",
       "display_word": "pesca",
-      "definition": null,
+      "definition": "atividade que consiste na caça de animais marinhos, principalmente peixes, com o fito de alimentar-se dos mesmos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -65295,7 +65295,7 @@
       "language": "pt",
       "word": "piano",
       "display_word": "piano",
-      "definition": null,
+      "definition": "pi.a.no",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -65880,7 +65880,7 @@
       "language": "pt",
       "word": "pinca",
       "display_word": "pinça",
-      "definition": null,
+      "definition": "pin.ça",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -65961,7 +65961,7 @@
       "language": "pt",
       "word": "pingo",
       "display_word": "pingo",
-      "definition": null,
+      "definition": "gota; gotejamento; goteira",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -65988,7 +65988,7 @@
       "language": "pt",
       "word": "pinho",
       "display_word": "pinho",
-      "definition": null,
+      "definition": "(Árvore) árvore do gênero das Pinus, de folhas aciculares que perduram todo o ano",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -66249,7 +66249,7 @@
       "language": "pt",
       "word": "pirar",
       "display_word": "pirar",
-      "definition": null,
+      "definition": "pi.rar intransitivo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -66681,7 +66681,7 @@
       "language": "pt",
       "word": "pizza",
       "display_word": "pizza",
-      "definition": null,
+      "definition": "(estrangeirismo e alimentação) comida composta de uma massa achatada e redonda, molho de tomate e cobertura de queijo e outros ingredientes",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -67140,7 +67140,7 @@
       "language": "pt",
       "word": "podio",
       "display_word": "pódio",
-      "definition": null,
+      "definition": "pó.di:o nota , masculino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -67203,7 +67203,7 @@
       "language": "pt",
       "word": "poeta",
       "display_word": "poeta",
-      "definition": null,
+      "definition": "po.e.ta, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -67383,7 +67383,7 @@
       "language": "pt",
       "word": "polir",
       "display_word": "polir",
-      "definition": null,
+      "definition": "tornar lustroso através da fricção; executar polimento",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -67446,7 +67446,7 @@
       "language": "pt",
       "word": "polpa",
       "display_word": "polpa",
-      "definition": null,
+      "definition": "substância mole e carnuda dos frutos e de algumas raízes",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -67500,7 +67500,7 @@
       "language": "pt",
       "word": "pomba",
       "display_word": "pomba",
-      "definition": null,
+      "definition": "(ornitologia) ave columbiforme da família dos columbídeos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -67662,7 +67662,7 @@
       "language": "pt",
       "word": "ponta",
       "display_word": "ponta",
-      "definition": null,
+      "definition": "extremidade, bico",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -67743,7 +67743,7 @@
       "language": "pt",
       "word": "porco",
       "display_word": "porco",
-      "definition": null,
+      "definition": "por.co",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -67842,7 +67842,7 @@
       "language": "pt",
       "word": "porta",
       "display_word": "porta",
-      "definition": null,
+      "definition": "peça de madeira, metal ou vidro usada para fechar o buraco aberto numa construção por onde pessoas passam de um cômodo para outro ou de dentro para fora da construção",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -67986,7 +67986,7 @@
       "language": "pt",
       "word": "poste",
       "display_word": "poste",
-      "definition": null,
+      "definition": "grande e alongado cilindro de madeira, cimento ou outro material e que é usado para sustentar fios elétricos, lâmpadas, etc",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -68139,7 +68139,7 @@
       "language": "pt",
       "word": "pouso",
       "display_word": "pouso",
-      "definition": null,
+      "definition": "ação de pousar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -68229,7 +68229,7 @@
       "language": "pt",
       "word": "praia",
       "display_word": "praia",
-      "definition": null,
+      "definition": "(Geografia) faixa de terra que é coberta pelo mar quando acontece a maré cheia e que é descoberta quando acontece a maré baixa",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -68310,7 +68310,7 @@
       "language": "pt",
       "word": "praxe",
       "display_word": "praxe",
-      "definition": null,
+      "definition": "aquilo que habitualmente se faz; costume, prática, rotina",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -68337,7 +68337,7 @@
       "language": "pt",
       "word": "prece",
       "display_word": "prece",
-      "definition": null,
+      "definition": "pedido ou agradecimento com poucas palavras; oração curta, direta e objetiva",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -68346,7 +68346,7 @@
       "language": "pt",
       "word": "preco",
       "display_word": "preço",
-      "definition": null,
+      "definition": "custo unitário de qualquer coisa que possa ser vendida",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -68445,7 +68445,7 @@
       "language": "pt",
       "word": "preta",
       "display_word": "preta",
-      "definition": null,
+      "definition": "a bola número 8 dum bilhar ou duma sinuca",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -68724,7 +68724,7 @@
       "language": "pt",
       "word": "prova",
       "display_word": "prova",
-      "definition": null,
+      "definition": "ato ou efeito de provar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -69030,7 +69030,7 @@
       "language": "pt",
       "word": "pudor",
       "display_word": "pudor",
-      "definition": null,
+      "definition": "sentimento de vergonha, timidez, mal-estar produzido por tudo o que é contrário à modéstia",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -69363,7 +69363,7 @@
       "language": "pt",
       "word": "punho",
       "display_word": "punho",
-      "definition": null,
+      "definition": "(Anatomia) a parte proximal da mão que se articula com o antebraço",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -69912,7 +69912,7 @@
       "language": "pt",
       "word": "quica",
       "display_word": "quiçá",
-      "definition": null,
+      "definition": "qui.çá",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -70236,7 +70236,7 @@
       "language": "pt",
       "word": "racao",
       "display_word": "ração",
-      "definition": null,
+      "definition": "ra.ção",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -70497,7 +70497,7 @@
       "language": "pt",
       "word": "raios",
       "display_word": "raios",
-      "definition": null,
+      "definition": "rai.os",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -70803,7 +70803,7 @@
       "language": "pt",
       "word": "rampa",
       "display_word": "rampa",
-      "definition": null,
+      "definition": "superfície inclinada que conecta dois níveis",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -71595,7 +71595,7 @@
       "language": "pt",
       "word": "redea",
       "display_word": "rédea",
-      "definition": null,
+      "definition": "corda para conduzir cavalo e outras cavalgaduras",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -71775,7 +71775,7 @@
       "language": "pt",
       "word": "regar",
       "display_word": "regar",
-      "definition": null,
+      "definition": "molhar as plantas, terra, etc",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -71910,7 +71910,7 @@
       "language": "pt",
       "word": "regua",
       "display_word": "régua",
-      "definition": null,
+      "definition": "ré.gu:a nota , feminino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -72072,7 +72072,7 @@
       "language": "pt",
       "word": "reles",
       "display_word": "reles",
-      "definition": null,
+      "definition": "re.les",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -72144,7 +72144,7 @@
       "language": "pt",
       "word": "relva",
       "display_word": "relva",
-      "definition": null,
+      "definition": "erva rasteira",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -72468,7 +72468,7 @@
       "language": "pt",
       "word": "repor",
       "display_word": "repor",
-      "definition": null,
+      "definition": "tornar a pôr",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -72666,7 +72666,7 @@
       "language": "pt",
       "word": "retro",
       "display_word": "retro",
-      "definition": null,
+      "definition": "re.tro, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -72756,7 +72756,7 @@
       "language": "pt",
       "word": "reves",
       "display_word": "revés",
-      "definition": null,
+      "definition": "infortúnio",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -73242,7 +73242,7 @@
       "language": "pt",
       "word": "rimar",
       "display_word": "rimar",
-      "definition": null,
+      "definition": "ri.mar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -73521,7 +73521,7 @@
       "language": "pt",
       "word": "riste",
       "display_word": "riste",
-      "definition": null,
+      "definition": "suporte de ferro que dava suporte à parte inferior da lança, uasada quando o cavaleiro estava pronto para atacar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -73863,7 +73863,7 @@
       "language": "pt",
       "word": "rodar",
       "display_word": "rodar",
-      "definition": null,
+      "definition": "ro.dar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -74484,7 +74484,7 @@
       "language": "pt",
       "word": "rosto",
       "display_word": "rosto",
-      "definition": null,
+      "definition": "ros.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -74592,7 +74592,7 @@
       "language": "pt",
       "word": "rouco",
       "display_word": "rouco",
-      "definition": null,
+      "definition": "rou.co",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -74709,7 +74709,7 @@
       "language": "pt",
       "word": "rubor",
       "display_word": "rubor",
-      "definition": null,
+      "definition": "ru.bor, comum aos dois géneros singular",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -74727,7 +74727,7 @@
       "language": "pt",
       "word": "rubro",
       "display_word": "rubro",
-      "definition": null,
+      "definition": "ru.bro",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -74979,7 +74979,7 @@
       "language": "pt",
       "word": "rugir",
       "display_word": "rugir",
-      "definition": null,
+      "definition": "ru.gir",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -75078,7 +75078,7 @@
       "language": "pt",
       "word": "ruiva",
       "display_word": "ruiva",
-      "definition": null,
+      "definition": "mulher que tem cabelos avermelhados ou alaranjados",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -75447,7 +75447,7 @@
       "language": "pt",
       "word": "saber",
       "display_word": "saber",
-      "definition": null,
+      "definition": "sa.ber",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -75591,7 +75591,7 @@
       "language": "pt",
       "word": "sacar",
       "display_word": "sacar",
-      "definition": null,
+      "definition": "sa.car",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -76185,7 +76185,7 @@
       "language": "pt",
       "word": "salao",
       "display_word": "salão",
-      "definition": null,
+      "definition": "sala grande",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -76473,7 +76473,7 @@
       "language": "pt",
       "word": "sanar",
       "display_word": "sanar",
-      "definition": null,
+      "definition": "curar, sarar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -76572,7 +76572,7 @@
       "language": "pt",
       "word": "sanha",
       "display_word": "sanha",
-      "definition": null,
+      "definition": "sa.nha",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -76626,7 +76626,7 @@
       "language": "pt",
       "word": "santo",
       "display_word": "santo",
-      "definition": null,
+      "definition": "sagrado",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -76788,7 +76788,7 @@
       "language": "pt",
       "word": "sarau",
       "display_word": "sarau",
-      "definition": null,
+      "definition": "reunião festiva, geralmente noturna, para ouvir música, conversar, dançar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -76959,7 +76959,7 @@
       "language": "pt",
       "word": "sarro",
       "display_word": "sarro",
-      "definition": null,
+      "definition": "borra de vinho que se forma em tonéis",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -77202,7 +77202,7 @@
       "language": "pt",
       "word": "seara",
       "display_word": "seara",
-      "definition": null,
+      "definition": "campo de cereais",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -77544,7 +77544,7 @@
       "language": "pt",
       "word": "seita",
       "display_word": "seita",
-      "definition": null,
+      "definition": "doutrina religiosa ou ideológica que se afasta de outra",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -77697,7 +77697,7 @@
       "language": "pt",
       "word": "selim",
       "display_word": "selim",
-      "definition": null,
+      "definition": "se.lim",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -77796,7 +77796,7 @@
       "language": "pt",
       "word": "senao",
       "display_word": "senão",
-      "definition": null,
+      "definition": "se.não",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -77904,7 +77904,7 @@
       "language": "pt",
       "word": "senso",
       "display_word": "senso",
-      "definition": null,
+      "definition": "juízo claro",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -78093,7 +78093,7 @@
       "language": "pt",
       "word": "serie",
       "display_word": "série",
-      "definition": null,
+      "definition": "sé.ri:e nota , feminino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -78408,7 +78408,7 @@
       "language": "pt",
       "word": "sexta",
       "display_word": "sexta",
-      "definition": null,
+      "definition": "o mesmo que sexta-feira",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -78633,7 +78633,7 @@
       "language": "pt",
       "word": "signo",
       "display_word": "signo",
-      "definition": null,
+      "definition": "sinal, marca",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -79209,7 +79209,7 @@
       "language": "pt",
       "word": "sitio",
       "display_word": "sítio",
-      "definition": null,
+      "definition": "sí.ti:o nota , masculino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -79524,7 +79524,7 @@
       "language": "pt",
       "word": "socio",
       "display_word": "sócio",
-      "definition": null,
+      "definition": "só.ci:o nota , masculino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -79668,7 +79668,7 @@
       "language": "pt",
       "word": "sogro",
       "display_word": "sogro",
-      "definition": null,
+      "definition": "pai do(a) cônjuge.",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -79929,7 +79929,7 @@
       "language": "pt",
       "word": "solto",
       "display_word": "solto",
-      "definition": null,
+      "definition": "sol.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -79956,7 +79956,7 @@
       "language": "pt",
       "word": "somar",
       "display_word": "somar",
-      "definition": null,
+      "definition": "encontrar o resultado de uma soma; executar a operação aritmética da adição",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -80307,7 +80307,7 @@
       "language": "pt",
       "word": "sorte",
       "display_word": "sorte",
-      "definition": null,
+      "definition": "acaso ou coincidência feliz; contingência favorável",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -80487,7 +80487,7 @@
       "language": "pt",
       "word": "sovar",
       "display_word": "sovar",
-      "definition": null,
+      "definition": "so.var",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -80793,7 +80793,7 @@
       "language": "pt",
       "word": "subir",
       "display_word": "subir",
-      "definition": null,
+      "definition": "trepar por; elevar",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -81072,7 +81072,7 @@
       "language": "pt",
       "word": "suite",
       "display_word": "suíte",
-      "definition": null,
+      "definition": "(Música) sucessão de peças instrumentais, de caráter e ritmos diferentes, ligadas ou não entre si por uma tonalidade única",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -81306,7 +81306,7 @@
       "language": "pt",
       "word": "sunga",
       "display_word": "sunga",
-      "definition": null,
+      "definition": "(vestuário) calção de banho elástico, utilizado por pessoas do sexo masculino, que cobre apenas as nádegas, a região púbica e os órgãos sexuais",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -81459,7 +81459,7 @@
       "language": "pt",
       "word": "surfe",
       "display_word": "surfe",
-      "definition": null,
+      "definition": "esporte em que, em posição vertical sobre uma prancha, desliza-se por sobre ondas marinhas",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -81630,7 +81630,7 @@
       "language": "pt",
       "word": "susto",
       "display_word": "susto",
-      "definition": null,
+      "definition": "sus.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -82395,7 +82395,7 @@
       "language": "pt",
       "word": "tango",
       "display_word": "tango",
-      "definition": null,
+      "definition": "(dança) estilo musical e dança a par; tem forma musical binária e compasso de dois por quatro; sua coreografia é complexa",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -82683,7 +82683,7 @@
       "language": "pt",
       "word": "tarde",
       "display_word": "tarde",
-      "definition": null,
+      "definition": "tar.de, de tempo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -82845,7 +82845,7 @@
       "language": "pt",
       "word": "tatil",
       "display_word": "tátil",
-      "definition": null,
+      "definition": "tá.til",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -83178,7 +83178,7 @@
       "language": "pt",
       "word": "tecer",
       "display_word": "tecer",
-      "definition": null,
+      "definition": "entrelaçar fios de uma forma regular",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -83673,7 +83673,7 @@
       "language": "pt",
       "word": "temor",
       "display_word": "temor",
-      "definition": null,
+      "definition": "te.mor, abstrato, masculino singular",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -83808,7 +83808,7 @@
       "language": "pt",
       "word": "tenor",
       "display_word": "tenor",
-      "definition": null,
+      "definition": "(Música) a voz mais aguda dum homem",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -83880,7 +83880,7 @@
       "language": "pt",
       "word": "tento",
       "display_word": "tento",
-      "definition": null,
+      "definition": "atenção",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -83961,7 +83961,7 @@
       "language": "pt",
       "word": "terco",
       "display_word": "terço",
-      "definition": null,
+      "definition": "uma das subdivisões do rosário cristão",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -84078,7 +84078,7 @@
       "language": "pt",
       "word": "terra",
       "display_word": "terra",
-      "definition": null,
+      "definition": "(natureza) solo composto formado por partículas minerais e substratos orgânicos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -84168,7 +84168,7 @@
       "language": "pt",
       "word": "testa",
       "display_word": "testa",
-      "definition": null,
+      "definition": "(Anatomia) parte do rosto humano acima dos olhos e abaixo dos cabelos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -84555,7 +84555,7 @@
       "language": "pt",
       "word": "tigre",
       "display_word": "tigre",
-      "definition": null,
+      "definition": "(zoologia) nome comum ao maior dos felídeos do género/gênero Panthera (P. tigris), que inclui o leão e a onça, nativo do continente asiático e de hábitos extremamente territoriais e solitários, corpos musculosos com membros anteriores poderosos, grandes cabeças, caudas longas e garras enormes, pelagem densa e pesada cuja coloração varia entre tons de laranja e marrom com áreas ventrais brancas e listras pretas verticais distintas, cujos padrões são únicos para cada indivíduo (também encontradas na pele), cores essas que se presume sirvam para camuflagem, grande variação de tamanho entre as subespécies sendo as maiores existentes o tigre-siberiano e o tigre-de-bengala, com várias espécies extintas (como o tigre-do-cáspio, que era usado no Coliseu romano)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -84897,7 +84897,7 @@
       "language": "pt",
       "word": "tinta",
       "display_word": "tinta",
-      "definition": null,
+      "definition": "tin.ta",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -84915,7 +84915,7 @@
       "language": "pt",
       "word": "tinto",
       "display_word": "tinto",
-      "definition": null,
+      "definition": "tin.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -85356,7 +85356,7 @@
       "language": "pt",
       "word": "toada",
       "display_word": "toada",
-      "definition": null,
+      "definition": "tom alto",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -85392,7 +85392,7 @@
       "language": "pt",
       "word": "tocar",
       "display_word": "tocar",
-      "definition": null,
+      "definition": "to.car",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -85410,7 +85410,7 @@
       "language": "pt",
       "word": "tocha",
       "display_word": "tocha",
-      "definition": null,
+      "definition": "to.cha feminino",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -85455,7 +85455,7 @@
       "language": "pt",
       "word": "todos",
       "display_word": "todos",
-      "definition": null,
+      "definition": "to.dos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -85923,7 +85923,7 @@
       "language": "pt",
       "word": "tonto",
       "display_word": "tonto",
-      "definition": null,
+      "definition": "ton.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -86094,7 +86094,7 @@
       "language": "pt",
       "word": "torax",
       "display_word": "tórax",
-      "definition": null,
+      "definition": "(Anatomia) conjunto que compreende a cavidade torácica, órgãos nela contidos, e paredes que circunscrevem essa cavidade, sita entre o pescoço, acima, e o abdome, abaixo; peito",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -86292,7 +86292,7 @@
       "language": "pt",
       "word": "torta",
       "display_word": "torta",
-      "definition": null,
+      "definition": "(alimentação) bolo de farinha entremeado de carne, peixe, fruta ou compota",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -86481,7 +86481,7 @@
       "language": "pt",
       "word": "total",
       "display_word": "total",
-      "definition": null,
+      "definition": "to.tal",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -86580,7 +86580,7 @@
       "language": "pt",
       "word": "traco",
       "display_word": "traço",
-      "definition": null,
+      "definition": "uma marca, sinal, ou evidência da existência, influência ou ação de algum agente ou evento; vestígio",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -86724,7 +86724,7 @@
       "language": "pt",
       "word": "trama",
       "display_word": "trama",
-      "definition": null,
+      "definition": "fio que se conduz com a lançadeira através do urdume da teia",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -86877,7 +86877,7 @@
       "language": "pt",
       "word": "trela",
       "display_word": "trela",
-      "definition": null,
+      "definition": "correia de couro presa a um animal",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -86985,7 +86985,7 @@
       "language": "pt",
       "word": "treta",
       "display_word": "treta",
-      "definition": null,
+      "definition": "(Brasil e gíria) briga, confusão",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -87147,7 +87147,7 @@
       "language": "pt",
       "word": "tripe",
       "display_word": "tripé",
-      "definition": null,
+      "definition": "tri.pé",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -87291,7 +87291,7 @@
       "language": "pt",
       "word": "tropa",
       "display_word": "tropa",
-      "definition": null,
+      "definition": "exército",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -87390,7 +87390,7 @@
       "language": "pt",
       "word": "trufa",
       "display_word": "trufa",
-      "definition": null,
+      "definition": "cogumelo subterrâneo comestível (género Tuber)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -87642,7 +87642,7 @@
       "language": "pt",
       "word": "tumba",
       "display_word": "tumba",
-      "definition": null,
+      "definition": "lápide sepulcral",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -87903,7 +87903,7 @@
       "language": "pt",
       "word": "turno",
       "display_word": "turno",
-      "definition": null,
+      "definition": "momento em que ocorre um revezamento, uma troca, usualmente no contexto de trabalho",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -88794,7 +88794,7 @@
       "language": "pt",
       "word": "umido",
       "display_word": "úmido",
-      "definition": null,
+      "definition": "ú.mi.do, (Vocábulo com dupla grafia: ú.mi.do / hú.mi.do)",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -89010,7 +89010,7 @@
       "language": "pt",
       "word": "unico",
       "display_word": "único",
-      "definition": null,
+      "definition": "do qual não há outro espécime",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -89784,7 +89784,7 @@
       "language": "pt",
       "word": "usual",
       "display_word": "usual",
-      "definition": null,
+      "definition": "u.su.al, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -89829,7 +89829,7 @@
       "language": "pt",
       "word": "utero",
       "display_word": "útero",
-      "definition": null,
+      "definition": "órgão feminino, onde se gera e desenvolve os fetos dos mamíferos, ligado ao canal vaginal.",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -90072,7 +90072,7 @@
       "language": "pt",
       "word": "vagar",
       "display_word": "vagar",
-      "definition": null,
+      "definition": "falta de pressa",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -90378,7 +90378,7 @@
       "language": "pt",
       "word": "valor",
       "display_word": "valor",
-      "definition": null,
+      "definition": "qualidade que distingue algo em comparação aos seus iguais; medida da importância de algo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -90495,7 +90495,7 @@
       "language": "pt",
       "word": "varao",
       "display_word": "varão",
-      "definition": null,
+      "definition": "va.rão",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -90792,7 +90792,7 @@
       "language": "pt",
       "word": "vazao",
       "display_word": "vazão",
-      "definition": null,
+      "definition": "o mesmo que vazamento",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -91341,7 +91341,7 @@
       "language": "pt",
       "word": "verao",
       "display_word": "verão",
-      "definition": null,
+      "definition": "estação do ano posterior à primavera e que antecede o outono; a segunda estação no hemisfério norte, iniciando-se em junho, no solstício",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -91476,7 +91476,7 @@
       "language": "pt",
       "word": "verme",
       "display_word": "verme",
-      "definition": null,
+      "definition": "larva de inseto",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -91602,7 +91602,7 @@
       "language": "pt",
       "word": "vespa",
       "display_word": "vespa",
-      "definition": null,
+      "definition": "nome vulgar de himenópteros da família dos Vespídeos possuidores de ferrão cuja picada é dolorosa",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -91710,7 +91710,7 @@
       "language": "pt",
       "word": "vetor",
       "display_word": "vetor",
-      "definition": null,
+      "definition": "(Biologia) qualquer ser vivo que transmite doenças; meio de transporte de doenças",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -92007,7 +92007,7 @@
       "language": "pt",
       "word": "video",
       "display_word": "vídeo",
-      "definition": null,
+      "definition": "ví.de:o nota , invariável, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -92286,7 +92286,7 @@
       "language": "pt",
       "word": "vinda",
       "display_word": "vinda",
-      "definition": null,
+      "definition": "vin.da",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -92376,7 +92376,7 @@
       "language": "pt",
       "word": "vinte",
       "display_word": "vinte",
-      "definition": null,
+      "definition": "vin.te",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -92448,7 +92448,7 @@
       "language": "pt",
       "word": "virar",
       "display_word": "virar",
-      "definition": null,
+      "definition": "mudar, com um movimento em linha curva, a direção ou posição de algo ou alguém",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -92574,7 +92574,7 @@
       "language": "pt",
       "word": "virus",
       "display_word": "vírus",
-      "definition": null,
+      "definition": "(Biologia) agente infeccioso microscópico, que causa várias doenças (AIDS, gripe, etc.) e provoca a produção de anticorpos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -92601,7 +92601,7 @@
       "language": "pt",
       "word": "visao",
       "display_word": "visão",
-      "definition": null,
+      "definition": "vi.são",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -92610,7 +92610,7 @@
       "language": "pt",
       "word": "visar",
       "display_word": "visar",
-      "definition": null,
+      "definition": "dirigir a vista ou o olhar para",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -92691,7 +92691,7 @@
       "language": "pt",
       "word": "visor",
       "display_word": "visor",
-      "definition": null,
+      "definition": "(ciência da informação) dispositivo que exibe imagem",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -93096,7 +93096,7 @@
       "language": "pt",
       "word": "vogal",
       "display_word": "vogal",
-      "definition": null,
+      "definition": "vo.gal, comum aos dois géneros",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -93285,7 +93285,7 @@
       "language": "pt",
       "word": "vosso",
       "display_word": "vosso",
-      "definition": null,
+      "definition": "vos.so, possessivo",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -93429,7 +93429,7 @@
       "language": "pt",
       "word": "vulto",
       "display_word": "vulto",
-      "definition": null,
+      "definition": "vul.to",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -94518,7 +94518,7 @@
       "language": "pt",
       "word": "zerar",
       "display_word": "zerar",
-      "definition": null,
+      "definition": "tornar zero",
       "word_length": 5,
       "is_solution": true,
       "is_active": true
@@ -94707,7 +94707,7 @@
       "language": "pt",
       "word": "ziper",
       "display_word": "zíper",
-      "definition": null,
+      "definition": "acabamento de fechamento de calças, xortes e vestidos",
       "word_length": 5,
       "is_solution": true,
       "is_active": true

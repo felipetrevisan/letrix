@@ -93,7 +93,7 @@ export const useGameSessionBootstrap = ({
 
       if (!isSupabaseConfigured()) {
         const message =
-          "Supabase não configurado. Defina NEXT_PUBLIC_SUPABASE_PROJECT_ID e NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY na Vercel.";
+          "Não foi possível iniciar a rodada agora. Tente novamente em instantes.";
         toast.error(message);
         setSessionError(message);
         setIsHydrated(true);
@@ -109,7 +109,7 @@ export const useGameSessionBootstrap = ({
 
       if (!baseSolutions.solution.length) {
         const message =
-          "Não foi possível carregar a palavra do dia. Verifique o schema letrix exposto na API e as permissões de leitura das tabelas.";
+          "Não foi possível carregar a palavra do dia agora. Tente novamente em instantes.";
         toast.error(message);
         setSessionError(message);
         setIsHydrated(true);
