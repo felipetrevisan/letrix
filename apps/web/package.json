@@ -12,6 +12,7 @@
     "supabase:import": "bun run scripts/import-supabase-data.ts",
     "supabase:extract-legacy": "bun run scripts/extract-legacy-words.ts",
     "words:fetch-dicionario": "bun run scripts/fetch-dicionario-aberto-words.ts",
+    "words:refresh-dicionario-definitions": "bun run scripts/refresh-dicionario-definitions.ts",
     "words:fetch-papalavras": "bun run scripts/fetch-papalavras-words.ts"
   },
   "dependencies": {

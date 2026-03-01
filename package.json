@@ -19,6 +19,7 @@
     "supabase:import": "bun run --cwd apps/web supabase:import",
     "supabase:extract-legacy": "bun run --cwd apps/web supabase:extract-legacy",
     "words:fetch-dicionario": "bun run --cwd apps/web words:fetch-dicionario",
+    "words:refresh-dicionario-definitions": "bun run --cwd apps/web words:refresh-dicionario-definitions",
     "words:fetch-papalavras": "bun run --cwd apps/web words:fetch-papalavras"
   },
   "devDependencies": {
