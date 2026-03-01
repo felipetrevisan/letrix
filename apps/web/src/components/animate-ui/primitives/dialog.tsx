@@ -69,7 +69,7 @@ const DialogContent = React.forwardRef<
               : DIALOG_SPRING
           }
           className={cn(
-            "fixed left-1/2 top-1/2 z-50 grid w-[min(94vw,48rem)] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-hidden rounded-2xl border border-border/70 bg-card p-6 text-card-foreground shadow-[0_30px_80px_-40px_rgba(0,0,0,0.55)]",
+            "fixed left-1/2 top-1/2 z-50 grid w-[min(94vw,48rem)] max-w-[calc(100vw-1rem)] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-hidden rounded-2xl border border-border/70 bg-card p-4 text-card-foreground shadow-[0_30px_80px_-40px_rgba(0,0,0,0.55)] sm:p-6",
             className,
           )}
         >

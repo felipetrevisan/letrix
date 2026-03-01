@@ -167,6 +167,7 @@ export const SettingsModal = ({
       title={settingsCopy.title}
       isOpen={isOpen}
       showHeader
+      contentScrollable
       handleClose={handleClose}
       className="max-w-2xl"
       buttons={[

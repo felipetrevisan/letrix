@@ -49,12 +49,17 @@ export const Base = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className={cn("overflow-hidden", className)}>
+      <DialogContent
+        className={cn(
+          "flex max-h-[min(92svh,92dvh)] flex-col overflow-hidden",
+          className,
+        )}
+      >
         <DialogHeader className="border-b border-border/60 pb-3">
           {showHeader && <DialogTitle>{title}</DialogTitle>}
         </DialogHeader>
         {contentScrollable ? (
-          <ScrollArea className="max-h-[min(74vh,44rem)] pr-3">
+          <ScrollArea className="min-h-0 flex-1 pr-3">
             <motion.div
               className="text-md text-card-foreground"
               {...createFadeUpMotion({
@@ -67,7 +72,7 @@ export const Base = ({
           </ScrollArea>
         ) : (
           <motion.div
-            className="text-md text-card-foreground"
+            className="min-h-0 text-md text-card-foreground"
             {...createFadeUpMotion({
               distance: 10,
               reducedMotion: shouldReduceMotion,
