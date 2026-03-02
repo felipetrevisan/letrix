@@ -729,7 +729,7 @@
 
   .key-segmented {
     background-image: var(--key-bg-image) !important;
-    color: #fff !important;
+    color: hsl(var(--foreground)) !important;
   }
 
   .key-absent {
@@ -738,7 +738,7 @@
     background-color: var(--key-bg);
     background-image: none;
     border-color: hsl(var(--tile-absent));
-    color: #fff !important;
+    color: hsl(var(--foreground)) !important;
   }
 
   .key-correct {
@@ -747,7 +747,7 @@
     background-color: var(--key-bg) !important;
     background-image: none;
     border-color: hsl(var(--tile-correct)) !important;
-    color: #fff !important;
+    color: hsl(var(--foreground)) !important;
   }
 
   .key-correct.inverted {
@@ -763,6 +763,13 @@
     background-color: var(--key-bg) !important;
     background-image: none;
     border-color: hsl(var(--tile-present)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .key-segmented,
+  .dark .key-absent,
+  .dark .key-correct,
+  .dark .key-present {
     color: #fff !important;
   }
 
@@ -786,6 +793,15 @@
     position: relative;
     overflow: hidden;
     animation: toast-pop var(--motion-toast-pop-duration) var(--motion-ease-out);
+  }
+
+  .toaster .toast [data-title] {
+    line-height: 1.25;
+  }
+
+  .toaster .toast [data-description] {
+    margin-top: 0.4rem;
+    white-space: pre-line;
   }
 
   .toaster .toast::before {
@@ -832,6 +848,7 @@
   }
 
   .toast-game-over {
+    width: min(94vw, 42rem) !important;
     border-color: hsl(var(--accent) / 0.72) !important;
     background: linear-gradient(
         145deg,
@@ -843,6 +860,16 @@
       toast-pop var(--motion-toast-pop-duration) var(--motion-ease-out),
       toast-glow var(--motion-toast-glow-duration) var(--motion-ease-standard)
         infinite;
+  }
+
+  .toast-game-over [data-title] {
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+
+  .toast-game-over [data-description] {
+    font-size: 0.97rem;
+    line-height: 1.7;
   }
 
   .toast-win [data-button],

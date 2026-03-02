@@ -20,9 +20,11 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast:
-            "group toast will-change-transform rounded-xl border border-border/70 bg-background/90 px-4 py-3 text-foreground shadow-[0_18px_40px_-28px_hsl(var(--foreground)/0.75)] backdrop-blur-xl transition-all group-[.toaster]:text-foreground",
-          title: "font-semibold tracking-wide text-foreground",
-          description: "text-muted-foreground/95",
+            "group toast w-[min(92vw,28rem)] will-change-transform rounded-2xl border border-border/70 bg-background/92 px-4 py-3.5 text-foreground shadow-[0_20px_48px_-26px_hsl(var(--foreground)/0.72)] backdrop-blur-xl transition-all group-[.toaster]:text-foreground sm:w-[min(32rem,calc(100vw-2rem))]",
+          title:
+            "text-[0.95rem] font-semibold tracking-[0.02em] text-foreground sm:text-base",
+          description:
+            "whitespace-pre-line text-sm leading-6 text-muted-foreground/95 sm:text-[0.95rem]",
           icon: "mt-0.5 text-foreground",
           actionButton: cn(
             buttonVariants({ variant: "outline", size: "sm" }),

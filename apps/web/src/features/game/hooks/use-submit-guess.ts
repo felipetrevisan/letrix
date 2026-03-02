@@ -65,6 +65,7 @@ type UseSubmitGuessParams = {
   saveGuess: () => void;
   invalidGuesses: string[];
   isInfiniteMode: boolean;
+  isPracticeMode: boolean;
   persistGameState: (gameState: GameState[]) => Promise<void>;
   resetCurrentGuess: () => void;
   clearGuesses: () => void;
@@ -73,6 +74,15 @@ type UseSubmitGuessParams = {
   setStats: Dispatch<SetStateAction<GameStats>>;
   stats: GameStats;
   persistStats: (nextStats: GameStats) => Promise<void>;
+  persistDailyLeaderboard: (entry: {
+    attemptsUsed: number;
+    solvedBoards: number;
+    isWin: boolean;
+  }) => Promise<void>;
+  notifyAchievementsUnlocked: (
+    previousStats: GameStats,
+    nextStats: GameStats,
+  ) => void;
   setIsGameWon: (value: boolean) => void;
   setIsGameOver: (value: boolean) => void;
   setIsStatsModalOpen: (open: boolean) => void;
@@ -100,6 +110,7 @@ export const useSubmitGuess = ({
   saveGuess,
   invalidGuesses,
   isInfiniteMode,
+  isPracticeMode,
   persistGameState,
   resetCurrentGuess,
   clearGuesses,
@@ -108,6 +119,8 @@ export const useSubmitGuess = ({
   setStats,
   stats,
   persistStats,
+  persistDailyLeaderboard,
+  notifyAchievementsUnlocked,
   setIsGameWon,
   setIsGameOver,
   setIsStatsModalOpen,
@@ -235,7 +248,13 @@ export const useSubmitGuess = ({
           );
 
           setStats(nextStats);
+          notifyAchievementsUnlocked(stats, nextStats);
           await persistStats(nextStats);
+          await persistDailyLeaderboard({
+            attemptsUsed,
+            solvedBoards: solutions.solution.length,
+            isWin: true,
+          });
           setRowAnimation("happy");
 
           if (isInfiniteMode) {
@@ -303,11 +322,16 @@ export const useSubmitGuess = ({
           );
 
           setStats(nextStats);
+          notifyAchievementsUnlocked(stats, nextStats);
           await persistStats(nextStats);
           setIsGameOver(true);
 
           toast.error(
-            getGameOverMessage(solutions.solution),
+            getGameOverMessage(
+              solutions.displaySolution.length
+                ? solutions.displaySolution
+                : solutions.solution,
+            ),
             createGameOverToast({
               action: {
                 label: "Ver stats",
@@ -336,13 +360,16 @@ export const useSubmitGuess = ({
     invalidGuesses,
     isGameWon,
     isInfiniteMode,
+    isPracticeMode,
     isSubmittingGuess,
     language,
     mode,
     modeConfig.maxChallenges,
     modeConfig.wordLength,
     persistGameState,
+    persistDailyLeaderboard,
     persistStats,
+    notifyAchievementsUnlocked,
     resetCurrentGuess,
     saveGuess,
     setCurrentRow,

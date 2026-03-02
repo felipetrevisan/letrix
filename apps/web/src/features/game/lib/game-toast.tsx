@@ -6,7 +6,7 @@ type ToastLifecycleHandlers = Pick<ExternalToast, "onAutoClose" | "onDismiss">;
 type ToastAction = ExternalToast["action"];
 
 const topCenterToast = {
-  position: "top-center" as const,
+  position: "top-right" as const,
   dismissible: true,
 };
 

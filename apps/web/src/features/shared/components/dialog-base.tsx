@@ -52,16 +52,18 @@ export const Base = ({
       <DialogContent
         className={cn(
           "flex max-h-[min(92svh,92dvh)] flex-col overflow-hidden",
+          contentScrollable &&
+            "h-[min(92svh,92dvh)] sm:h-[min(88svh,56rem)] sm:max-h-[min(88svh,56rem)]",
           className,
         )}
       >
-        <DialogHeader className="border-b border-border/60 pb-3">
+        <DialogHeader className="shrink-0 border-b border-border/60 pb-3">
           {showHeader && <DialogTitle>{title}</DialogTitle>}
         </DialogHeader>
         {contentScrollable ? (
-          <ScrollArea className="min-h-0 flex-1 pr-3">
+          <ScrollArea className="min-h-0 flex-1 overscroll-contain pr-3">
             <motion.div
-              className="text-md text-card-foreground"
+              className="pb-4 text-md text-card-foreground"
               {...createFadeUpMotion({
                 distance: 10,
                 reducedMotion: shouldReduceMotion,
@@ -82,7 +84,7 @@ export const Base = ({
           </motion.div>
         )}
         {buttons && buttons.length > 0 && (
-          <DialogFooter className="border-t border-border/60 pt-3">
+          <DialogFooter className="shrink-0 border-t border-border/60 pt-3">
             {buttons?.map(({ name, variant: { variant }, label, action }) => (
               <Button key={name} variant={variant} onClick={() => action?.()}>
                 {label}

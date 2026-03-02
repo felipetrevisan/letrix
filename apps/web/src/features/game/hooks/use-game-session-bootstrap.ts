@@ -9,6 +9,7 @@ import { loadStatsFromCloud } from "@/features/auth/lib/game-storage";
 import { isSupabaseConfigured } from "@/features/auth/lib/supabase-client";
 import {
   buildEmptyGameState,
+  hydratePracticeSolutionFromState,
   hydrateStandardSolutionFromState,
   resolveInfiniteBootstrapState,
 } from "@/features/game/session/state";
@@ -22,7 +23,11 @@ import type {
 } from "@/interfaces/game";
 import { loadStatsFromLocalStorage } from "@/lib/localStorage";
 import { loadStats, normalizeStats } from "@/lib/stats";
-import { getGameDate, getSolution, sanitizeSolutionPayload } from "@/lib/words";
+import {
+  getPracticeSolution,
+  getSolution,
+  sanitizeSolutionPayload,
+} from "@/lib/words";
 
 type UseGameSessionBootstrapParams = {
   isAuthReady: boolean;
@@ -38,11 +43,13 @@ type UseGameSessionBootstrapParams = {
   setIsSubmittingGuess: (value: boolean) => void;
   setSessionError: (value: string | null) => void;
   modeConfig: Game;
-  storageScope: string;
+  statsStorageScope: string;
   userId?: string;
   setStats: (stats: GameStats) => void;
   loadSavedState: () => Promise<GameState[]>;
   isInfiniteMode: boolean;
+  isPracticeMode: boolean;
+  selectedGameDate: Date;
   setSolutions: (solution: Solution) => void;
   updateGameFromSave: (savedGuesses: string[]) => void;
   persistGameState: (state: GameState[]) => Promise<void>;
@@ -63,11 +70,13 @@ export const useGameSessionBootstrap = ({
   setIsSubmittingGuess,
   setSessionError,
   modeConfig,
-  storageScope,
+  statsStorageScope,
   userId,
   setStats,
   loadSavedState,
   isInfiniteMode,
+  isPracticeMode,
+  selectedGameDate,
   setSolutions,
   updateGameFromSave,
   persistGameState,
@@ -100,23 +109,7 @@ export const useGameSessionBootstrap = ({
         return;
       }
 
-      const gameDate = getGameDate();
-      const baseSolutions = await getSolution(gameDate, mode, language);
-
-      if (!isActive) {
-        return;
-      }
-
-      if (!baseSolutions.solution.length) {
-        const message =
-          "Não foi possível carregar a palavra do dia agora. Tente novamente em instantes.";
-        toast.error(message);
-        setSessionError(message);
-        setIsHydrated(true);
-        return;
-      }
-
-      const localStats = loadStats(mode, storageScope);
+      const localStats = loadStats(mode, statsStorageScope);
       setStats(localStats);
 
       if (userId) {
@@ -130,7 +123,7 @@ export const useGameSessionBootstrap = ({
           setStats(normalizeStats(cloudStats, modeConfig.maxChallenges));
         }
       } else {
-        const storedStats = loadStatsFromLocalStorage(storageScope);
+        const storedStats = loadStatsFromLocalStorage(statsStorageScope);
 
         if (storedStats) {
           setStats(normalizeStats(storedStats, modeConfig.maxChallenges));
@@ -140,6 +133,87 @@ export const useGameSessionBootstrap = ({
       const savedState = await loadSavedState();
 
       if (!isActive) {
+        return;
+      }
+
+      if (isPracticeMode) {
+        const restoredPracticeSolution = hydratePracticeSolutionFromState(
+          savedState,
+          {
+            boards: modeConfig.boards,
+            wordLength: modeConfig.wordLength,
+            language,
+          },
+        );
+
+        if (restoredPracticeSolution) {
+          setSolutions(
+            sanitizeSolutionPayload(restoredPracticeSolution, {
+              boards: modeConfig.boards,
+              wordLength: modeConfig.wordLength,
+            }),
+          );
+
+          const savedTries = savedState[0]?.tries ?? [];
+          const gameWasWon = hasSolvedAllBoards(
+            restoredPracticeSolution.solution,
+            savedTries,
+          );
+
+          if (gameWasWon) {
+            setIsGameWon(true);
+          }
+
+          if (savedTries.length >= modeConfig.maxChallenges && !gameWasWon) {
+            setIsGameOver(true);
+          }
+
+          updateGameFromSave(savedTries);
+          setIsHydrated(true);
+          return;
+        }
+
+        const practiceSolution = await getPracticeSolution(language);
+
+        if (!isActive) {
+          return;
+        }
+
+        if (!practiceSolution.solution.length) {
+          const message =
+            "Não foi possível carregar uma rodada de prática agora. Tente novamente em instantes.";
+          toast.error(message);
+          setSessionError(message);
+          setIsHydrated(true);
+          return;
+        }
+
+        setSolutions(
+          sanitizeSolutionPayload(practiceSolution, {
+            boards: modeConfig.boards,
+            wordLength: modeConfig.wordLength,
+          }),
+        );
+        void persistGameState(buildEmptyGameState(practiceSolution));
+        setTimeout(() => {
+          setIsInfoModalOpen(true);
+        }, REVEAL_TIME_MS);
+        setIsHydrated(true);
+        return;
+      }
+
+      const baseSolutions = await getSolution(selectedGameDate, mode, language);
+
+      if (!isActive) {
+        return;
+      }
+
+      if (!baseSolutions.solution.length) {
+        const message =
+          "Não foi possível carregar a palavra do dia agora. Tente novamente em instantes.";
+        toast.error(message);
+        setSessionError(message);
+        setIsHydrated(true);
         return;
       }
 
@@ -260,12 +334,15 @@ export const useGameSessionBootstrap = ({
     closeMenu,
     isAuthReady,
     isInfiniteMode,
+    isPracticeMode,
     language,
     loadSavedState,
     loading,
     mode,
+    modeConfig.boards,
     modeConfig.maxChallenges,
     modeConfig.name,
+    modeConfig.wordLength,
     persistGameState,
     resetAutoOpenStats,
     setIsGameOver,
@@ -273,9 +350,11 @@ export const useGameSessionBootstrap = ({
     setIsHydrated,
     setIsInfoModalOpen,
     setIsSubmittingGuess,
+    setSessionError,
     setSolutions,
     setStats,
-    storageScope,
+    statsStorageScope,
+    selectedGameDate,
     updateGameFromSave,
     userId,
   ]);

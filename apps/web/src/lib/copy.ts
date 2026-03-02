@@ -5,6 +5,7 @@ export const gameNames = {
   four: "Quarteto",
   deca: "Quinteto",
   infinite: "Infinito",
+  practice: "Prática",
 } as const;
 
 export const settingsCopy = {
@@ -74,9 +75,12 @@ export const getHighContrastStatusMessage = (isEnabled: boolean) => {
 };
 
 export const getGameOverMessage = (words: string[]) => {
-  return `${words.length === 1 ? "Palavra" : "Palavras"}: ${words
-    .map((word) => word.toLocaleLowerCase())
-    .join(", ")}`;
+  const label = words.length === 1 ? "Palavra" : "Palavras";
+  const formattedWords = words
+    .map((word) => `• ${word.toLocaleLowerCase()}`)
+    .join("\n");
+
+  return `${label}:\n${formattedWords}`;
 };
 
 export const getWinnerMessage = (row: number) => {

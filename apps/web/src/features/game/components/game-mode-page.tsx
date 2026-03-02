@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { Boards } from "@/features/game/components/Board";
 import { Keyboard } from "@/features/game/components/Keyboard";
 import { SessionStatus } from "@/features/game/components/session-status";
+import { AchievementUnlockBanner } from "@/features/stats/components/achievement-unlock-banner";
+import { AchievementsModal } from "@/features/stats/components/achievements-modal";
 import { StatsModal } from "@/features/stats/components/stats-modal";
 import { Loading } from "@/components/ui/loading";
 import { Toaster } from "@/components/ui/sonner";
@@ -18,6 +21,7 @@ type Props = {
 
 export const GameModePage = ({ mode }: Props) => {
   const shouldReduceMotion = useReducedMotion() ?? false;
+  const [isAchievementsModalOpen, setIsAchievementsModalOpen] = useState(false);
   const {
     modeMaxChallenges,
     isLatestGame,
@@ -33,9 +37,17 @@ export const GameModePage = ({ mode }: Props) => {
     isLoading,
     isHydrated,
     sessionError,
+    language,
+    modeName,
+    puzzleDate,
     solutions,
     stats,
     guesses,
+    isPracticeMode,
+    isInfiniteMode,
+    activeAchievementUnlock,
+    isAchievementBannerVisible,
+    startPracticeRound,
     onEnter,
     onDelete,
     onTyping,
@@ -44,7 +56,6 @@ export const GameModePage = ({ mode }: Props) => {
 
   const attemptsUsed = guesses.length;
   const attemptsLeft = Math.max(modeMaxChallenges - attemptsUsed, 0);
-  const isInfiniteMode = mode === GameMode.infinite;
   const solvedBoards = solutions.solution.reduce((count, word) => {
     return guesses.some((guess) => guess.word === word) ? count + 1 : count;
   }, 0);
@@ -147,11 +158,38 @@ export const GameModePage = ({ mode }: Props) => {
           isLatestGame={isLatestGame}
           isGameOver={isGameOver}
           isGameWon={isGameWon}
+          isPracticeMode={isPracticeMode}
+          isInfiniteMode={isInfiniteMode}
+          modeName={modeName}
+          language={language}
+          puzzleDate={puzzleDate}
+          onOpenAchievements={() => {
+            setIsStatsModalOpen(false);
+            setIsAchievementsModalOpen(true);
+          }}
+          onRequestNewPracticeRound={startPracticeRound}
           handleClose={() => setIsStatsModalOpen(false)}
         />
       )}
 
+      {isAchievementsModalOpen && (
+        <AchievementsModal
+          isOpen={isAchievementsModalOpen}
+          gameStats={stats}
+          maxChallenges={modeMaxChallenges}
+          handleClose={() => setIsAchievementsModalOpen(false)}
+          onBackToStats={() => {
+            setIsAchievementsModalOpen(false);
+            setIsStatsModalOpen(true);
+          }}
+        />
+      )}
+
       <Toaster richColors />
+      <AchievementUnlockBanner
+        achievement={activeAchievementUnlock}
+        isVisible={isAchievementBannerVisible}
+      />
     </>
   );
 };

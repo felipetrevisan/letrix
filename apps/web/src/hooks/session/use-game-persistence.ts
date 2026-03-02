@@ -16,7 +16,8 @@ type UseGamePersistenceParams = {
   language: GameLanguage;
   modeName: string;
   puzzleDate: string;
-  storageScope: string;
+  stateStorageScope: string;
+  statsStorageScope: string;
   isLatestGame: boolean;
 };
 
@@ -25,7 +26,8 @@ export const useGamePersistence = ({
   language,
   modeName,
   puzzleDate,
-  storageScope,
+  stateStorageScope,
+  statsStorageScope,
   isLatestGame,
 }: UseGamePersistenceParams) => {
   const loadSavedState = useCallback(async (): Promise<GameState[]> => {
@@ -33,8 +35,8 @@ export const useGamePersistence = ({
       return loadGameStateFromCloud(userId, language, modeName, puzzleDate);
     }
 
-    return loadGameStateFromLocalStorage(isLatestGame, storageScope);
-  }, [isLatestGame, language, modeName, puzzleDate, storageScope, userId]);
+    return loadGameStateFromLocalStorage(isLatestGame, stateStorageScope);
+  }, [isLatestGame, language, modeName, puzzleDate, stateStorageScope, userId]);
 
   const persistGameState = useCallback(
     async (gameState: GameState[]) => {
@@ -49,9 +51,9 @@ export const useGamePersistence = ({
         return;
       }
 
-      saveGameStateToLocalStorage(false, gameState, storageScope);
+      saveGameStateToLocalStorage(false, gameState, stateStorageScope);
     },
-    [language, modeName, puzzleDate, storageScope, userId],
+    [language, modeName, puzzleDate, stateStorageScope, userId],
   );
 
   const persistStats = useCallback(
@@ -61,9 +63,9 @@ export const useGamePersistence = ({
         return;
       }
 
-      saveStatsToLocalStorage(nextStats, storageScope);
+      saveStatsToLocalStorage(nextStats, statsStorageScope);
     },
-    [language, modeName, storageScope, userId],
+    [language, modeName, statsStorageScope, userId],
   );
 
   return {
