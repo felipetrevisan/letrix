@@ -429,26 +429,26 @@
   @media (width <= 768px) {
     .boards[data-mode="2"] {
       --board-gap: 0.5rem;
-      --tile-large-size: min(18vw, 3rem);
-      --tile-large-font: min(8vw, 1.55rem);
+      --tile-large-size: min(8.6vw, 2rem);
+      --tile-large-font: min(4.2vw, 1rem);
     }
 
     .boards[data-mode="3"] {
       --board-gap: 0.44rem;
-      --tile-large-size: min(16.4vw, 2.7rem);
-      --tile-large-font: min(6.9vw, 1.38rem);
+      --tile-large-size: min(8vw, 1.82rem);
+      --tile-large-font: min(3.8vw, 0.94rem);
     }
 
     .boards[data-mode="4"] {
       --board-gap: 0.38rem;
-      --tile-large-size: min(15vw, 2.4rem);
-      --tile-large-font: min(6vw, 1.22rem);
+      --tile-large-size: min(7.5vw, 1.68rem);
+      --tile-large-font: min(3.45vw, 0.86rem);
     }
 
     .boards[data-mode="5"] {
       --board-gap: 0.34rem;
-      --tile-large-size: min(14vw, 2.18rem);
-      --tile-large-font: min(5.35vw, 1.08rem);
+      --tile-large-size: min(7vw, 1.58rem);
+      --tile-large-font: min(3.15vw, 0.78rem);
     }
 
     .boards[data-mode="2"] .board-shell,
@@ -470,23 +470,27 @@
 
   @media (width <= 420px) {
     .boards[data-mode="2"] {
-      --tile-large-size: min(17vw, 2.82rem);
-      --tile-large-font: min(7vw, 1.42rem);
+      --board-gap: 0.34rem;
+      --tile-large-size: min(8vw, 1.84rem);
+      --tile-large-font: min(3.9vw, 0.94rem);
     }
 
     .boards[data-mode="3"] {
-      --tile-large-size: min(15.8vw, 2.48rem);
-      --tile-large-font: min(6.4vw, 1.28rem);
+      --board-gap: 0.3rem;
+      --tile-large-size: min(7.45vw, 1.68rem);
+      --tile-large-font: min(3.45vw, 0.84rem);
     }
 
     .boards[data-mode="4"] {
-      --tile-large-size: min(14.5vw, 2.18rem);
-      --tile-large-font: min(5.72vw, 1.12rem);
+      --board-gap: 0.24rem;
+      --tile-large-size: min(6.9vw, 1.52rem);
+      --tile-large-font: min(3.1vw, 0.76rem);
     }
 
     .boards[data-mode="5"] {
-      --tile-large-size: min(13.5vw, 1.98rem);
-      --tile-large-font: min(5.1vw, 1rem);
+      --board-gap: 0.22rem;
+      --tile-large-size: min(6.4vw, 1.38rem);
+      --tile-large-font: min(2.78vw, 0.68rem);
     }
 
     .boards[data-mode="5"] {
