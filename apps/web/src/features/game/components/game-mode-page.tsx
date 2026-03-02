@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { Boards } from "@/features/game/components/Board";
-import { Keyboard } from "@/features/game/components/Keyboard";
-import { SessionStatus } from "@/features/game/components/session-status";
-import { AchievementUnlockBanner } from "@/features/stats/components/achievement-unlock-banner";
-import { AchievementsModal } from "@/features/stats/components/achievements-modal";
-import { StatsModal } from "@/features/stats/components/stats-modal";
+import { useState } from "react";
 import { Loading } from "@/components/ui/loading";
 import { Toaster } from "@/components/ui/sonner";
 import { createFadeUpMotion } from "@/config/motion-variants";
+import { Boards } from "@/features/game/components/Board";
+import { Keyboard } from "@/features/game/components/Keyboard";
+import { SessionStatus } from "@/features/game/components/session-status";
 import { useGameSession } from "@/features/game/hooks/use-game-session";
+import { AchievementUnlockBanner } from "@/features/stats/components/achievement-unlock-banner";
+import { AchievementsModal } from "@/features/stats/components/achievements-modal";
+import { StatsModal } from "@/features/stats/components/stats-modal";
 import { GameMode } from "@/interfaces/game";
 import { cn } from "@/lib/utils";
 
@@ -75,7 +75,7 @@ export const GameModePage = ({ mode }: Props) => {
         )}
       >
         <motion.div
-          className="flex h-full min-h-0 w-full flex-1 flex-col items-center justify-between gap-2 overflow-hidden px-1 py-1 md:justify-center md:gap-4 md:overflow-y-auto md:p-3"
+          className="flex h-full min-h-0 w-full flex-col items-center justify-between gap-2 overflow-hidden px-1 py-1 md:justify-center md:gap-4 md:overflow-y-auto md:p-3"
           {...createFadeUpMotion({ reducedMotion: shouldReduceMotion })}
         >
           {isInfiniteMode ? (
@@ -104,7 +104,7 @@ export const GameModePage = ({ mode }: Props) => {
               </div>
             </div>
           ) : (
-            <div className="flex w-full flex-1 flex-col items-center justify-center overflow-hidden">
+            <div className="flex w-full flex-1 flex-col items-center justify-center">
               <Boards
                 currentRowClass={currentRowClass}
                 rowAnimation={rowAnimation}

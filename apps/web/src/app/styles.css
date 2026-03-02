@@ -443,7 +443,7 @@
   @media (width <= 768px) {
     .boards[data-mode="2"] {
       --board-gap: 0.5rem;
-      --tile-large-size: min(8.6vw, 2rem);
+      --tile-large-size: min(8.6vw, 1.9rem);
       --tile-large-font: min(4.2vw, 1rem);
     }
 
