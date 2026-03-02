@@ -457,14 +457,14 @@
     .boards[data-mode="5"] .board-shell {
       width: 100%;
       max-width: 100%;
-      padding: 0.22rem;
+      padding: 0.18rem;
     }
 
     .boards[data-mode="2"] .row,
     .boards[data-mode="3"] .row,
     .boards[data-mode="4"] .row,
     .boards[data-mode="5"] .row {
-      padding: 0.05rem;
+      padding: 0.02rem;
     }
   }
 
@@ -793,6 +793,45 @@
 
   .key.space {
     @apply col-start-2;
+  }
+
+  .keyboard-grid .key {
+    min-height: 2.9rem;
+    font-size: 1rem;
+  }
+
+  .keyboard-grid .key svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  @media (width <= 768px) {
+    .keyboard-grid {
+      gap: 0.28rem;
+    }
+
+    .keyboard-grid .key {
+      min-height: 2.55rem;
+      font-size: 0.94rem;
+      border-radius: 0.7rem;
+    }
+
+    .keyboard-grid .key svg {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+  @media (width <= 420px) {
+    .keyboard-grid {
+      gap: 0.22rem;
+    }
+
+    .keyboard-grid .key {
+      min-height: 2.3rem;
+      font-size: 0.88rem;
+      border-radius: 0.62rem;
+    }
   }
 
   .key-segmented {

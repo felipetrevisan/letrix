@@ -75,11 +75,11 @@ export const GameModePage = ({ mode }: Props) => {
         )}
       >
         <motion.div
-          className="flex h-full min-h-0 w-full flex-1 flex-col items-center justify-center gap-4 overflow-y-auto p-2 md:p-3"
+          className="flex h-full min-h-0 w-full flex-1 flex-col items-center justify-between gap-2 overflow-hidden px-1 py-1 md:justify-center md:gap-4 md:overflow-y-auto md:p-3"
           {...createFadeUpMotion({ reducedMotion: shouldReduceMotion })}
         >
           {isInfiniteMode ? (
-            <div className="flex w-full flex-col gap-3 xl:grid xl:grid-cols-[20rem_minmax(0,1fr)_20rem] xl:items-start">
+            <div className="flex w-full flex-1 flex-col justify-center gap-2 xl:grid xl:grid-cols-[20rem_minmax(0,1fr)_20rem] xl:items-start">
               <div className="hidden xl:block" aria-hidden />
 
               <div className="w-full xl:col-start-2 xl:flex xl:justify-center">
@@ -104,7 +104,7 @@ export const GameModePage = ({ mode }: Props) => {
               </div>
             </div>
           ) : (
-            <div className="flex w-full flex-col items-center justify-center">
+            <div className="flex w-full flex-1 flex-col items-center justify-center overflow-hidden">
               <Boards
                 currentRowClass={currentRowClass}
                 rowAnimation={rowAnimation}

@@ -133,9 +133,9 @@ export function Keyboard({
   };
 
   return (
-    <div className="w-full max-w-[min(100vw-2rem,42rem)]">
+    <div className="w-full max-w-[min(100vw-0.75rem,42rem)] shrink-0 md:max-w-[min(100vw-2rem,42rem)]">
       <div
-        className="surface-panel grid grid-cols-[repeat(20,minmax(0,1fr))] gap-1 p-2.5"
+        className="surface-panel keyboard-grid grid grid-cols-[repeat(20,minmax(0,1fr))] gap-1 p-1.5 md:p-2.5"
         onMouseLeave={() => setHoveredKey(null)}
       >
         {["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"].map((key) => {
