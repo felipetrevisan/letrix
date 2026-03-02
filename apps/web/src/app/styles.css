@@ -498,6 +498,12 @@
     }
   }
 
+  .quinteto-mobile-active {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   .surface-panel {
     @apply rounded-xl border border-border/65 bg-background/80;
   }
