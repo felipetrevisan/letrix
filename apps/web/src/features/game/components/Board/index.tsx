@@ -41,10 +41,10 @@ export function Boards({
       className={cn(
         "boards grid w-full flex-1 content-start items-start justify-items-center gap-3 md:gap-5",
         boardsCount === 1 && "grid-cols-1",
-        boardsCount === 2 && "grid-cols-1 lg:grid-cols-2",
-        boardsCount === 3 && "grid-cols-1 lg:grid-cols-2 xl:grid-cols-3",
-        boardsCount === 4 && "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
-        boardsCount === 5 && "grid-cols-1 sm:grid-cols-2 xl:grid-cols-5",
+        boardsCount === 2 && "grid-cols-2 lg:grid-cols-2",
+        boardsCount === 3 && "grid-cols-2 xl:grid-cols-3",
+        boardsCount === 4 && "grid-cols-2 lg:grid-cols-4",
+        boardsCount === 5 && "grid-cols-2 md:grid-cols-3 xl:grid-cols-5",
       )}
     >
       {Array.from({ length: boardsCount }).map((_, index) => (
