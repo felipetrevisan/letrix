@@ -63,6 +63,7 @@ const modeItems = [
   { value: "3", label: "Trieto", icon: Grid2x2 },
   { value: "4", label: "Quarteto", icon: BarChart3 },
   { value: "5", label: "Quinteto", icon: Grid2x2 },
+  { value: "8", label: "Sexteto", icon: Grid2x2 },
   { value: "6", label: "Infinito", icon: Infinity },
 ] as const;
 

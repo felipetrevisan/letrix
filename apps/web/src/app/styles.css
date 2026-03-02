@@ -391,6 +391,12 @@
     --tile-large-font: clamp(1rem, 1.28vw, 1.28rem);
   }
 
+  .boards[data-mode="6"] {
+    --board-gap: clamp(0.24rem, 0.42vw, 0.5rem);
+    --tile-large-size: clamp(1.82rem, 2.05vw, 2.32rem);
+    --tile-large-font: clamp(0.94rem, 1.12vw, 1.12rem);
+  }
+
   .boards[data-word-length="10"] {
     --tile-small-size: clamp(1.44rem, 5.2vw, 2rem);
     --tile-small-height: clamp(1.9rem, 6.65vw, 2.72rem);
@@ -415,6 +421,14 @@
 
   .boards[data-mode="5"] .row {
     padding: 0.06rem;
+  }
+
+  .boards[data-mode="6"] .board-shell {
+    padding: clamp(0.18rem, 0.32vw, 0.28rem);
+  }
+
+  .boards[data-mode="6"] .row {
+    padding: 0.05rem;
   }
 
   .boards[data-word-length="10"] .board-shell {
@@ -451,10 +465,17 @@
       --tile-large-font: min(3.15vw, 0.78rem);
     }
 
+    .boards[data-mode="6"] {
+      --board-gap: 0.3rem;
+      --tile-large-size: min(6.8vw, 1.5rem);
+      --tile-large-font: min(3vw, 0.74rem);
+    }
+
     .boards[data-mode="2"] .board-shell,
     .boards[data-mode="3"] .board-shell,
     .boards[data-mode="4"] .board-shell,
-    .boards[data-mode="5"] .board-shell {
+    .boards[data-mode="5"] .board-shell,
+    .boards[data-mode="6"] .board-shell {
       width: 100%;
       max-width: 100%;
       padding: 0.18rem;
@@ -463,7 +484,8 @@
     .boards[data-mode="2"] .row,
     .boards[data-mode="3"] .row,
     .boards[data-mode="4"] .row,
-    .boards[data-mode="5"] .row {
+    .boards[data-mode="5"] .row,
+    .boards[data-mode="6"] .row {
       padding: 0.02rem;
     }
   }
@@ -491,6 +513,12 @@
       --board-gap: 0.22rem;
       --tile-large-size: min(6.4vw, 1.38rem);
       --tile-large-font: min(2.78vw, 0.68rem);
+    }
+
+    .boards[data-mode="6"] {
+      --board-gap: 0.2rem;
+      --tile-large-size: min(6.1vw, 1.3rem);
+      --tile-large-font: min(2.58vw, 0.64rem);
     }
 
     .boards[data-mode="5"] {
@@ -538,6 +566,11 @@
       --tile-large-size: clamp(1.78rem, min(2.15vw, 3.35dvh), 2.2rem);
       --tile-large-font: clamp(0.94rem, min(1.12vw, 1.7dvh), 1.14rem);
     }
+
+    .boards[data-mode="6"] {
+      --tile-large-size: clamp(1.64rem, min(1.95vw, 3.05dvh), 2rem);
+      --tile-large-font: clamp(0.88rem, min(0.98vw, 1.46dvh), 1rem);
+    }
   }
 
   @media (width >= 1400px) {
@@ -549,6 +582,11 @@
     .boards[data-mode="5"] {
       --tile-large-size: clamp(2rem, 2vw, 2.55rem);
       --tile-large-font: clamp(1.04rem, 1.15vw, 1.3rem);
+    }
+
+    .boards[data-mode="6"] {
+      --tile-large-size: clamp(1.82rem, 1.72vw, 2.26rem);
+      --tile-large-font: clamp(0.94rem, 0.98vw, 1.14rem);
     }
   }
 

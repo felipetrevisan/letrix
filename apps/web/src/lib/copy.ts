@@ -3,9 +3,10 @@ export const gameNames = {
   duo: "Dueto",
   trio: "Trieto",
   four: "Quarteto",
-  deca: "Quinteto",
+  quint: "Quinteto",
   infinite: "Infinito",
   practice: "Prática",
+  sext: "Sexteto",
 } as const;
 
 export const settingsCopy = {

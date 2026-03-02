@@ -3,9 +3,10 @@ export enum GameMode {
   duo = 2,
   trio = 3,
   four = 4,
-  deca = 5,
+  quint = 5,
   infinite = 6,
   practice = 7,
+  sext = 8,
 }
 
 export type GameLanguage = "pt" | "en";
