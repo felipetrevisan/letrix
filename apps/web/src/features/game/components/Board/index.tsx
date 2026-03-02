@@ -127,7 +127,7 @@ export function Boards({
             const isActive = pageIndex === activeMobilePage;
             const label =
               page.length === 1
-                ? `Board ${page[0] + 1}`
+                ? `${page[0] + 1}`
                 : `${page[0] + 1} e ${page[1] + 1}`;
 
             return (
@@ -171,7 +171,10 @@ export function Boards({
         <div
           data-mode={Math.min(activePageBoards.length, 2)}
           data-word-length={boardWordLength}
-          className="boards grid w-full flex-1 grid-cols-2 items-start justify-items-center gap-3 md:hidden"
+          className={cn(
+            "boards grid w-full flex-1 items-start justify-items-center gap-3 md:hidden",
+            activePageBoards.length === 1 ? "grid-cols-1" : "grid-cols-2",
+          )}
         >
           {activePageBoards.map((boardIndex) => renderBoard(boardIndex))}
         </div>
