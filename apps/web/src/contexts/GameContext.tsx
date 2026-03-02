@@ -71,6 +71,7 @@ const defaultContextValue: GameContextValue = {
   isTrio: () => false,
   isFour: () => false,
   isInfinite: () => false,
+  isPractice: () => false,
 };
 
 export const GameContext = createContext<GameContextValue>(defaultContextValue);
@@ -148,6 +149,10 @@ export const GameProvider: React.FC<ContextProps> = ({ children }) => {
     () => gameMode === GameMode.infinite,
     [gameMode],
   );
+  const isPractice = useCallback(
+    () => gameMode === GameMode.practice,
+    [gameMode],
+  );
 
   const value = useMemo<GameContextValue>(
     () => ({
@@ -183,6 +188,7 @@ export const GameProvider: React.FC<ContextProps> = ({ children }) => {
       isTrio,
       isFour,
       isInfinite,
+      isPractice,
     }),
     [
       gameMode,
@@ -210,6 +216,7 @@ export const GameProvider: React.FC<ContextProps> = ({ children }) => {
       isTrio,
       isFour,
       isInfinite,
+      isPractice,
     ],
   );
 

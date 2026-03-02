@@ -83,4 +83,5 @@ export type GameContextValue = {
   isTrio: () => boolean;
   isFour: () => boolean;
   isInfinite: () => boolean;
+  isPractice: () => boolean;
 };

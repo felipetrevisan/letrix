@@ -38,6 +38,12 @@ export const gameSettings = {
     boards: coreModeConfigs[6].boards,
     wordLength: coreModeConfigs[6].wordLength,
   },
+  7: {
+    maxChallenges: coreModeConfigs[7].maxChallenges,
+    name: coreModeConfigs[7].name,
+    boards: coreModeConfigs[7].boards,
+    wordLength: coreModeConfigs[7].wordLength,
+  },
 } satisfies GameSettings;
 
 export const initialConfig = {

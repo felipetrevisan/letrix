@@ -1,8 +1,8 @@
-export type CoreGameMode = 1 | 2 | 3 | 4 | 5 | 6;
+export type CoreGameMode = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export type CoreModeConfig = {
   mode: CoreGameMode;
-  name: "term" | "duo" | "trio" | "four" | "deca" | "infinite";
+  name: "term" | "duo" | "trio" | "four" | "deca" | "infinite" | "practice";
   maxChallenges: number;
   boards: number;
   wordLength: number;
@@ -15,6 +15,7 @@ export const coreModeConfigs: Record<CoreGameMode, CoreModeConfig> = {
   4: { mode: 4, name: "four", maxChallenges: 9, boards: 4, wordLength: 5 },
   5: { mode: 5, name: "deca", maxChallenges: 10, boards: 5, wordLength: 5 },
   6: { mode: 6, name: "infinite", maxChallenges: 8, boards: 1, wordLength: 5 },
+  7: { mode: 7, name: "practice", maxChallenges: 6, boards: 1, wordLength: 5 },
 };
 
 export const parseCoreGameMode = (
@@ -28,7 +29,8 @@ export const parseCoreGameMode = (
     mode === 3 ||
     mode === 4 ||
     mode === 5 ||
-    mode === 6
+    mode === 6 ||
+    mode === 7
   ) {
     return mode;
   }

@@ -5,6 +5,7 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleHelp,
+  FlaskConical,
   Grid2x2,
   Infinity,
   LayoutPanelTop,
@@ -57,6 +58,7 @@ import { cn } from "@/lib/utils";
 
 const modeItems = [
   { value: "1", label: "Termo", icon: Square },
+  { value: "7", label: "Prática", icon: FlaskConical },
   { value: "2", label: "Dueto", icon: LayoutPanelTop },
   { value: "3", label: "Trieto", icon: Grid2x2 },
   { value: "4", label: "Quarteto", icon: BarChart3 },

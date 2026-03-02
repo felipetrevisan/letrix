@@ -64,7 +64,7 @@ export const resolveLanguageFromLocale = (locale?: string): GameLanguage => {
   return DEFAULT_LANGUAGE;
 };
 
-export const isWordInWordList = async (
+export const isGuessAllowedWord = async (
   word: string,
   language: GameLanguage,
   wordLength: number,
@@ -91,6 +91,8 @@ export const isWordInWordList = async (
 
   return (count ?? 0) > 0;
 };
+
+export const isWordInWordList = isGuessAllowedWord;
 
 export const isWinningWord = (guess: string, solution: string) => {
   return normalizeWord(guess) === normalizeWord(solution);
@@ -317,26 +319,167 @@ export const resolveValidDailyPuzzleRows = (
   return validRows;
 };
 
+const buildEmptySolutionPayload = (
+  date: Date,
+  language: GameLanguage,
+  index: number,
+) => {
+  const nextDate = getNextGameDate(date);
+
+  return {
+    solution: [],
+    displaySolution: [],
+    definitions: [],
+    solutionDate: date,
+    solutionIndex: index,
+    tomorrow: nextDate.valueOf(),
+    language,
+  } satisfies Solution;
+};
+
+const buildSolutionPayloadFromRows = async ({
+  supabase,
+  rows,
+  date,
+  boards,
+  wordLength,
+  index,
+  language,
+}: {
+  supabase: ReturnType<typeof getLetrixBrowserClient>;
+  rows: DailyPuzzleRow[];
+  date: Date;
+  boards: number;
+  wordLength: number;
+  index: number;
+  language: GameLanguage;
+}) => {
+  const sortedRows = rows
+    .slice(0, boards)
+    .sort((left, right) => left.board_index - right.board_index);
+  const normalizedSolutions = sortedRows.map((entry) =>
+    normalizeWord(entry.solution_normalized),
+  );
+  const definitionsByWord = new Map<string, string | null>();
+  const nextDate = getNextGameDate(date);
+  const { data: definitionRows } = await supabase
+    .from("words")
+    .select("normalized_word, definition")
+    .eq("language", language)
+    .eq("word_length", wordLength)
+    .eq("is_active", true)
+    .in("normalized_word", normalizedSolutions);
+
+  const safeDefinitionRows = (definitionRows ?? []) as DictionaryWordRow[];
+
+  for (const row of safeDefinitionRows) {
+    definitionsByWord.set(
+      normalizeWord(row.normalized_word),
+      row.definition?.trim() || null,
+    );
+  }
+
+  return sanitizeSolutionPayload(
+    {
+      solution: normalizedSolutions,
+      displaySolution: sortedRows.map((entry) => entry.solution_display),
+      definitions: normalizedSolutions.map(
+        (word) => definitionsByWord.get(word) ?? null,
+      ),
+      solutionDate: date,
+      solutionIndex: index,
+      tomorrow: nextDate.valueOf(),
+      language,
+    },
+    { boards, wordLength },
+  );
+};
+
+export const getPracticeSolution = async (
+  language: GameLanguage = DEFAULT_LANGUAGE,
+  options?: { excludeWord?: string | null },
+): Promise<Solution> => {
+  const date = new Date();
+  const index = date.valueOf();
+  const supabase = getLetrixBrowserClient();
+  const wordLength = 5;
+
+  if (!supabase) {
+    return buildEmptySolutionPayload(date, language, index);
+  }
+
+  const { count, error: countError } = await supabase
+    .from("words")
+    .select("id", { count: "exact", head: true })
+    .eq("language", language)
+    .eq("word_length", wordLength)
+    .eq("is_solution", true)
+    .eq("is_active", true);
+
+  const totalSolutions = count ?? 0;
+
+  if (countError || totalSolutions === 0) {
+    return buildEmptySolutionPayload(date, language, index);
+  }
+
+  const excludedWord = options?.excludeWord
+    ? normalizeWord(options.excludeWord)
+    : null;
+  let offset = Math.floor(Math.random() * totalSolutions);
+  let attempts = 0;
+
+  while (attempts < Math.min(totalSolutions, 8)) {
+    const { data, error } = await supabase
+      .from("words")
+      .select("normalized_word, display_word, definition")
+      .eq("language", language)
+      .eq("word_length", wordLength)
+      .eq("is_solution", true)
+      .eq("is_active", true)
+      .order("normalized_word", { ascending: true })
+      .range(offset, offset)
+      .maybeSingle();
+
+    const row = data as DictionaryWordRow | null;
+
+    if (!error && row) {
+      const normalizedWord = normalizeWord(row.normalized_word);
+
+      if (
+        !excludedWord ||
+        normalizedWord !== excludedWord ||
+        totalSolutions === 1
+      ) {
+        return {
+          solution: [normalizedWord],
+          displaySolution: [row.display_word],
+          definitions: [row.definition?.trim() || null],
+          solutionDate: date,
+          solutionIndex: index,
+          tomorrow: getNextGameDate(date).valueOf(),
+          language,
+        };
+      }
+    }
+
+    offset = (offset + 1) % totalSolutions;
+    attempts += 1;
+  }
+
+  return buildEmptySolutionPayload(date, language, index);
+};
+
 export const getSolution = async (
   date: Date,
   modeOrBoards: number = 1,
   language: GameLanguage = DEFAULT_LANGUAGE,
 ): Promise<Solution> => {
-  const nextDate = getNextGameDate(date);
   const index = getIndex(date);
   const { boards, wordLength } = getResolvedModeConfig(modeOrBoards);
   const supabase = getLetrixBrowserClient();
 
   if (!supabase) {
-    return {
-      solution: [],
-      displaySolution: [],
-      definitions: [],
-      solutionDate: date,
-      solutionIndex: index,
-      tomorrow: nextDate.valueOf(),
-      language,
-    };
+    return buildEmptySolutionPayload(date, language, index);
   }
 
   const dateLabel = formatISO(date, { representation: "date" });
@@ -369,59 +512,18 @@ export const getSolution = async (
         });
 
   if (!boardRows.length) {
-    return {
-      solution: [],
-      displaySolution: [],
-      definitions: [],
-      solutionDate: date,
-      solutionIndex: index,
-      tomorrow: nextDate.valueOf(),
-      language,
-    };
+    return buildEmptySolutionPayload(date, language, index);
   }
 
-  const buildSolutionPayload = async (rowsToBuild: DailyPuzzleRow[]) => {
-    const sortedRows = rowsToBuild
-      .slice(0, boards)
-      .sort((left, right) => left.board_index - right.board_index);
-    const normalizedSolutions = sortedRows.map((entry) =>
-      normalizeWord(entry.solution_normalized),
-    );
-    const definitionsByWord = new Map<string, string | null>();
-    const { data: definitionRows } = await supabase
-      .from("words")
-      .select("normalized_word, definition")
-      .eq("language", language)
-      .eq("word_length", wordLength)
-      .eq("is_active", true)
-      .in("normalized_word", normalizedSolutions);
-
-    const safeDefinitionRows = (definitionRows ?? []) as DictionaryWordRow[];
-
-    for (const row of safeDefinitionRows) {
-      definitionsByWord.set(
-        normalizeWord(row.normalized_word),
-        row.definition?.trim() || null,
-      );
-    }
-
-    return sanitizeSolutionPayload(
-      {
-        solution: normalizedSolutions,
-        displaySolution: sortedRows.map((entry) => entry.solution_display),
-        definitions: normalizedSolutions.map(
-          (word) => definitionsByWord.get(word) ?? null,
-        ),
-        solutionDate: date,
-        solutionIndex: index,
-        tomorrow: nextDate.valueOf(),
-        language,
-      },
-      { boards, wordLength },
-    );
-  };
-
-  const resolvedSolution = await buildSolutionPayload(boardRows);
+  const resolvedSolution = await buildSolutionPayloadFromRows({
+    supabase,
+    rows: boardRows,
+    date,
+    boards,
+    wordLength,
+    index,
+    language,
+  });
 
   if (resolvedSolution.solution.length === boards) {
     return resolvedSolution;
@@ -437,18 +539,18 @@ export const getSolution = async (
   });
 
   if (!fallbackRows.length) {
-    return {
-      solution: [],
-      displaySolution: [],
-      definitions: [],
-      solutionDate: date,
-      solutionIndex: index,
-      tomorrow: nextDate.valueOf(),
-      language,
-    };
+    return buildEmptySolutionPayload(date, language, index);
   }
 
-  return buildSolutionPayload(fallbackRows);
+  return buildSolutionPayloadFromRows({
+    supabase,
+    rows: fallbackRows,
+    date,
+    boards,
+    wordLength,
+    index,
+    language,
+  });
 };
 
 export const getGameDate = () => {

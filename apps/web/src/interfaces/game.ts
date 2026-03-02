@@ -5,6 +5,7 @@ export enum GameMode {
   four = 4,
   deca = 5,
   infinite = 6,
+  practice = 7,
 }
 
 export type GameLanguage = "pt" | "en";

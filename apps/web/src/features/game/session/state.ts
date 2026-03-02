@@ -31,6 +31,12 @@ type StandardHydrationConfig = {
   wordLength: number;
 };
 
+type PracticeHydrationConfig = {
+  boards: number;
+  wordLength: number;
+  language: Solution["language"];
+};
+
 export const hydrateInfiniteSolutionFromState = (
   fallbackSolution: Solution,
   savedState: GameState[],
@@ -98,6 +104,38 @@ export const hydrateStandardSolutionFromState = (
       (state, index) => state.displaySolution ?? hydratedSolutions[index],
     ),
     definitions: savedState.map((state) => state.definition ?? null),
+  };
+};
+
+export const hydratePracticeSolutionFromState = (
+  savedState: GameState[],
+  { boards, wordLength, language }: PracticeHydrationConfig,
+): Solution | null => {
+  if (!savedState.length || savedState.length !== boards) {
+    return null;
+  }
+
+  const hydratedSolutions = savedState
+    .map((state) => normalizeWord(state.solution))
+    .filter((solution) => unicodeLength(solution) === wordLength);
+
+  if (hydratedSolutions.length !== boards) {
+    return null;
+  }
+
+  const roundIndex = savedState[0]?.curday ?? Date.now();
+  const roundDate = new Date(roundIndex);
+
+  return {
+    solution: hydratedSolutions,
+    displaySolution: savedState.map(
+      (state, index) => state.displaySolution ?? hydratedSolutions[index],
+    ),
+    definitions: savedState.map((state) => state.definition ?? null),
+    solutionDate: Number.isNaN(roundDate.valueOf()) ? new Date() : roundDate,
+    solutionIndex: roundIndex,
+    tomorrow: addDays(new Date(), 1).valueOf(),
+    language,
   };
 };
 
