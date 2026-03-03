@@ -15,6 +15,7 @@ import {
   Menu,
   Moon,
   Settings,
+  Shield,
   Square,
   Sun,
   X,
@@ -51,6 +52,7 @@ import {
   getUserDisplayName,
   getUserInitials,
 } from "@/features/auth/lib/user-profile";
+import { isClientAdminEmail } from "@/features/admin/lib/admin-access";
 import { BrandWordmark } from "@/features/navigation/components/brand-wordmark";
 import { useApp } from "@/contexts/AppContext";
 import { useGame } from "@/contexts/GameContext";
@@ -75,6 +77,7 @@ type ActionButtonsProps = {
   closeAfterAction?: boolean;
   layoutId: string;
   reducedMotion: boolean;
+  locale: string;
 };
 
 type SidebarTooltipProps = {
@@ -107,6 +110,7 @@ function ActionButtons({
   closeAfterAction = false,
   layoutId,
   reducedMotion,
+  locale,
 }: ActionButtonsProps) {
   const {
     setIsInfoModalOpen,
@@ -124,6 +128,7 @@ function ActionButtons({
   const userAvatarUrl = getUserAvatarUrl(user);
   const userDisplayName = getUserDisplayName(user);
   const userInitials = getUserInitials(user);
+  const isAdminUser = isClientAdminEmail(user?.email);
 
   const run = (fn: () => void) => {
     fn();
@@ -314,6 +319,36 @@ function ActionButtons({
           )}
           {renderActionLabel(isDark ? "Tema claro" : "Tema escuro")}
         </Button>,
+      )}
+      {withCollapsedTooltip(
+        "Painel admin",
+        isAdminUser ? (
+          <Button
+            type="button"
+            variant="ghost"
+            asChild
+            className={actionClass}
+            title="Painel admin"
+            aria-label="Painel admin"
+            onMouseEnter={() => setHoveredAction("admin")}
+            onMouseLeave={() => setHoveredAction(null)}
+          >
+            <Link
+              href={`/${locale}/admin`}
+              onClick={() => closeAfterAction && closeMenu()}
+            >
+              <MotionHighlight
+                active={hoveredAction === "admin"}
+                layoutId={layoutId}
+                className="z-0 rounded-[inherit] border border-primary/65 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
+              />
+              <Shield className={actionIconClass} />
+              {renderActionLabel("Painel admin")}
+            </Link>
+          </Button>
+        ) : (
+          <></>
+        ),
       )}
       {withCollapsedTooltip(
         user ? "Sair da conta" : "Entrar na conta",
@@ -521,6 +556,7 @@ export function Header() {
               expanded={isSidebarExpanded}
               layoutId="sidebar-action-hover-highlight"
               reducedMotion={reducedMotion}
+              locale={locale}
             />
           </div>
         </div>
@@ -605,6 +641,7 @@ export function Header() {
                 closeAfterAction
                 layoutId="sidebar-mobile-action-hover-highlight"
                 reducedMotion={reducedMotion}
+                locale={locale}
               />
             </motion.div>
           </SheetContent>

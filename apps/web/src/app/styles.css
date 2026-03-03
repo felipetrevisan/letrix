@@ -493,7 +493,7 @@
   @media (width <= 420px) {
     .boards[data-mode="2"] {
       --board-gap: 0.34rem;
-      --tile-large-size: min(8vw, 1.84rem);
+      --tile-large-size: min(8vw, 1.8rem);
       --tile-large-font: min(3.9vw, 0.94rem);
     }
 
@@ -530,6 +530,11 @@
     width: 100%;
     display: flex;
     justify-content: center;
+  }
+
+  .mobile-single-compact-board {
+    width: 100%;
+    max-width: 50%;
   }
 
   .surface-panel {
@@ -837,10 +842,6 @@
   .key-absent-disabled:disabled {
     opacity: 0.3 !important;
     filter: saturate(0.65);
-  }
-
-  .key.space {
-    @apply col-start-2;
   }
 
   .keyboard-grid .key {

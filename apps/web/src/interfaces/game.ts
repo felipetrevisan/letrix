@@ -67,6 +67,8 @@ export type GameStored = {
 export type Config = {
   hardMode?: boolean;
   highContrast?: boolean;
+  keyboardOffsetX?: number;
+  keyboardOffsetY?: number;
 };
 
 export type Guess = {

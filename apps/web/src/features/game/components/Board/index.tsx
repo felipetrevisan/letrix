@@ -176,7 +176,14 @@ export function Boards({
             activePageBoards.length === 1 ? "grid-cols-1" : "grid-cols-2",
           )}
         >
-          {activePageBoards.map((boardIndex) => renderBoard(boardIndex))}
+          {activePageBoards.map((boardIndex) =>
+            renderBoard(
+              boardIndex,
+              activePageBoards.length === 1
+                ? "mobile-single-compact-board"
+                : undefined,
+            ),
+          )}
         </div>
       </>
     );

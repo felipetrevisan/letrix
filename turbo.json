@@ -7,7 +7,12 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "env": ["GEMINI_API_KEY", "GEMINI_MODEL"],
+      "env": [
+        "GEMINI_API_KEY",
+        "GEMINI_MODEL",
+        "LETRIX_ADMIN_EMAILS",
+        "NEXT_PUBLIC_LETRIX_ADMIN_EMAILS"
+      ],
       "outputs": ["apps/web/.next/**", "!apps/web/.next/cache/**"]
     },
     "typecheck": {
