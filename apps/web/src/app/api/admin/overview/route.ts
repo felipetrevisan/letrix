@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import { getAdminDashboardData } from "@/features/admin/lib/admin-analytics";
 import { isServerAdminEmail } from "@/features/admin/lib/admin-access";
-import { getSupabaseServerClient } from "@/features/auth/lib/supabase-server";
+import {
+  getSupabaseServerClient,
+  getSupabaseServerConfigStatus,
+} from "@/features/auth/lib/supabase-server";
 
 const getAccessTokenFromRequest = (request: Request) => {
   const authorization = request.headers.get("authorization")?.trim();
@@ -26,6 +29,10 @@ export async function GET(request: Request) {
   const supabase = getSupabaseServerClient();
 
   if (!supabase) {
+    console.error("[admin/overview] missing server config", {
+      ...getSupabaseServerConfigStatus(),
+    });
+
     return NextResponse.json(
       { error: "Painel administrativo indisponível no momento." },
       { status: 500, headers: { "Cache-Control": "no-store" } },
@@ -38,6 +45,12 @@ export async function GET(request: Request) {
   } = await supabase.auth.getUser(accessToken);
 
   if (userError || !user?.email || !isServerAdminEmail(user.email)) {
+    console.error("[admin/overview] access denied", {
+      hasUser: Boolean(user),
+      email: user?.email ?? null,
+      authError: userError?.message ?? null,
+    });
+
     return NextResponse.json(
       { error: "Acesso negado." },
       { status: 403, headers: { "Cache-Control": "no-store" } },
@@ -55,7 +68,9 @@ export async function GET(request: Request) {
         },
       },
     );
-  } catch {
+  } catch (error) {
+    console.error("[admin/overview] dashboard aggregation failed", error);
+
     return NextResponse.json(
       { error: "Não foi possível carregar o painel agora." },
       { status: 500, headers: { "Cache-Control": "no-store" } },

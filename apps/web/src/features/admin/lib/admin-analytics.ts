@@ -162,19 +162,24 @@ const fetchAllUsers = async () => {
   const users: User[] = [];
 
   for (let page = 1; ; page += 1) {
-    const { data, error } = await supabase.auth.admin.listUsers({
-      page,
-      perPage: 1000,
-    });
+    try {
+      const { data, error } = await supabase.auth.admin.listUsers({
+        page,
+        perPage: 1000,
+      });
 
-    if (error) {
-      throw error;
-    }
+      if (error) {
+        throw error;
+      }
 
-    const batch = data.users ?? [];
-    users.push(...batch);
+      const batch = data.users ?? [];
+      users.push(...batch);
 
-    if (batch.length < 1000) {
+      if (batch.length < 1000) {
+        break;
+      }
+    } catch (error) {
+      console.error("[admin] failed to list auth users", error);
       break;
     }
   }

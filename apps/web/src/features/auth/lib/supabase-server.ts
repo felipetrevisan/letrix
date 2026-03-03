@@ -15,6 +15,20 @@ const getSupabaseServerConfig = () => {
   return { supabaseUrl, supabaseServiceRoleKey };
 };
 
+export const getSupabaseServerConfigStatus = () => {
+  const projectId = process.env.NEXT_PUBLIC_SUPABASE_PROJECT_ID;
+  const supabaseUrl =
+    process.env.NEXT_PUBLIC_SUPABASE_URL ??
+    (projectId ? `https://${projectId}.supabase.co` : undefined);
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  return {
+    hasProjectId: Boolean(projectId),
+    hasSupabaseUrl: Boolean(supabaseUrl),
+    hasServiceRoleKey: Boolean(supabaseServiceRoleKey),
+  };
+};
+
 export const getSupabaseServerClient = () => {
   const config = getSupabaseServerConfig();
 
