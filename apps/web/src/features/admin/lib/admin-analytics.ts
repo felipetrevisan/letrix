@@ -152,6 +152,18 @@ const fetchAllRows = async <TRow>(
   return rows;
 };
 
+const fetchRowsSafely = async <TRow>(
+  label: string,
+  buildQuery: (from: number, to: number) => any,
+) => {
+  try {
+    return await fetchAllRows<TRow>(buildQuery);
+  } catch (error) {
+    console.error(`[admin] failed to load ${label}`, error);
+    return [];
+  }
+};
+
 const fetchAllUsers = async () => {
   const supabase = getSupabaseServerClient();
 
@@ -205,14 +217,14 @@ export const getAdminDashboardData = async (): Promise<AdminDashboardData> => {
     leaderboardRows,
     users,
   ] = await Promise.all([
-    fetchAllRows<UserModeStatsRow>((from, to) =>
+    fetchRowsSafely<UserModeStatsRow>("user_mode_stats", (from, to) =>
       supabase
         .from("user_mode_stats")
         .select("user_id, mode_name, stats, updated_at")
         .order("updated_at", { ascending: false })
         .range(from, to),
     ),
-    fetchAllRows<UserGameStateRow>((from, to) =>
+    fetchRowsSafely<UserGameStateRow>("user_game_states_24h", (from, to) =>
       supabase
         .from("user_game_states")
         .select("user_id, mode_name, updated_at")
@@ -220,7 +232,7 @@ export const getAdminDashboardData = async (): Promise<AdminDashboardData> => {
         .order("updated_at", { ascending: false })
         .range(from, to),
     ),
-    fetchAllRows<UserGameStateRow>((from, to) =>
+    fetchRowsSafely<UserGameStateRow>("user_game_states_7d", (from, to) =>
       supabase
         .from("user_game_states")
         .select("user_id, mode_name, updated_at")
@@ -228,7 +240,7 @@ export const getAdminDashboardData = async (): Promise<AdminDashboardData> => {
         .order("updated_at", { ascending: false })
         .range(from, to),
     ),
-    fetchAllRows<DailyLeaderboardRow>((from, to) =>
+    fetchRowsSafely<DailyLeaderboardRow>("daily_leaderboard", (from, to) =>
       supabase
         .from("daily_leaderboard")
         .select("user_id, display_name, avatar_url, updated_at")
