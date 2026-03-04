@@ -18,6 +18,7 @@ import {
   Settings,
   Shield,
   Square,
+  Swords,
   Sun,
   X,
 } from "lucide-react";
@@ -311,6 +312,32 @@ function ActionButtons({
           />
           <BarChart3 className={actionIconClass} />
           {renderActionLabel("Estatísticas")}
+        </Button>,
+      )}
+      {withCollapsedTooltip(
+        "Multiplayer",
+        <Button
+          type="button"
+          variant="ghost"
+          asChild
+          className={actionClass}
+          title="Multiplayer"
+          aria-label="Multiplayer"
+          onMouseEnter={() => setHoveredAction("multiplayer")}
+          onMouseLeave={() => setHoveredAction(null)}
+        >
+          <Link
+            href={`/${locale}/multiplayer`}
+            onClick={() => closeAfterAction && closeMenu()}
+          >
+            <MotionHighlight
+              active={hoveredAction === "multiplayer"}
+              layoutId={layoutId}
+              className="z-0 rounded-[inherit] border border-primary/65 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
+            />
+            <Swords className={actionIconClass} />
+            {renderActionLabel("Multiplayer")}
+          </Link>
         </Button>,
       )}
       {withCollapsedTooltip(
