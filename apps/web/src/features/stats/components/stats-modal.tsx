@@ -20,7 +20,10 @@ import { useGame } from "@/contexts/GameContext";
 import { GameLanguage, GameStats } from "@/interfaces/game";
 import { statsCopy } from "@/lib/copy";
 import { deriveStatsInsights } from "@/features/stats/lib/stats-insights";
-import { shareGameResult } from "@/features/stats/lib/share-result";
+import {
+  buildShareResultText,
+  shareGameResult,
+} from "@/features/stats/lib/share-result";
 import { Base } from "@/features/shared/components/dialog-base";
 
 type Props = {
@@ -68,9 +71,6 @@ export function StatsModal({
   const solvedBoards = solutions.solution.reduce((count, word) => {
     return guesses.some((guess) => guess.word === word) ? count + 1 : count;
   }, 0);
-  const attemptsUsed = guesses.length;
-  const attemptsLeft = Math.max(getMaxChallenges() - attemptsUsed, 0);
-  const shareResultLabel = `${solvedBoards}/${solutions.solution.length}`;
   const canShareResult = isGameOver || isGameWon;
   const canShowDailyLeaderboard = !isPracticeMode && !isInfiniteMode;
   const canChallengeFriend = !isPracticeMode && !isInfiniteMode;
@@ -105,12 +105,16 @@ export function StatsModal({
 
   const handleShare = async () => {
     const shareTitle = isPracticeMode ? "Letrix Prática" : "Letrix";
-    const shareText = [
-      `${shareTitle} ${shareResultLabel}`,
-      `Tentativas usadas: ${attemptsUsed}`,
-      `Taxa de vitórias: ${insights.successRate}%`,
-      `Sequência atual: ${gameStats.curstreak}`,
-    ].join("\n");
+    const shareText = buildShareResultText({
+      modeName,
+      puzzleDate,
+      guesses,
+      solutions: solutions.solution,
+      maxChallenges: getMaxChallenges(),
+      currentStreak: gameStats.curstreak,
+      isPracticeMode,
+      isInfiniteMode,
+    });
 
     try {
       const result = await shareGameResult({
