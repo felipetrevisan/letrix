@@ -82,7 +82,7 @@ export const GameModePage = ({ mode }: Props) => {
             <div className="flex w-full flex-1 flex-col justify-center gap-2 xl:grid xl:grid-cols-[20rem_minmax(0,1fr)_20rem] xl:items-start">
               <div className="hidden xl:block" aria-hidden />
 
-              <div className="w-full xl:col-start-2 xl:flex xl:justify-center">
+              <div className="infinite-mobile-board w-full xl:col-start-2 xl:flex xl:justify-center">
                 <Boards
                   currentRowClass={currentRowClass}
                   rowAnimation={rowAnimation}

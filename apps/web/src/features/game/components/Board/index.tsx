@@ -169,7 +169,7 @@ export function Boards({
         </div>
 
         <div
-          data-mode={Math.min(activePageBoards.length, 2)}
+          data-mode={boardsCount}
           data-word-length={boardWordLength}
           className={cn(
             "boards grid w-full flex-1 items-start justify-items-center gap-3 md:hidden",

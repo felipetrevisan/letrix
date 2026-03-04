@@ -534,7 +534,35 @@
 
   .mobile-single-compact-board {
     width: 100%;
-    max-width: 50%;
+    max-width: 44%;
+  }
+
+  @media (width <= 768px) {
+    .infinite-mobile-board .boards[data-mode="1"] {
+      --board-gap: 0.42rem;
+      --tile-large-size: min(11.2vw, 2.65rem);
+      --tile-large-font: min(5.4vw, 1.28rem);
+    }
+
+    .infinite-mobile-board .boards[data-mode="1"] .board-shell {
+      padding: 0.22rem;
+    }
+
+    .infinite-mobile-board .boards[data-mode="1"] .row {
+      padding: 0.03rem;
+    }
+  }
+
+  @media (width <= 420px) {
+    .mobile-single-compact-board {
+      max-width: 42%;
+    }
+
+    .infinite-mobile-board .boards[data-mode="1"] {
+      --board-gap: 0.34rem;
+      --tile-large-size: min(10.4vw, 2.32rem);
+      --tile-large-font: min(4.9vw, 1.12rem);
+    }
   }
 
   .surface-panel {

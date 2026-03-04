@@ -1,4 +1,5 @@
 import { type CSSProperties, type ReactNode } from "react";
+import { PwaRegistration } from "@/features/shared/components/pwa-registration";
 import "./styles.css";
 
 type Props = {
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: Props) {
           } as CSSProperties
         }
       >
+        <PwaRegistration />
         {children}
       </body>
     </html>

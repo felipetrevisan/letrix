@@ -5,6 +5,7 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleHelp,
+  Download,
   FlaskConical,
   Grid2x2,
   Infinity,
@@ -24,7 +25,7 @@ import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { MotionHighlight } from "@/components/animate-ui/primitives/motion-highlight";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -78,6 +79,16 @@ type ActionButtonsProps = {
   layoutId: string;
   reducedMotion: boolean;
   locale: string;
+  canInstallPwa: boolean;
+  onInstallPwa: () => void;
+};
+
+type BeforeInstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{
+    outcome: "accepted" | "dismissed";
+    platform: string;
+  }>;
 };
 
 type SidebarTooltipProps = {
@@ -111,6 +122,8 @@ function ActionButtons({
   layoutId,
   reducedMotion,
   locale,
+  canInstallPwa,
+  onInstallPwa,
 }: ActionButtonsProps) {
   const {
     setIsInfoModalOpen,
@@ -232,6 +245,31 @@ function ActionButtons({
 
   return (
     <>
+      {withCollapsedTooltip(
+        "Instalar app",
+        canInstallPwa ? (
+          <Button
+            type="button"
+            variant="ghost"
+            className={actionClass}
+            title="Instalar app"
+            aria-label="Instalar app"
+            onClick={() => run(onInstallPwa)}
+            onMouseEnter={() => setHoveredAction("install")}
+            onMouseLeave={() => setHoveredAction(null)}
+          >
+            <MotionHighlight
+              active={hoveredAction === "install"}
+              layoutId={layoutId}
+              className="z-0 rounded-[inherit] border border-primary/65 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
+            />
+            <Download className={actionIconClass} />
+            {renderActionLabel("Instalar app")}
+          </Button>
+        ) : (
+          <></>
+        ),
+      )}
       {withCollapsedTooltip(
         "Como jogar",
         <Button
@@ -412,9 +450,66 @@ export function Header() {
   const [hoveredModeMobile, setHoveredModeMobile] = useState<string | null>(
     null,
   );
+  const [deferredInstallPrompt, setDeferredInstallPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
+  const [isStandalone, setIsStandalone] = useState(false);
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
   const locale = segments[0] ?? "pt";
+  const canInstallPwa = !isStandalone && !!deferredInstallPrompt;
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia("(display-mode: standalone)");
+    const syncStandaloneState = () => {
+      const iosStandalone =
+        "standalone" in window.navigator &&
+        Boolean(
+          (window.navigator as Navigator & { standalone?: boolean }).standalone,
+        );
+      setIsStandalone(mediaQuery.matches || iosStandalone);
+    };
+
+    const handleBeforeInstallPrompt = (event: Event) => {
+      event.preventDefault();
+      setDeferredInstallPrompt(event as BeforeInstallPromptEvent);
+    };
+
+    syncStandaloneState();
+
+    mediaQuery.addEventListener("change", syncStandaloneState);
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("appinstalled", syncStandaloneState);
+
+    return () => {
+      mediaQuery.removeEventListener("change", syncStandaloneState);
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt,
+      );
+      window.removeEventListener("appinstalled", syncStandaloneState);
+    };
+  }, []);
+
+  const handleInstallPwa = useCallback(async () => {
+    if (!deferredInstallPrompt) {
+      return;
+    }
+
+    await deferredInstallPrompt.prompt();
+    const choice = await deferredInstallPrompt.userChoice;
+
+    if (choice.outcome === "accepted") {
+      toast.success("Instalação iniciada.");
+      setDeferredInstallPrompt(null);
+      return;
+    }
+
+    toast.message("Instalação cancelada.");
+  }, [deferredInstallPrompt]);
 
   return (
     <TooltipProvider delayDuration={120}>
@@ -557,6 +652,10 @@ export function Header() {
               layoutId="sidebar-action-hover-highlight"
               reducedMotion={reducedMotion}
               locale={locale}
+              canInstallPwa={canInstallPwa}
+              onInstallPwa={() => {
+                void handleInstallPwa();
+              }}
             />
           </div>
         </div>
@@ -642,6 +741,10 @@ export function Header() {
                 layoutId="sidebar-mobile-action-hover-highlight"
                 reducedMotion={reducedMotion}
                 locale={locale}
+                canInstallPwa={canInstallPwa}
+                onInstallPwa={() => {
+                  void handleInstallPwa();
+                }}
               />
             </motion.div>
           </SheetContent>
