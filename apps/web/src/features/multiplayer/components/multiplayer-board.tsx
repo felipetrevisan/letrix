@@ -36,15 +36,15 @@ export function MultiplayerBoard({
   const normalizedCurrentLetters = currentGuess.slice(0, wordLength).split("");
 
   return (
-    <section className="surface-panel w-full max-w-md p-3">
+    <section className="surface-panel flex w-full max-w-md flex-col items-center p-3">
       <header className="mb-3 flex items-center justify-between gap-3">
-        <div>
+        <div className="w-full text-center">
           <h2 className="text-sm font-semibold text-foreground">{title}</h2>
           <p className="text-xs text-muted-foreground">{subtitle}</p>
         </div>
       </header>
 
-      <div className="grid gap-1.5">
+      <div className="grid w-full justify-items-center gap-1.5">
         {Array.from({ length: maxAttempts }, (_, rowIndex) => {
           const attempt = attempts[rowIndex];
           const isCurrentRow = !attempt && rowIndex === attempts.length;
