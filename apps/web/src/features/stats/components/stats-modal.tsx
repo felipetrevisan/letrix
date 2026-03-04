@@ -71,6 +71,8 @@ export function StatsModal({
   const solvedBoards = solutions.solution.reduce((count, word) => {
     return guesses.some((guess) => guess.word === word) ? count + 1 : count;
   }, 0);
+  const attemptsUsed = guesses.length;
+  const attemptsLeft = Math.max(getMaxChallenges() - attemptsUsed, 0);
   const canShareResult = isGameOver || isGameWon;
   const canShowDailyLeaderboard = !isPracticeMode && !isInfiniteMode;
   const canChallengeFriend = !isPracticeMode && !isInfiniteMode;
