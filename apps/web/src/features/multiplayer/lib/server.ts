@@ -3,6 +3,7 @@ import type { User } from "@supabase/supabase-js";
 import {
   getSupabaseServerClient,
   getLetrixServerClient,
+  getSupabaseServerConfigStatus,
 } from "@/features/auth/lib/supabase-server";
 import {
   getUserAvatarUrl,
@@ -58,6 +59,7 @@ type MultiplayerRoomPrivateStateRow = {
 
 const ROOM_CODE_LENGTH = 6;
 const ROUND_COUNTDOWN_MS = 2500;
+const ROOM_CODE_RETRY_LIMIT = 8;
 
 const getAccessTokenFromRequest = (request: Request) => {
   const authorization = request.headers.get("authorization")?.trim();
@@ -302,34 +304,57 @@ export const createMultiplayerRoom = async ({
 }) => {
   const { letrix } = ensureServerClients();
   const firstWord = await pickRandomSolution(language);
-  const roomCode = getRandomRoomCode();
   const now = new Date().toISOString();
+  let roomData: { id: string; room_code: string } | null = null;
+  let roomError: { code?: string | null; message?: string | null } | null =
+    null;
 
-  const roomPayload = {
-    room_code: roomCode,
-    created_by: user.id,
-    language,
-    target_wins: targetWins,
-    max_attempts: 6,
-    word_length: 5,
-    status: "waiting",
-    current_round: 1,
-    current_solution_normalized: firstWord.normalized,
-    current_solution_display: firstWord.display,
-    used_solutions: [firstWord.normalized],
-    round_starts_at: now,
-    rematch_requested_user_ids: [],
-    updated_at: now,
-  };
+  for (let attempt = 0; attempt < ROOM_CODE_RETRY_LIMIT; attempt += 1) {
+    const roomCode = getRandomRoomCode();
+    const roomPayload = {
+      room_code: roomCode,
+      created_by: user.id,
+      language,
+      target_wins: targetWins,
+      max_attempts: 6,
+      word_length: 5,
+      status: "waiting",
+      current_round: 1,
+      current_solution_normalized: firstWord.normalized,
+      current_solution_display: firstWord.display,
+      used_solutions: [firstWord.normalized],
+      round_starts_at: now,
+      rematch_requested_user_ids: [],
+      updated_at: now,
+    };
 
-  const { data: roomData, error: roomError } = await (
-    letrix.from("multiplayer_rooms") as any
-  )
-    .insert(roomPayload)
-    .select("id, room_code")
-    .single();
+    const response = await ((letrix.from("multiplayer_rooms") as any)
+      .insert(roomPayload)
+      .select("id, room_code")
+      .single() as Promise<{
+      data: { id: string; room_code: string } | null;
+      error: { code?: string | null; message?: string | null } | null;
+    }>);
 
-  if (roomError || !roomData) {
+    roomData = response.data;
+    roomError = response.error;
+
+    if (roomData) {
+      break;
+    }
+
+    if (roomError?.code !== "23505") {
+      break;
+    }
+  }
+
+  if (!roomData) {
+    console.error("[multiplayer/create] room insert failed", {
+      code: roomError?.code ?? null,
+      message: roomError?.message ?? null,
+      language,
+      targetWins,
+    });
     throw new Error("room-create-failed");
   }
 
@@ -356,6 +381,9 @@ export const createMultiplayerRoom = async ({
 
   return roomData.room_code as string;
 };
+
+export const getMultiplayerServerConfigStatus = () =>
+  getSupabaseServerConfigStatus();
 
 export const joinMultiplayerRoom = async ({
   roomCode,

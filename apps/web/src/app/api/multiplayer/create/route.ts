@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import {
   createMultiplayerRoom,
   getAuthorizedUserFromRequest,
+  getMultiplayerServerConfigStatus,
 } from "@/features/multiplayer/lib/server";
 import { resolveLanguageFromLocale } from "@/lib/words";
 
@@ -28,7 +29,25 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ roomCode });
-  } catch {
+  } catch (createError) {
+    const message =
+      createError instanceof Error ? createError.message : "room-create-failed";
+
+    if (message === "solution-pool-empty") {
+      console.error("[multiplayer/create] empty solution pool", {
+        config: getMultiplayerServerConfigStatus(),
+      });
+      return NextResponse.json(
+        { error: "Não foi possível iniciar a disputa agora." },
+        { status: 500 },
+      );
+    }
+
+    console.error("[multiplayer/create] failed", {
+      message,
+      config: getMultiplayerServerConfigStatus(),
+    });
+
     return NextResponse.json(
       { error: "Não foi possível criar a sala agora." },
       { status: 500 },
