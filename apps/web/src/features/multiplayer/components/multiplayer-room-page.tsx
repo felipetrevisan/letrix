@@ -1,6 +1,6 @@
 "use client";
 
-import { Copy, Crown, RefreshCcw } from "lucide-react";
+import { Copy, Crown, RefreshCcw, RotateCcw } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -9,6 +9,7 @@ import { useApp } from "@/contexts/AppContext";
 import { getSupabaseBrowserClient } from "@/features/auth/lib/supabase-client";
 import {
   loadMultiplayerRoomRequest,
+  requestMultiplayerRematchRequest,
   submitMultiplayerGuessRequest,
 } from "@/features/multiplayer/lib/client";
 import type { MultiplayerRoomSnapshot } from "@/features/multiplayer/lib/types";
@@ -36,7 +37,9 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
   const [selectedTileIndex, setSelectedTileIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isRequestingRematch, setIsRequestingRematch] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [countdownMs, setCountdownMs] = useState(0);
 
   const handleSelectTile = (index: number) => {
     const maxSelectableIndex = Math.min(currentGuess.length, 4);
@@ -132,8 +135,34 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
   }, [snapshot?.currentRound]);
 
   useEffect(() => {
+    if (!snapshot?.roundStartsAt) {
+      setCountdownMs(0);
+      return;
+    }
+
+    const target = new Date(snapshot.roundStartsAt).getTime();
+    const updateCountdown = () => {
+      setCountdownMs(Math.max(target - Date.now(), 0));
+    };
+
+    updateCountdown();
+
+    if (target <= Date.now()) {
+      return;
+    }
+
+    const timer = window.setInterval(updateCountdown, 150);
+    return () => window.clearInterval(timer);
+  }, [snapshot?.roundStartsAt]);
+
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (!snapshot || snapshot.status !== "active" || isSubmitting) {
+      if (
+        !snapshot ||
+        snapshot.status !== "active" ||
+        isSubmitting ||
+        countdownMs > 0
+      ) {
         return;
       }
 
@@ -158,13 +187,14 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentGuess, isSubmitting, snapshot]);
+  }, [countdownMs, currentGuess, isSubmitting, snapshot]);
 
   const handleTypeLetter = (letter: string) => {
     if (
       !snapshot ||
       snapshot.status !== "active" ||
-      currentGuess.length >= snapshot.wordLength
+      currentGuess.length >= snapshot.wordLength ||
+      countdownMs > 0
     ) {
       return;
     }
@@ -184,6 +214,11 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
 
   const handleSubmitGuess = useCallback(async () => {
     if (!snapshot || snapshot.status !== "active" || isSubmitting) {
+      return;
+    }
+
+    if (countdownMs > 0) {
+      toast.error("A próxima palavra já está chegando.");
       return;
     }
 
@@ -210,7 +245,37 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
     } finally {
       setIsSubmitting(false);
     }
-  }, [currentGuess, isSubmitting, roomCode, snapshot]);
+  }, [countdownMs, currentGuess, isSubmitting, roomCode, snapshot]);
+
+  const handleRequestRematch = async () => {
+    if (!snapshot || isRequestingRematch) {
+      return;
+    }
+
+    setIsRequestingRematch(true);
+
+    try {
+      const nextSnapshot = await requestMultiplayerRematchRequest(roomCode);
+
+      if (nextSnapshot) {
+        setSnapshot(nextSnapshot);
+      }
+
+      toast.success(
+        nextSnapshot?.status === "active"
+          ? "Revanche iniciada."
+          : "Pedido de revanche enviado.",
+      );
+    } catch (rematchError) {
+      toast.error(
+        rematchError instanceof Error
+          ? rematchError.message
+          : "Não foi possível pedir revanche agora.",
+      );
+    } finally {
+      setIsRequestingRematch(false);
+    }
+  };
 
   const inviteUrl = useMemo(() => {
     if (typeof window === "undefined") {
@@ -270,6 +335,8 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
 
   const isWaiting = snapshot.status === "waiting";
   const isFinished = snapshot.status === "finished";
+  const isBetweenRounds =
+    snapshot.status === "active" && countdownMs > 0 && !isWaiting;
   const winner =
     snapshot.winnerId === snapshot.me.userId
       ? snapshot.me
@@ -305,6 +372,18 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
           >
             Voltar
           </Button>
+          {isFinished ? (
+            <Button
+              type="button"
+              onClick={() => void handleRequestRematch()}
+              disabled={isRequestingRematch}
+            >
+              <RotateCcw className="mr-2 size-4" />
+              {snapshot.rematchRequestedByMe
+                ? "Revanche solicitada"
+                : "Pedir revanche"}
+            </Button>
+          ) : null}
         </div>
       </header>
 
@@ -359,7 +438,24 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
                 : "A disputa terminou."}
             </p>
             <p className="text-xs text-muted-foreground">
-              Você pode voltar ao lobby e criar uma nova sala.
+              {snapshot.rematchRequestedByMe &&
+              !snapshot.rematchRequestedByOpponent
+                ? "Aguardando o outro jogador aceitar a revanche."
+                : "Você pode pedir revanche ou voltar ao lobby."}
+            </p>
+          </div>
+        </div>
+      ) : null}
+
+      {isBetweenRounds ? (
+        <div className="surface-panel-card flex items-center gap-3 p-4">
+          <RefreshCcw className="size-5 text-primary" />
+          <div>
+            <p className="text-sm font-semibold text-foreground">
+              Próxima palavra em {Math.max(Math.ceil(countdownMs / 1000), 1)}s
+            </p>
+            <p className="text-xs text-muted-foreground">
+              A sala avança junta para a próxima rodada.
             </p>
           </div>
         </div>
@@ -373,7 +469,7 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
           currentGuess={currentGuess}
           selectedTileIndex={selectedTileIndex}
           onSelectTile={handleSelectTile}
-          isInteractive={!isWaiting && !isFinished}
+          isInteractive={!isWaiting && !isFinished && !isBetweenRounds}
           maxAttempts={snapshot.maxAttempts}
           wordLength={snapshot.wordLength}
         />
@@ -393,7 +489,7 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
       </div>
 
       <MultiplayerKeyboard
-        disabled={isWaiting || isFinished || isSubmitting}
+        disabled={isWaiting || isFinished || isSubmitting || isBetweenRounds}
         onType={handleTypeLetter}
         onDelete={handleDeleteLetter}
         onEnter={() => {

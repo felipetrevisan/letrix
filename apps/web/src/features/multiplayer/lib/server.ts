@@ -34,6 +34,8 @@ type MultiplayerRoomRow = {
   winner_id: string | null;
   started_at: string | null;
   finished_at: string | null;
+  round_starts_at: string | null;
+  rematch_requested_user_ids: string[];
 };
 
 type MultiplayerRoomPlayerRow = {
@@ -55,6 +57,7 @@ type MultiplayerRoomPrivateStateRow = {
 };
 
 const ROOM_CODE_LENGTH = 6;
+const ROUND_COUNTDOWN_MS = 2500;
 
 const getAccessTokenFromRequest = (request: Request) => {
   const authorization = request.headers.get("authorization")?.trim();
@@ -207,7 +210,7 @@ const getRoomByCode = async (roomCode: string) => {
   const { data } = await letrix
     .from("multiplayer_rooms")
     .select(
-      "id, room_code, language, target_wins, max_attempts, word_length, status, current_round, current_solution_normalized, current_solution_display, used_solutions, created_by, winner_id, started_at, finished_at",
+      "id, room_code, language, target_wins, max_attempts, word_length, status, current_round, current_solution_normalized, current_solution_display, used_solutions, created_by, winner_id, started_at, finished_at, round_starts_at, rematch_requested_user_ids",
     )
     .eq("room_code", roomCode)
     .maybeSingle();
@@ -261,6 +264,9 @@ export const getMultiplayerRoomSnapshot = async (
 
   const opponent = players.find((player) => player.user_id !== userId) ?? null;
   const myPrivateState = await getPrivateState(room.id, userId);
+  const rematchRequestedUserIds = Array.isArray(room.rematch_requested_user_ids)
+    ? room.rematch_requested_user_ids
+    : [];
 
   return {
     roomId: room.id,
@@ -275,6 +281,11 @@ export const getMultiplayerRoomSnapshot = async (
     winnerId: room.winner_id,
     startedAt: room.started_at,
     finishedAt: room.finished_at,
+    roundStartsAt: room.round_starts_at,
+    rematchRequestedByMe: rematchRequestedUserIds.includes(userId),
+    rematchRequestedByOpponent: opponent
+      ? rematchRequestedUserIds.includes(opponent.user_id)
+      : false,
     me: mapPlayerSnapshot(me, myPrivateState),
     opponent: opponent ? mapPlayerSnapshot(opponent) : null,
   };
@@ -306,6 +317,8 @@ export const createMultiplayerRoom = async ({
     current_solution_normalized: firstWord.normalized,
     current_solution_display: firstWord.display,
     used_solutions: [firstWord.normalized],
+    round_starts_at: now,
+    rematch_requested_user_ids: [],
     updated_at: now,
   };
 
@@ -398,6 +411,8 @@ export const joinMultiplayerRoom = async ({
     .update({
       status: "active",
       started_at: room.started_at ?? now,
+      round_starts_at: now,
+      rematch_requested_user_ids: [],
       updated_at: now,
     })
     .eq("id", room.id)
@@ -488,6 +503,7 @@ const maybeAdvanceAfterMisses = async (room: MultiplayerRoomRow) => {
       current_solution_normalized: nextWord.normalized,
       current_solution_display: nextWord.display,
       used_solutions: [...(room.used_solutions ?? []), nextWord.normalized],
+      round_starts_at: new Date(Date.now() + ROUND_COUNTDOWN_MS).toISOString(),
       updated_at: updatedAt,
     })
     .eq("id", room.id)
@@ -523,6 +539,13 @@ export const submitMultiplayerGuess = async ({
 
   if (room.status === "finished") {
     throw new Error("room-finished");
+  }
+
+  if (
+    room.round_starts_at &&
+    new Date(room.round_starts_at).getTime() > Date.now()
+  ) {
+    throw new Error("round-countdown");
   }
 
   const players = await getRoomPlayers(room.id);
@@ -625,6 +648,9 @@ export const submitMultiplayerGuess = async ({
         current_solution_normalized: nextWord.normalized,
         current_solution_display: nextWord.display,
         used_solutions: [...(room.used_solutions ?? []), nextWord.normalized],
+        round_starts_at: new Date(
+          Date.now() + ROUND_COUNTDOWN_MS,
+        ).toISOString(),
         updated_at: updatedAt,
       })
       .eq("id", room.id)
@@ -641,4 +667,87 @@ export const submitMultiplayerGuess = async ({
   }
 
   await maybeAdvanceAfterMisses(room);
+};
+
+export const requestMultiplayerRematch = async ({
+  roomCode,
+  user,
+}: {
+  roomCode: string;
+  user: User;
+}) => {
+  const { letrix } = ensureServerClients();
+  const room = await getRoomByCode(roomCode);
+
+  if (!room) {
+    throw new Error("room-not-found");
+  }
+
+  if (room.status !== "finished") {
+    throw new Error("room-not-finished");
+  }
+
+  const players = await getRoomPlayers(room.id);
+  const me = players.find((player) => player.user_id === user.id);
+
+  if (!me) {
+    throw new Error("room-forbidden");
+  }
+
+  if (players.length !== 2) {
+    throw new Error("room-incomplete");
+  }
+
+  const now = new Date().toISOString();
+  const requestedUserIds = Array.isArray(room.rematch_requested_user_ids)
+    ? room.rematch_requested_user_ids
+    : [];
+  const nextRequestedUserIds = Array.from(
+    new Set([...requestedUserIds, user.id]),
+  );
+
+  if (nextRequestedUserIds.length < 2) {
+    await (letrix.from("multiplayer_rooms") as any)
+      .update({
+        rematch_requested_user_ids: nextRequestedUserIds,
+        updated_at: now,
+      })
+      .eq("id", room.id);
+
+    return;
+  }
+
+  const nextWord = await pickRandomSolution(room.language);
+
+  await (letrix.from("multiplayer_room_players") as any)
+    .update({
+      score: 0,
+      masked_attempts: [],
+      solved_current_round: false,
+      attempts_used_current_round: 0,
+      updated_at: now,
+    })
+    .eq("room_id", room.id);
+
+  await (letrix.from("multiplayer_room_private_states") as any)
+    .update({
+      attempts: [],
+      updated_at: now,
+    })
+    .eq("room_id", room.id);
+
+  await (letrix.from("multiplayer_rooms") as any)
+    .update({
+      status: "active",
+      current_round: 1,
+      current_solution_normalized: nextWord.normalized,
+      current_solution_display: nextWord.display,
+      used_solutions: [nextWord.normalized],
+      winner_id: null,
+      finished_at: null,
+      round_starts_at: new Date(Date.now() + ROUND_COUNTDOWN_MS).toISOString(),
+      rematch_requested_user_ids: [],
+      updated_at: now,
+    })
+    .eq("id", room.id);
 };

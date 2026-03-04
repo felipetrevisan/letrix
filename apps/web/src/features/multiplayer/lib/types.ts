@@ -37,6 +37,9 @@ export type MultiplayerRoomSnapshot = {
   winnerId: string | null;
   startedAt: string | null;
   finishedAt: string | null;
+  roundStartsAt: string | null;
+  rematchRequestedByMe: boolean;
+  rematchRequestedByOpponent: boolean;
   me: MultiplayerPlayerSnapshot;
   opponent: MultiplayerPlayerSnapshot | null;
 };

@@ -98,3 +98,14 @@ export const submitMultiplayerGuessRequest = async ({
 
   return payload.snapshot;
 };
+
+export const requestMultiplayerRematchRequest = async (roomCode: string) => {
+  const payload = await apiRequest<{
+    snapshot: MultiplayerRoomSnapshot | null;
+  }>("/api/multiplayer/rematch", {
+    method: "POST",
+    body: JSON.stringify({ roomCode }),
+  });
+
+  return payload.snapshot;
+};

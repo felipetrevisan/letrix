@@ -53,6 +53,13 @@ export async function POST(request: Request) {
       );
     }
 
+    if (message === "round-countdown") {
+      return NextResponse.json(
+        { error: "A próxima palavra já está chegando." },
+        { status: 409 },
+      );
+    }
+
     if (
       message === "room-not-found" ||
       message === "room-finished" ||
