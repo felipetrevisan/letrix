@@ -24,7 +24,7 @@ export function MultiplayerKeyboard({
   onEnter,
 }: Props) {
   return (
-    <section className="surface-panel w-full max-w-5xl p-3">
+    <section className="surface-panel w-full p-3">
       <div className="grid gap-2">
         <div className="grid grid-cols-10 gap-2">
           {keyboardRows[0].map((letter) => (

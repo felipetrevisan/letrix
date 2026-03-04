@@ -54,18 +54,20 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
 
       if (!silent) {
         setIsLoading(true);
+        setError(null);
       }
-      setError(null);
 
       try {
         const nextSnapshot = await loadMultiplayerRoomRequest(roomCode);
         setSnapshot(nextSnapshot);
       } catch (loadError) {
-        setError(
-          loadError instanceof Error
-            ? loadError.message
-            : "Não foi possível carregar a sala agora.",
-        );
+        if (!silent) {
+          setError(
+            loadError instanceof Error
+              ? loadError.message
+              : "Não foi possível carregar a sala agora.",
+          );
+        }
       } finally {
         if (!silent) {
           setIsLoading(false);
@@ -130,15 +132,30 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
   }, [loadRoom, snapshot?.roomId]);
 
   useEffect(() => {
-    if (!snapshot || snapshot.status !== "waiting" || snapshot.opponent) {
+    if (!snapshot || snapshot.status === "finished") {
       return;
     }
 
-    const poller = window.setInterval(() => {
+    const reload = () => {
       void loadRoom(true);
-    }, 2000);
+    };
 
-    return () => window.clearInterval(poller);
+    const poller = window.setInterval(reload, 2000);
+    const handleFocus = () => reload();
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        reload();
+      }
+    };
+
+    window.addEventListener("focus", handleFocus);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.clearInterval(poller);
+      window.removeEventListener("focus", handleFocus);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, [loadRoom, snapshot]);
 
   useEffect(() => {
@@ -402,138 +419,142 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
         </div>
       </header>
 
-      <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
-        <div className="surface-panel relative overflow-hidden p-4">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.12),transparent_42%)]" />
-          <div className="relative flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-foreground">
-                {snapshot.me.displayName}
-              </p>
-              <p className="text-xs text-muted-foreground">Você</p>
-            </div>
-            <p className="text-3xl font-semibold tabular-nums text-foreground">
-              {snapshot.me.score}
-            </p>
-          </div>
-        </div>
-
-        <div className="surface-panel hidden min-w-[120px] items-center justify-center p-4 lg:flex">
-          <div className="text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/70">
-              versus
-            </p>
-            <p className="mt-2 text-3xl font-semibold tabular-nums text-foreground">
-              {snapshot.me.score} × {snapshot.opponent?.score ?? 0}
-            </p>
-          </div>
-        </div>
-
-        <div className="surface-panel relative overflow-hidden p-4">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,hsl(var(--accent)/0.12),transparent_42%)]" />
-          <div className="relative flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-foreground">
-                {snapshot.opponent?.displayName ?? "Aguardando rival"}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {snapshot.opponent ? "Oponente" : "Compartilhe o link da sala"}
+      <div className="mx-auto flex w-full max-w-[54rem] flex-col gap-4">
+        <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
+          <div className="surface-panel relative overflow-hidden p-4">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.12),transparent_42%)]" />
+            <div className="relative flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-foreground">
+                  {snapshot.me.displayName}
+                </p>
+                <p className="text-xs text-muted-foreground">Você</p>
+              </div>
+              <p className="text-3xl font-semibold tabular-nums text-foreground">
+                {snapshot.me.score}
               </p>
             </div>
-            <p className="text-3xl font-semibold tabular-nums text-foreground">
-              {snapshot.opponent?.score ?? 0}
-            </p>
+          </div>
+
+          <div className="surface-panel hidden min-w-[120px] items-center justify-center p-4 lg:flex">
+            <div className="text-center">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/70">
+                versus
+              </p>
+              <p className="mt-2 text-3xl font-semibold tabular-nums text-foreground">
+                {snapshot.me.score} × {snapshot.opponent?.score ?? 0}
+              </p>
+            </div>
+          </div>
+
+          <div className="surface-panel relative overflow-hidden p-4">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,hsl(var(--accent)/0.12),transparent_42%)]" />
+            <div className="relative flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-foreground">
+                  {snapshot.opponent?.displayName ?? "Aguardando rival"}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {snapshot.opponent
+                    ? "Oponente"
+                    : "Compartilhe o link da sala"}
+                </p>
+              </div>
+              <p className="text-3xl font-semibold tabular-nums text-foreground">
+                {snapshot.opponent?.score ?? 0}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {isWaiting ? (
-        <div className="surface-panel-card relative overflow-hidden p-4">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--primary)/0.12),transparent_45%)]" />
-          <div className="relative flex items-center justify-between gap-4">
+        {isWaiting ? (
+          <div className="surface-panel-card relative overflow-hidden p-4">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--primary)/0.12),transparent_45%)]" />
+            <div className="relative flex items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold text-foreground">
+                  Aguardando a segunda pessoa entrar
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Assim que alguém entrar, a disputa começa automaticamente.
+                </p>
+              </div>
+              <div className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                Em espera
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {isFinished ? (
+          <div className="surface-panel-card flex items-center gap-3 p-4">
+            <Crown className="size-5 text-primary" />
             <div>
               <p className="text-sm font-semibold text-foreground">
-                Aguardando a segunda pessoa entrar
+                {winner
+                  ? `${winner.displayName} venceu a disputa.`
+                  : "A disputa terminou."}
               </p>
               <p className="text-xs text-muted-foreground">
-                Assim que alguém entrar, a disputa começa automaticamente.
+                {snapshot.rematchRequestedByMe &&
+                !snapshot.rematchRequestedByOpponent
+                  ? "Aguardando o outro jogador aceitar a revanche."
+                  : "Você pode pedir revanche ou voltar ao lobby."}
               </p>
             </div>
-            <div className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-              Em espera
+          </div>
+        ) : null}
+
+        {isBetweenRounds ? (
+          <div className="surface-panel-card flex items-center gap-3 p-4">
+            <RefreshCcw className="size-5 text-primary" />
+            <div>
+              <p className="text-sm font-semibold text-foreground">
+                Próxima palavra em {Math.max(Math.ceil(countdownMs / 1000), 1)}s
+              </p>
+              <p className="text-xs text-muted-foreground">
+                A sala avança junta para a próxima rodada.
+              </p>
             </div>
           </div>
+        ) : null}
+
+        <div className="grid justify-items-center gap-4 xl:grid-cols-2">
+          <MultiplayerBoard
+            title="Seu tabuleiro"
+            subtitle={`${snapshot.me.attempts.length}/${snapshot.maxAttempts} tentativas na rodada`}
+            attempts={snapshot.me.attempts}
+            currentGuess={currentGuess}
+            selectedTileIndex={selectedTileIndex}
+            onSelectTile={handleSelectTile}
+            isInteractive={!isWaiting && !isFinished && !isBetweenRounds}
+            maxAttempts={snapshot.maxAttempts}
+            wordLength={snapshot.wordLength}
+          />
+
+          <MultiplayerBoard
+            title={snapshot.opponent?.displayName ?? "Oponente"}
+            subtitle={
+              snapshot.opponent
+                ? `${snapshot.opponent.maskedAttempts.length}/${snapshot.maxAttempts} tentativas na rodada`
+                : "Ainda não entrou na sala"
+            }
+            attempts={snapshot.opponent?.maskedAttempts ?? []}
+            maskLetters
+            maxAttempts={snapshot.maxAttempts}
+            wordLength={snapshot.wordLength}
+          />
         </div>
-      ) : null}
 
-      {isFinished ? (
-        <div className="surface-panel-card flex items-center gap-3 p-4">
-          <Crown className="size-5 text-primary" />
-          <div>
-            <p className="text-sm font-semibold text-foreground">
-              {winner
-                ? `${winner.displayName} venceu a disputa.`
-                : "A disputa terminou."}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              {snapshot.rematchRequestedByMe &&
-              !snapshot.rematchRequestedByOpponent
-                ? "Aguardando o outro jogador aceitar a revanche."
-                : "Você pode pedir revanche ou voltar ao lobby."}
-            </p>
-          </div>
-        </div>
-      ) : null}
-
-      {isBetweenRounds ? (
-        <div className="surface-panel-card flex items-center gap-3 p-4">
-          <RefreshCcw className="size-5 text-primary" />
-          <div>
-            <p className="text-sm font-semibold text-foreground">
-              Próxima palavra em {Math.max(Math.ceil(countdownMs / 1000), 1)}s
-            </p>
-            <p className="text-xs text-muted-foreground">
-              A sala avança junta para a próxima rodada.
-            </p>
-          </div>
-        </div>
-      ) : null}
-
-      <div className="grid gap-4 xl:grid-cols-2">
-        <MultiplayerBoard
-          title="Seu tabuleiro"
-          subtitle={`${snapshot.me.attempts.length}/${snapshot.maxAttempts} tentativas na rodada`}
-          attempts={snapshot.me.attempts}
-          currentGuess={currentGuess}
-          selectedTileIndex={selectedTileIndex}
-          onSelectTile={handleSelectTile}
-          isInteractive={!isWaiting && !isFinished && !isBetweenRounds}
-          maxAttempts={snapshot.maxAttempts}
-          wordLength={snapshot.wordLength}
-        />
-
-        <MultiplayerBoard
-          title={snapshot.opponent?.displayName ?? "Oponente"}
-          subtitle={
-            snapshot.opponent
-              ? `${snapshot.opponent.maskedAttempts.length}/${snapshot.maxAttempts} tentativas na rodada`
-              : "Ainda não entrou na sala"
-          }
-          attempts={snapshot.opponent?.maskedAttempts ?? []}
-          maskLetters
-          maxAttempts={snapshot.maxAttempts}
-          wordLength={snapshot.wordLength}
+        <MultiplayerKeyboard
+          disabled={isWaiting || isFinished || isSubmitting || isBetweenRounds}
+          onType={handleTypeLetter}
+          onDelete={handleDeleteLetter}
+          onEnter={() => {
+            void handleSubmitGuess();
+          }}
         />
       </div>
-
-      <MultiplayerKeyboard
-        disabled={isWaiting || isFinished || isSubmitting || isBetweenRounds}
-        onType={handleTypeLetter}
-        onDelete={handleDeleteLetter}
-        onEnter={() => {
-          void handleSubmitGuess();
-        }}
-      />
     </section>
   );
 }
