@@ -573,95 +573,92 @@ export function Header() {
             </SidebarTooltip>
           </div>
           <ScrollArea className="mt-4 min-h-0 flex-1">
-            <div className="flex min-h-full flex-col">
-              <nav
-                className={cn(
-                  "grid gap-2",
-                  isSidebarExpanded ? "px-3" : "justify-center",
-                )}
-              >
-                {modeItems.map(({ value, label, icon: Icon }) => {
-                  const active = Number(value) === gameMode;
-                  return (
-                    <SidebarTooltip
-                      key={value}
-                      label={label}
-                      disabled={isSidebarExpanded}
+            <nav
+              className={cn(
+                "grid gap-2 pb-3",
+                isSidebarExpanded ? "px-3" : "justify-center",
+              )}
+            >
+              {modeItems.map(({ value, label, icon: Icon }) => {
+                const active = Number(value) === gameMode;
+                return (
+                  <SidebarTooltip
+                    key={value}
+                    label={label}
+                    disabled={isSidebarExpanded}
+                  >
+                    <Link
+                      href={`/${locale}/${value}`}
+                      title={label}
+                      aria-label={label}
+                      onMouseEnter={() => setHoveredModeDesktop(value)}
+                      onMouseLeave={() => setHoveredModeDesktop(null)}
+                      className={cn(
+                        "relative inline-flex h-10 items-center overflow-hidden rounded-lg border font-medium",
+                        MOTION_CLASS.padding,
+                        isSidebarExpanded
+                          ? "w-full justify-start gap-2 px-3"
+                          : "w-10 justify-center gap-0 px-0",
+                        active
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border/65 bg-background text-foreground hover:border-primary/70 hover:bg-muted",
+                      )}
                     >
-                      <Link
-                        href={`/${locale}/${value}`}
-                        title={label}
-                        aria-label={label}
-                        onMouseEnter={() => setHoveredModeDesktop(value)}
-                        onMouseLeave={() => setHoveredModeDesktop(null)}
+                      <MotionHighlight
+                        active={hoveredModeDesktop === value}
+                        layoutId="sidebar-mode-highlight"
+                        className="z-0 rounded-lg border border-primary/60 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
+                      />
+                      <Icon
                         className={cn(
-                          "relative inline-flex h-10 items-center overflow-hidden rounded-lg border font-medium",
-                          MOTION_CLASS.padding,
-                          isSidebarExpanded
-                            ? "w-full justify-start gap-2 px-3"
-                            : "w-10 justify-center gap-0 px-0",
-                          active
-                            ? "border-primary bg-primary text-primary-foreground"
-                            : "border-border/65 bg-background text-foreground hover:border-primary/70 hover:bg-muted",
+                          "relative z-10 shrink-0",
+                          isSidebarExpanded ? "size-4" : "size-5",
                         )}
+                      />
+                      <motion.span
+                        className="relative z-10 inline-block overflow-hidden whitespace-nowrap"
+                        initial={false}
+                        animate={
+                          isSidebarExpanded
+                            ? { opacity: 1, x: 0, maxWidth: 120 }
+                            : {
+                                opacity: 0,
+                                x: reducedMotion ? 0 : -6,
+                                maxWidth: 0,
+                              }
+                        }
+                        transition={{
+                          duration: reducedMotion
+                            ? MOTION_DURATION.xs
+                            : MOTION_DURATION.md,
+                          ease: MOTION_EASE.standard,
+                        }}
                       >
-                        <MotionHighlight
-                          active={hoveredModeDesktop === value}
-                          layoutId="sidebar-mode-highlight"
-                          className="z-0 rounded-lg border border-primary/60 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
-                        />
-                        <Icon
-                          className={cn(
-                            "relative z-10 shrink-0",
-                            isSidebarExpanded ? "size-4" : "size-5",
-                          )}
-                        />
-                        <motion.span
-                          className="relative z-10 inline-block overflow-hidden whitespace-nowrap"
-                          initial={false}
-                          animate={
-                            isSidebarExpanded
-                              ? { opacity: 1, x: 0, maxWidth: 120 }
-                              : {
-                                  opacity: 0,
-                                  x: reducedMotion ? 0 : -6,
-                                  maxWidth: 0,
-                                }
-                          }
-                          transition={{
-                            duration: reducedMotion
-                              ? MOTION_DURATION.xs
-                              : MOTION_DURATION.md,
-                            ease: MOTION_EASE.standard,
-                          }}
-                        >
-                          {label}
-                        </motion.span>
-                      </Link>
-                    </SidebarTooltip>
-                  );
-                })}
-              </nav>
-
-              <div
-                className={cn(
-                  "mt-auto grid gap-2 px-1 pb-2 pt-4",
-                  isSidebarExpanded ? "px-3" : "justify-center",
-                )}
-              >
-                <ActionButtons
-                  expanded={isSidebarExpanded}
-                  layoutId="sidebar-action-hover-highlight"
-                  reducedMotion={reducedMotion}
-                  locale={locale}
-                  canInstallPwa={canInstallPwa}
-                  onInstallPwa={() => {
-                    void handleInstallPwa();
-                  }}
-                />
-              </div>
-            </div>
+                        {label}
+                      </motion.span>
+                    </Link>
+                  </SidebarTooltip>
+                );
+              })}
+            </nav>
           </ScrollArea>
+          <div
+            className={cn(
+              "grid gap-2 border-t border-border/45 px-1 pb-2 pt-4",
+              isSidebarExpanded ? "px-3" : "justify-center",
+            )}
+          >
+            <ActionButtons
+              expanded={isSidebarExpanded}
+              layoutId="sidebar-action-hover-highlight"
+              reducedMotion={reducedMotion}
+              locale={locale}
+              canInstallPwa={canInstallPwa}
+              onInstallPwa={() => {
+                void handleInstallPwa();
+              }}
+            />
+          </div>
         </div>
       </motion.aside>
 
