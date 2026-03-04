@@ -36,6 +36,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Tooltip,
   TooltipContent,
@@ -571,93 +572,96 @@ export function Header() {
               </Button>
             </SidebarTooltip>
           </div>
-
-          <nav
-            className={cn(
-              "mt-4 grid gap-2",
-              isSidebarExpanded ? "px-3" : "justify-center",
-            )}
-          >
-            {modeItems.map(({ value, label, icon: Icon }) => {
-              const active = Number(value) === gameMode;
-              return (
-                <SidebarTooltip
-                  key={value}
-                  label={label}
-                  disabled={isSidebarExpanded}
-                >
-                  <Link
-                    href={`/${locale}/${value}`}
-                    title={label}
-                    aria-label={label}
-                    onMouseEnter={() => setHoveredModeDesktop(value)}
-                    onMouseLeave={() => setHoveredModeDesktop(null)}
-                    className={cn(
-                      "relative inline-flex h-10 items-center overflow-hidden rounded-lg border font-medium",
-                      MOTION_CLASS.padding,
-                      isSidebarExpanded
-                        ? "w-full justify-start gap-2 px-3"
-                        : "w-10 justify-center gap-0 px-0",
-                      active
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border/65 bg-background text-foreground hover:border-primary/70 hover:bg-muted",
-                    )}
-                  >
-                    <MotionHighlight
-                      active={hoveredModeDesktop === value}
-                      layoutId="sidebar-mode-highlight"
-                      className="z-0 rounded-lg border border-primary/60 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
-                    />
-                    <Icon
-                      className={cn(
-                        "relative z-10 shrink-0",
-                        isSidebarExpanded ? "size-4" : "size-5",
-                      )}
-                    />
-                    <motion.span
-                      className="relative z-10 inline-block overflow-hidden whitespace-nowrap"
-                      initial={false}
-                      animate={
-                        isSidebarExpanded
-                          ? { opacity: 1, x: 0, maxWidth: 120 }
-                          : {
-                              opacity: 0,
-                              x: reducedMotion ? 0 : -6,
-                              maxWidth: 0,
-                            }
-                      }
-                      transition={{
-                        duration: reducedMotion
-                          ? MOTION_DURATION.xs
-                          : MOTION_DURATION.md,
-                        ease: MOTION_EASE.standard,
-                      }}
+          <ScrollArea className="mt-4 min-h-0 flex-1">
+            <div className="flex min-h-full flex-col">
+              <nav
+                className={cn(
+                  "grid gap-2",
+                  isSidebarExpanded ? "px-3" : "justify-center",
+                )}
+              >
+                {modeItems.map(({ value, label, icon: Icon }) => {
+                  const active = Number(value) === gameMode;
+                  return (
+                    <SidebarTooltip
+                      key={value}
+                      label={label}
+                      disabled={isSidebarExpanded}
                     >
-                      {label}
-                    </motion.span>
-                  </Link>
-                </SidebarTooltip>
-              );
-            })}
-          </nav>
+                      <Link
+                        href={`/${locale}/${value}`}
+                        title={label}
+                        aria-label={label}
+                        onMouseEnter={() => setHoveredModeDesktop(value)}
+                        onMouseLeave={() => setHoveredModeDesktop(null)}
+                        className={cn(
+                          "relative inline-flex h-10 items-center overflow-hidden rounded-lg border font-medium",
+                          MOTION_CLASS.padding,
+                          isSidebarExpanded
+                            ? "w-full justify-start gap-2 px-3"
+                            : "w-10 justify-center gap-0 px-0",
+                          active
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-border/65 bg-background text-foreground hover:border-primary/70 hover:bg-muted",
+                        )}
+                      >
+                        <MotionHighlight
+                          active={hoveredModeDesktop === value}
+                          layoutId="sidebar-mode-highlight"
+                          className="z-0 rounded-lg border border-primary/60 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
+                        />
+                        <Icon
+                          className={cn(
+                            "relative z-10 shrink-0",
+                            isSidebarExpanded ? "size-4" : "size-5",
+                          )}
+                        />
+                        <motion.span
+                          className="relative z-10 inline-block overflow-hidden whitespace-nowrap"
+                          initial={false}
+                          animate={
+                            isSidebarExpanded
+                              ? { opacity: 1, x: 0, maxWidth: 120 }
+                              : {
+                                  opacity: 0,
+                                  x: reducedMotion ? 0 : -6,
+                                  maxWidth: 0,
+                                }
+                          }
+                          transition={{
+                            duration: reducedMotion
+                              ? MOTION_DURATION.xs
+                              : MOTION_DURATION.md,
+                            ease: MOTION_EASE.standard,
+                          }}
+                        >
+                          {label}
+                        </motion.span>
+                      </Link>
+                    </SidebarTooltip>
+                  );
+                })}
+              </nav>
 
-          <div
-            className={cn(
-              "mt-auto grid gap-2 pb-2",
-              isSidebarExpanded ? "px-3" : "justify-center",
-            )}
-          >
-            <ActionButtons
-              expanded={isSidebarExpanded}
-              layoutId="sidebar-action-hover-highlight"
-              reducedMotion={reducedMotion}
-              locale={locale}
-              canInstallPwa={canInstallPwa}
-              onInstallPwa={() => {
-                void handleInstallPwa();
-              }}
-            />
-          </div>
+              <div
+                className={cn(
+                  "mt-auto grid gap-2 px-1 pb-2 pt-4",
+                  isSidebarExpanded ? "px-3" : "justify-center",
+                )}
+              >
+                <ActionButtons
+                  expanded={isSidebarExpanded}
+                  layoutId="sidebar-action-hover-highlight"
+                  reducedMotion={reducedMotion}
+                  locale={locale}
+                  canInstallPwa={canInstallPwa}
+                  onInstallPwa={() => {
+                    void handleInstallPwa();
+                  }}
+                />
+              </div>
+            </div>
+          </ScrollArea>
         </div>
       </motion.aside>
 
@@ -678,75 +682,79 @@ export function Header() {
           onOpenChange={(open) => (open ? openMenu() : closeMenu())}
         >
           <SheetContent side="left" className="w-72 p-4">
-            <SheetHeader className="mb-3">
-              <SheetTitle>
-                <BrandWordmark reducedMotion={reducedMotion} />
-              </SheetTitle>
-            </SheetHeader>
+            <ScrollArea className="h-full pr-2">
+              <div className="flex min-h-full flex-col">
+                <SheetHeader className="mb-3">
+                  <SheetTitle>
+                    <BrandWordmark reducedMotion={reducedMotion} />
+                  </SheetTitle>
+                </SheetHeader>
 
-            <motion.nav
-              className="mb-4 grid gap-2"
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: reducedMotion
-                  ? MOTION_DURATION.xs
-                  : MOTION_DURATION.md,
-                ease: MOTION_EASE.out,
-              }}
-            >
-              {modeItems.map(({ value, label, icon: Icon }) => {
-                const active = Number(value) === gameMode;
+                <motion.nav
+                  className="mb-4 grid gap-2"
+                  initial={false}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: reducedMotion
+                      ? MOTION_DURATION.xs
+                      : MOTION_DURATION.md,
+                    ease: MOTION_EASE.out,
+                  }}
+                >
+                  {modeItems.map(({ value, label, icon: Icon }) => {
+                    const active = Number(value) === gameMode;
 
-                return (
-                  <Link
-                    key={value}
-                    href={`/${locale}/${value}`}
-                    onClick={closeMenu}
-                    onMouseEnter={() => setHoveredModeMobile(value)}
-                    onMouseLeave={() => setHoveredModeMobile(null)}
-                    className={cn(
-                      "relative flex items-center gap-2 overflow-hidden rounded-lg border px-3 py-2 font-semibold",
-                      active
-                        ? "border-primary bg-primary text-primary-foreground"
-                        : "border-border/65 bg-background text-foreground hover:border-primary/60 hover:bg-muted",
-                    )}
-                  >
-                    <MotionHighlight
-                      active={hoveredModeMobile === value}
-                      layoutId="sidebar-mobile-mode-highlight"
-                      className="z-0 rounded-lg border border-primary/60 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
-                    />
-                    <Icon className="relative z-10 size-5" />
-                    <span className="relative z-10">{label}</span>
-                  </Link>
-                );
-              })}
-            </motion.nav>
+                    return (
+                      <Link
+                        key={value}
+                        href={`/${locale}/${value}`}
+                        onClick={closeMenu}
+                        onMouseEnter={() => setHoveredModeMobile(value)}
+                        onMouseLeave={() => setHoveredModeMobile(null)}
+                        className={cn(
+                          "relative flex items-center gap-2 overflow-hidden rounded-lg border px-3 py-2 font-semibold",
+                          active
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-border/65 bg-background text-foreground hover:border-primary/60 hover:bg-muted",
+                        )}
+                      >
+                        <MotionHighlight
+                          active={hoveredModeMobile === value}
+                          layoutId="sidebar-mobile-mode-highlight"
+                          className="z-0 rounded-lg border border-primary/60 bg-primary/12 shadow-[0_0_12px_hsl(var(--primary)/0.35)]"
+                        />
+                        <Icon className="relative z-10 size-5" />
+                        <span className="relative z-10">{label}</span>
+                      </Link>
+                    );
+                  })}
+                </motion.nav>
 
-            <motion.div
-              className="grid gap-2"
-              initial={false}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: reducedMotion
-                  ? MOTION_DURATION.xs
-                  : MOTION_DURATION.md,
-                ease: MOTION_EASE.out,
-              }}
-            >
-              <ActionButtons
-                expanded
-                closeAfterAction
-                layoutId="sidebar-mobile-action-hover-highlight"
-                reducedMotion={reducedMotion}
-                locale={locale}
-                canInstallPwa={canInstallPwa}
-                onInstallPwa={() => {
-                  void handleInstallPwa();
-                }}
-              />
-            </motion.div>
+                <motion.div
+                  className="mt-auto grid gap-2 pb-4"
+                  initial={false}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: reducedMotion
+                      ? MOTION_DURATION.xs
+                      : MOTION_DURATION.md,
+                    ease: MOTION_EASE.out,
+                  }}
+                >
+                  <ActionButtons
+                    expanded
+                    closeAfterAction
+                    layoutId="sidebar-mobile-action-hover-highlight"
+                    reducedMotion={reducedMotion}
+                    locale={locale}
+                    canInstallPwa={canInstallPwa}
+                    onInstallPwa={() => {
+                      void handleInstallPwa();
+                    }}
+                  />
+                </motion.div>
+              </div>
+            </ScrollArea>
           </SheetContent>
         </Sheet>
       </div>

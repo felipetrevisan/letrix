@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useApp } from "@/contexts/AppContext";
 import { getSupabaseBrowserClient } from "@/features/auth/lib/supabase-client";
 import type { AdminDashboardData } from "@/features/admin/lib/admin-analytics";
@@ -144,7 +145,7 @@ export function AdminDashboard({ locale }: Props) {
   }, [data?.generatedAt]);
 
   return (
-    <section className="mx-auto flex min-h-full w-full max-w-7xl flex-col gap-4 pb-4 pt-2">
+    <section className="mx-auto flex min-h-full w-full max-w-7xl flex-1 flex-col gap-4 overflow-hidden pb-4 pt-2">
       <header className="surface-panel flex flex-col gap-4 p-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
@@ -238,8 +239,8 @@ export function AdminDashboard({ locale }: Props) {
             />
           </div>
 
-          <div className="grid gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-            <section className="surface-panel flex min-h-0 flex-col p-4">
+          <div className="grid min-h-0 flex-1 gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+            <section className="surface-panel flex min-h-0 flex-col overflow-hidden p-4">
               <div className="mb-4 flex items-center justify-between gap-3">
                 <div>
                   <h2 className="text-lg font-semibold text-foreground">
@@ -252,66 +253,68 @@ export function AdminDashboard({ locale }: Props) {
                 </div>
               </div>
 
-              <div className="grid gap-3">
-                {data.modeUsage.map((mode) => (
-                  <div
-                    key={mode.modeName}
-                    className="surface-panel-card grid gap-3 p-4 md:grid-cols-[minmax(0,1.2fr)_repeat(5,minmax(0,0.7fr))]"
-                  >
-                    <div className="min-w-0">
-                      <p className="text-base font-semibold text-foreground">
-                        {mode.modeLabel}
-                      </p>
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        Última atividade: {formatDateTime(mode.lastPlayedAt)}
-                      </p>
+              <ScrollArea className="min-h-0 flex-1 pr-3">
+                <div className="grid gap-3">
+                  {data.modeUsage.map((mode) => (
+                    <div
+                      key={mode.modeName}
+                      className="surface-panel-card grid gap-3 p-4 md:grid-cols-[minmax(0,1.2fr)_repeat(5,minmax(0,0.7fr))]"
+                    >
+                      <div className="min-w-0">
+                        <p className="text-base font-semibold text-foreground">
+                          {mode.modeLabel}
+                        </p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Última atividade: {formatDateTime(mode.lastPlayedAt)}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                          Jogadores
+                        </p>
+                        <p className="mt-1 text-lg font-semibold text-foreground">
+                          {formatNumber(mode.players)}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                          Ativos 24h
+                        </p>
+                        <p className="mt-1 text-lg font-semibold text-foreground">
+                          {formatNumber(mode.activePlayers24h)}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                          Partidas
+                        </p>
+                        <p className="mt-1 text-lg font-semibold text-foreground">
+                          {formatNumber(mode.games)}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                          Vitórias
+                        </p>
+                        <p className="mt-1 text-lg font-semibold text-foreground">
+                          {formatNumber(mode.wins)}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                          Taxa
+                        </p>
+                        <p className="mt-1 text-lg font-semibold text-foreground">
+                          {mode.winRate.toFixed(1)}%
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                        Jogadores
-                      </p>
-                      <p className="mt-1 text-lg font-semibold text-foreground">
-                        {formatNumber(mode.players)}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                        Ativos 24h
-                      </p>
-                      <p className="mt-1 text-lg font-semibold text-foreground">
-                        {formatNumber(mode.activePlayers24h)}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                        Partidas
-                      </p>
-                      <p className="mt-1 text-lg font-semibold text-foreground">
-                        {formatNumber(mode.games)}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                        Vitórias
-                      </p>
-                      <p className="mt-1 text-lg font-semibold text-foreground">
-                        {formatNumber(mode.wins)}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-                        Taxa
-                      </p>
-                      <p className="mt-1 text-lg font-semibold text-foreground">
-                        {mode.winRate.toFixed(1)}%
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </ScrollArea>
             </section>
 
-            <section className="surface-panel flex min-h-0 flex-col p-4">
+            <section className="surface-panel flex min-h-0 flex-col overflow-hidden p-4">
               <div className="mb-4">
                 <h2 className="text-lg font-semibold text-foreground">
                   Ranking global
@@ -322,57 +325,59 @@ export function AdminDashboard({ locale }: Props) {
                 </p>
               </div>
 
-              <div className="grid gap-3">
-                {data.ranking.map((entry) => (
-                  <div
-                    key={entry.userId}
-                    className="surface-panel-card flex items-center gap-3 p-4"
-                  >
-                    <div className="surface-icon flex size-10 items-center justify-center p-0 text-sm font-semibold text-primary">
-                      #{entry.rank}
+              <ScrollArea className="min-h-0 flex-1 pr-3">
+                <div className="grid gap-3">
+                  {data.ranking.map((entry) => (
+                    <div
+                      key={entry.userId}
+                      className="surface-panel-card flex items-center gap-3 p-4"
+                    >
+                      <div className="surface-icon flex size-10 items-center justify-center p-0 text-sm font-semibold text-primary">
+                        #{entry.rank}
+                      </div>
+                      <Avatar className="size-11 border border-border/60">
+                        {entry.avatarUrl ? (
+                          <AvatarImage
+                            src={entry.avatarUrl}
+                            alt={`Avatar de ${entry.displayName}`}
+                          />
+                        ) : null}
+                        <AvatarFallback className="bg-muted text-sm font-semibold text-foreground">
+                          {getUserInitials({
+                            email: entry.email ?? undefined,
+                            user_metadata: { full_name: entry.displayName },
+                          } as any)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-semibold text-foreground">
+                          {entry.displayName}
+                        </p>
+                        <p className="truncate text-xs text-muted-foreground">
+                          {entry.email ?? "Sem e-mail visível"}
+                        </p>
+                        <p className="mt-1 text-[11px] text-muted-foreground">
+                          Última atividade: {formatDateTime(entry.lastSeenAt)}
+                        </p>
+                      </div>
+                      <div className="grid shrink-0 gap-1 text-right">
+                        <p className="text-sm font-semibold text-foreground">
+                          {formatNumber(entry.wins)} vitórias
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {formatNumber(entry.games)} partidas
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {entry.winRate.toFixed(1)}% taxa
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          streak máx. {formatNumber(entry.maxStreak)}
+                        </p>
+                      </div>
                     </div>
-                    <Avatar className="size-11 border border-border/60">
-                      {entry.avatarUrl ? (
-                        <AvatarImage
-                          src={entry.avatarUrl}
-                          alt={`Avatar de ${entry.displayName}`}
-                        />
-                      ) : null}
-                      <AvatarFallback className="bg-muted text-sm font-semibold text-foreground">
-                        {getUserInitials({
-                          email: entry.email ?? undefined,
-                          user_metadata: { full_name: entry.displayName },
-                        } as any)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-semibold text-foreground">
-                        {entry.displayName}
-                      </p>
-                      <p className="truncate text-xs text-muted-foreground">
-                        {entry.email ?? "Sem e-mail visível"}
-                      </p>
-                      <p className="mt-1 text-[11px] text-muted-foreground">
-                        Última atividade: {formatDateTime(entry.lastSeenAt)}
-                      </p>
-                    </div>
-                    <div className="grid shrink-0 gap-1 text-right">
-                      <p className="text-sm font-semibold text-foreground">
-                        {formatNumber(entry.wins)} vitórias
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {formatNumber(entry.games)} partidas
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {entry.winRate.toFixed(1)}% taxa
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        streak máx. {formatNumber(entry.maxStreak)}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </ScrollArea>
             </section>
           </div>
         </>
