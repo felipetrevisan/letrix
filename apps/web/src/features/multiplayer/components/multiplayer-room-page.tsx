@@ -6,7 +6,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useApp } from "@/contexts/AppContext";
-import { getSupabaseBrowserClient } from "@/features/auth/lib/supabase-client";
+import {
+  getLetrixBrowserClient,
+  getSupabaseBrowserClient,
+} from "@/features/auth/lib/supabase-client";
 import {
   loadMultiplayerRoomRequest,
   requestMultiplayerRematchRequest,
@@ -19,6 +22,40 @@ import { MultiplayerKeyboard } from "@/features/multiplayer/components/multiplay
 type Props = {
   locale: string;
   roomCode: string;
+};
+
+type BrowserRoomRow = {
+  id: string;
+  room_code: string;
+  language: "pt" | "en";
+  target_wins: number;
+  max_attempts: number;
+  word_length: number;
+  current_round: number;
+  status: "waiting" | "active" | "finished";
+  created_by: string;
+  winner_id: string | null;
+  started_at: string | null;
+  finished_at: string | null;
+  round_starts_at: string | null;
+  rematch_requested_user_ids: string[] | null;
+};
+
+type BrowserPlayerRow = {
+  user_id: string;
+  slot: number;
+  display_name: string;
+  avatar_url: string | null;
+  score: number;
+  solved_current_round: boolean;
+  attempts_used_current_round: number;
+  masked_attempts: {
+    statuses: MultiplayerRoomSnapshot["me"]["maskedAttempts"][number]["statuses"];
+  }[];
+};
+
+type BrowserPrivateStateRow = {
+  attempts: MultiplayerRoomSnapshot["me"]["attempts"];
 };
 
 const insertLetter = (guess: string, index: number, letter: string) => {
@@ -46,6 +83,113 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
     setSelectedTileIndex(Math.min(index, maxSelectableIndex));
   };
 
+  const loadRoomFromBrowser = useCallback(async () => {
+    if (!user) {
+      return null;
+    }
+
+    const letrix = getLetrixBrowserClient();
+
+    if (!letrix) {
+      return null;
+    }
+
+    const { data: room } = await letrix
+      .from("multiplayer_rooms")
+      .select(
+        "id, room_code, language, target_wins, max_attempts, word_length, current_round, status, created_by, winner_id, started_at, finished_at, round_starts_at, rematch_requested_user_ids",
+      )
+      .eq("room_code", roomCode)
+      .maybeSingle();
+
+    const nextRoom = room as BrowserRoomRow | null;
+
+    if (!nextRoom) {
+      return null;
+    }
+
+    const { data: players } = await letrix
+      .from("multiplayer_room_players")
+      .select(
+        "user_id, slot, display_name, avatar_url, score, solved_current_round, attempts_used_current_round, masked_attempts",
+      )
+      .eq("room_id", nextRoom.id)
+      .order("slot", { ascending: true });
+
+    const nextPlayers = (players as BrowserPlayerRow[] | null) ?? [];
+    const me = nextPlayers.find((player) => player.user_id === user.id);
+
+    if (!me) {
+      return null;
+    }
+
+    const opponent =
+      nextPlayers.find((player) => player.user_id !== user.id) ?? null;
+    const { data: privateState } = await letrix
+      .from("multiplayer_room_private_states")
+      .select("attempts")
+      .eq("room_id", nextRoom.id)
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    const nextPrivateState = privateState as BrowserPrivateStateRow | null;
+    const rematchRequestedUserIds = Array.isArray(
+      nextRoom.rematch_requested_user_ids,
+    )
+      ? nextRoom.rematch_requested_user_ids
+      : [];
+
+    return {
+      roomId: nextRoom.id,
+      roomCode: nextRoom.room_code,
+      language: nextRoom.language,
+      targetWins: nextRoom.target_wins,
+      maxAttempts: nextRoom.max_attempts,
+      wordLength: nextRoom.word_length,
+      currentRound: nextRoom.current_round,
+      status: nextRoom.status,
+      createdBy: nextRoom.created_by,
+      winnerId: nextRoom.winner_id,
+      startedAt: nextRoom.started_at,
+      finishedAt: nextRoom.finished_at,
+      roundStartsAt: nextRoom.round_starts_at,
+      rematchRequestedByMe: rematchRequestedUserIds.includes(user.id),
+      rematchRequestedByOpponent: opponent
+        ? rematchRequestedUserIds.includes(opponent.user_id)
+        : false,
+      me: {
+        userId: me.user_id,
+        slot: me.slot,
+        displayName: me.display_name,
+        avatarUrl: me.avatar_url,
+        score: me.score,
+        solvedCurrentRound: me.solved_current_round,
+        attemptsUsedCurrentRound: me.attempts_used_current_round,
+        maskedAttempts: Array.isArray(me.masked_attempts)
+          ? me.masked_attempts
+          : [],
+        attempts: Array.isArray(nextPrivateState?.attempts)
+          ? nextPrivateState.attempts
+          : [],
+      },
+      opponent: opponent
+        ? {
+            userId: opponent.user_id,
+            slot: opponent.slot,
+            displayName: opponent.display_name,
+            avatarUrl: opponent.avatar_url,
+            score: opponent.score,
+            solvedCurrentRound: opponent.solved_current_round,
+            attemptsUsedCurrentRound: opponent.attempts_used_current_round,
+            maskedAttempts: Array.isArray(opponent.masked_attempts)
+              ? opponent.masked_attempts
+              : [],
+            attempts: [],
+          }
+        : null,
+    } satisfies MultiplayerRoomSnapshot;
+  }, [roomCode, user]);
+
   const loadRoom = useCallback(
     async (silent = false) => {
       if (!user) {
@@ -59,8 +203,24 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
 
       try {
         const nextSnapshot = await loadMultiplayerRoomRequest(roomCode);
-        setSnapshot(nextSnapshot);
+        if (
+          nextSnapshot &&
+          (nextSnapshot.opponent || nextSnapshot.status !== "waiting")
+        ) {
+          setSnapshot(nextSnapshot);
+          return;
+        }
+
+        const browserSnapshot = await loadRoomFromBrowser();
+        setSnapshot(browserSnapshot ?? nextSnapshot);
       } catch (loadError) {
+        const browserSnapshot = await loadRoomFromBrowser();
+
+        if (browserSnapshot) {
+          setSnapshot(browserSnapshot);
+          return;
+        }
+
         if (!silent) {
           setError(
             loadError instanceof Error
@@ -74,7 +234,7 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
         }
       }
     },
-    [roomCode, user],
+    [loadRoomFromBrowser, roomCode, user],
   );
 
   useEffect(() => {
