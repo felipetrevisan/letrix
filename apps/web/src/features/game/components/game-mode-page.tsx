@@ -93,7 +93,7 @@ export const GameModePage = ({ mode }: Props) => {
                 />
               </div>
 
-              <div className="w-full xl:col-start-3 xl:flex xl:justify-end">
+              <div className="hidden w-full xl:col-start-3 xl:flex xl:justify-end">
                 <SessionStatus
                   attemptsLeft={attemptsLeft}
                   solvedBoards={solvedBoards}

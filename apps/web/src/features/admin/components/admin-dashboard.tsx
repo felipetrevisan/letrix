@@ -145,7 +145,7 @@ export function AdminDashboard({ locale }: Props) {
   }, [data?.generatedAt]);
 
   return (
-    <section className="mx-auto flex min-h-full w-full max-w-7xl flex-1 flex-col gap-4 overflow-hidden pb-4 pt-2">
+    <section className="mx-auto flex min-h-full w-full max-w-7xl flex-1 flex-col gap-4 overflow-y-auto pb-4 pt-2 xl:overflow-hidden">
       <header className="surface-panel flex flex-col gap-4 p-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
@@ -239,8 +239,8 @@ export function AdminDashboard({ locale }: Props) {
             />
           </div>
 
-          <div className="grid min-h-0 flex-1 gap-4 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-            <section className="surface-panel flex min-h-0 flex-col overflow-hidden p-4">
+          <div className="grid gap-4 xl:min-h-0 xl:flex-1 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+            <section className="surface-panel flex flex-col p-4 xl:min-h-0 xl:overflow-hidden">
               <div className="mb-4 flex items-center justify-between gap-3">
                 <div>
                   <h2 className="text-lg font-semibold text-foreground">
@@ -253,7 +253,7 @@ export function AdminDashboard({ locale }: Props) {
                 </div>
               </div>
 
-              <ScrollArea className="min-h-0 flex-1 pr-3">
+              <ScrollArea className="pr-3 xl:min-h-0 xl:flex-1">
                 <div className="grid gap-3">
                   {data.modeUsage.map((mode) => (
                     <div
@@ -314,7 +314,7 @@ export function AdminDashboard({ locale }: Props) {
               </ScrollArea>
             </section>
 
-            <section className="surface-panel flex min-h-0 flex-col overflow-hidden p-4">
+            <section className="surface-panel flex flex-col p-4 xl:min-h-0 xl:overflow-hidden">
               <div className="mb-4">
                 <h2 className="text-lg font-semibold text-foreground">
                   Ranking global
@@ -325,7 +325,7 @@ export function AdminDashboard({ locale }: Props) {
                 </p>
               </div>
 
-              <ScrollArea className="min-h-0 flex-1 pr-3">
+              <ScrollArea className="pr-3 xl:min-h-0 xl:flex-1">
                 <div className="grid gap-3">
                   {data.ranking.map((entry) => (
                     <div
