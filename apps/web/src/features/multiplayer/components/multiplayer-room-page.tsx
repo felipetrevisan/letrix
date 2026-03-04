@@ -130,6 +130,18 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
   }, [loadRoom, snapshot?.roomId]);
 
   useEffect(() => {
+    if (!snapshot || snapshot.status !== "waiting" || snapshot.opponent) {
+      return;
+    }
+
+    const poller = window.setInterval(() => {
+      void loadRoom(true);
+    }, 2000);
+
+    return () => window.clearInterval(poller);
+  }, [loadRoom, snapshot]);
+
+  useEffect(() => {
     setCurrentGuess("");
     setSelectedTileIndex(0);
   }, [snapshot?.currentRound]);
@@ -346,84 +358,110 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
 
   return (
     <section className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-4 px-2 py-2 md:px-4">
-      <header className="surface-panel flex flex-col gap-4 p-4 lg:flex-row lg:items-center lg:justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
-            Sala {snapshot.roomCode}
-          </p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-foreground">
-            Multiplayer Letrix
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Rodada {snapshot.currentRound} • meta de {snapshot.targetWins}{" "}
-            palavras
-          </p>
-        </div>
+      <header className="surface-panel relative overflow-hidden p-4">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.12),transparent_36%),radial-gradient(circle_at_bottom_right,hsl(var(--accent)/0.1),transparent_32%)]" />
+        <div className="relative flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+              Sala {snapshot.roomCode}
+            </p>
+            <h1 className="mt-1 text-2xl font-semibold tracking-tight text-foreground">
+              Multiplayer Letrix
+            </h1>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Rodada {snapshot.currentRound} • meta de {snapshot.targetWins}{" "}
+              palavras
+            </p>
+          </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          <Button type="button" variant="outline" onClick={handleCopyInvite}>
-            <Copy className="mr-2 size-4" />
-            Copiar convite
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => router.push(`/${locale}/multiplayer`)}
-          >
-            Voltar
-          </Button>
-          {isFinished ? (
+          <div className="flex flex-wrap items-center gap-2">
+            <Button type="button" variant="outline" onClick={handleCopyInvite}>
+              <Copy className="mr-2 size-4" />
+              Copiar convite
+            </Button>
             <Button
               type="button"
-              onClick={() => void handleRequestRematch()}
-              disabled={isRequestingRematch}
+              variant="outline"
+              onClick={() => router.push(`/${locale}/multiplayer`)}
             >
-              <RotateCcw className="mr-2 size-4" />
-              {snapshot.rematchRequestedByMe
-                ? "Revanche solicitada"
-                : "Pedir revanche"}
+              Voltar
             </Button>
-          ) : null}
+            {isFinished ? (
+              <Button
+                type="button"
+                onClick={() => void handleRequestRematch()}
+                disabled={isRequestingRematch}
+              >
+                <RotateCcw className="mr-2 size-4" />
+                {snapshot.rematchRequestedByMe
+                  ? "Revanche solicitada"
+                  : "Pedir revanche"}
+              </Button>
+            ) : null}
+          </div>
         </div>
       </header>
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <div className="surface-panel flex items-center justify-between p-4">
-          <div>
-            <p className="text-sm font-medium text-foreground">
-              {snapshot.me.displayName}
+      <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
+        <div className="surface-panel relative overflow-hidden p-4">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.12),transparent_42%)]" />
+          <div className="relative flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-foreground">
+                {snapshot.me.displayName}
+              </p>
+              <p className="text-xs text-muted-foreground">Você</p>
+            </div>
+            <p className="text-3xl font-semibold tabular-nums text-foreground">
+              {snapshot.me.score}
             </p>
-            <p className="text-xs text-muted-foreground">Você</p>
           </div>
-          <p className="text-3xl font-semibold tabular-nums text-foreground">
-            {snapshot.me.score}
-          </p>
         </div>
 
-        <div className="surface-panel flex items-center justify-between p-4">
-          <div>
-            <p className="text-sm font-medium text-foreground">
-              {snapshot.opponent?.displayName ?? "Aguardando rival"}
+        <div className="surface-panel hidden min-w-[120px] items-center justify-center p-4 lg:flex">
+          <div className="text-center">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/70">
+              versus
             </p>
-            <p className="text-xs text-muted-foreground">
-              {snapshot.opponent ? "Oponente" : "Compartilhe o link da sala"}
+            <p className="mt-2 text-3xl font-semibold tabular-nums text-foreground">
+              {snapshot.me.score} × {snapshot.opponent?.score ?? 0}
             </p>
           </div>
-          <p className="text-3xl font-semibold tabular-nums text-foreground">
-            {snapshot.opponent?.score ?? 0}
-          </p>
+        </div>
+
+        <div className="surface-panel relative overflow-hidden p-4">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,hsl(var(--accent)/0.12),transparent_42%)]" />
+          <div className="relative flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-foreground">
+                {snapshot.opponent?.displayName ?? "Aguardando rival"}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {snapshot.opponent ? "Oponente" : "Compartilhe o link da sala"}
+              </p>
+            </div>
+            <p className="text-3xl font-semibold tabular-nums text-foreground">
+              {snapshot.opponent?.score ?? 0}
+            </p>
+          </div>
         </div>
       </div>
 
       {isWaiting ? (
-        <div className="surface-panel-card flex items-center justify-between gap-4 p-4">
-          <div>
-            <p className="text-sm font-semibold text-foreground">
-              Aguardando a segunda pessoa entrar
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Assim que alguém entrar, a disputa começa automaticamente.
-            </p>
+        <div className="surface-panel-card relative overflow-hidden p-4">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--primary)/0.12),transparent_45%)]" />
+          <div className="relative flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold text-foreground">
+                Aguardando a segunda pessoa entrar
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Assim que alguém entrar, a disputa começa automaticamente.
+              </p>
+            </div>
+            <div className="rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+              Em espera
+            </div>
           </div>
         </div>
       ) : null}
