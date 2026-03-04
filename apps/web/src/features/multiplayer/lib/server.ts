@@ -371,13 +371,38 @@ export const createMultiplayerRoom = async ({
     updated_at: now,
   };
 
-  await (letrix.from("multiplayer_room_players") as any).insert(playerPayload);
-  await (letrix.from("multiplayer_room_private_states") as any).insert({
+  const { error: playerInsertError } = await (
+    letrix.from("multiplayer_room_players") as any
+  ).insert(playerPayload);
+
+  if (playerInsertError) {
+    console.error("[multiplayer/create] creator player insert failed", {
+      code: playerInsertError.code ?? null,
+      message: playerInsertError.message ?? null,
+      roomId: roomData.id,
+      userId: user.id,
+    });
+    throw new Error("room-create-player-failed");
+  }
+
+  const { error: privateStateInsertError } = await (
+    letrix.from("multiplayer_room_private_states") as any
+  ).insert({
     room_id: roomData.id,
     user_id: user.id,
     attempts: [],
     updated_at: now,
   });
+
+  if (privateStateInsertError) {
+    console.error("[multiplayer/create] creator private state insert failed", {
+      code: privateStateInsertError.code ?? null,
+      message: privateStateInsertError.message ?? null,
+      roomId: roomData.id,
+      userId: user.id,
+    });
+    throw new Error("room-create-private-state-failed");
+  }
 
   return roomData.room_code as string;
 };
@@ -415,7 +440,9 @@ export const joinMultiplayerRoom = async ({
 
   const now = new Date().toISOString();
 
-  await (letrix.from("multiplayer_room_players") as any).insert({
+  const { error: playerInsertError } = await (
+    letrix.from("multiplayer_room_players") as any
+  ).insert({
     room_id: room.id,
     user_id: user.id,
     slot: 2,
@@ -428,14 +455,38 @@ export const joinMultiplayerRoom = async ({
     updated_at: now,
   });
 
-  await (letrix.from("multiplayer_room_private_states") as any).insert({
+  if (playerInsertError) {
+    console.error("[multiplayer/join] opponent player insert failed", {
+      code: playerInsertError.code ?? null,
+      message: playerInsertError.message ?? null,
+      roomId: room.id,
+      userId: user.id,
+    });
+    throw new Error("room-join-player-failed");
+  }
+
+  const { error: privateStateInsertError } = await (
+    letrix.from("multiplayer_room_private_states") as any
+  ).insert({
     room_id: room.id,
     user_id: user.id,
     attempts: [],
     updated_at: now,
   });
 
-  await (letrix.from("multiplayer_rooms") as any)
+  if (privateStateInsertError) {
+    console.error("[multiplayer/join] opponent private state insert failed", {
+      code: privateStateInsertError.code ?? null,
+      message: privateStateInsertError.message ?? null,
+      roomId: room.id,
+      userId: user.id,
+    });
+    throw new Error("room-join-private-state-failed");
+  }
+
+  const { error: roomActivateError } = await (
+    letrix.from("multiplayer_rooms") as any
+  )
     .update({
       status: "active",
       started_at: room.started_at ?? now,
@@ -445,6 +496,15 @@ export const joinMultiplayerRoom = async ({
     })
     .eq("id", room.id)
     .eq("status", "waiting");
+
+  if (roomActivateError) {
+    console.error("[multiplayer/join] room activation failed", {
+      code: roomActivateError.code ?? null,
+      message: roomActivateError.message ?? null,
+      roomId: room.id,
+    });
+    throw new Error("room-activate-failed");
+  }
 
   return room.room_code;
 };

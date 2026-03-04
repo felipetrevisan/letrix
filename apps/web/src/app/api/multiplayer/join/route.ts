@@ -35,6 +35,8 @@ export async function POST(request: Request) {
     const message =
       joinError instanceof Error ? joinError.message : "join-failed";
 
+    console.error("[multiplayer/join] failed", { message });
+
     if (message === "room-not-found") {
       return NextResponse.json(
         { error: "Sala não encontrada." },
