@@ -10,14 +10,14 @@ import {
   getLetrixBrowserClient,
   getSupabaseBrowserClient,
 } from "@/features/auth/lib/supabase-client";
+import { MultiplayerBoard } from "@/features/multiplayer/components/multiplayer-board";
+import { MultiplayerKeyboard } from "@/features/multiplayer/components/multiplayer-keyboard";
 import {
   loadMultiplayerRoomRequest,
   requestMultiplayerRematchRequest,
   submitMultiplayerGuessRequest,
 } from "@/features/multiplayer/lib/client";
 import type { MultiplayerRoomSnapshot } from "@/features/multiplayer/lib/types";
-import { MultiplayerBoard } from "@/features/multiplayer/components/multiplayer-board";
-import { MultiplayerKeyboard } from "@/features/multiplayer/components/multiplayer-keyboard";
 
 type Props = {
   locale: string;
@@ -579,7 +579,7 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
         </div>
       </header>
 
-      <div className="mx-auto flex w-full max-w-[54rem] flex-col gap-4">
+      <div className="mx-auto flex w-full flex-col gap-4">
         <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
           <div className="surface-panel relative overflow-hidden p-4">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.12),transparent_42%)]" />
