@@ -242,18 +242,17 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
         if (currentSnapshot && currentSnapshot.roomId === nextSnapshot.roomId) {
           const previousOpponent = currentSnapshot.opponent;
           const nextOpponent = nextSnapshot.opponent;
-          const hasOpponentScored =
-            Boolean(previousOpponent && nextOpponent) &&
-            nextOpponent.score > previousOpponent.score;
-          const hasOpponentSolvedCurrentRound =
-            Boolean(previousOpponent && nextOpponent) &&
-            !previousOpponent.solvedCurrentRound &&
-            nextOpponent.solvedCurrentRound;
 
-          if (hasOpponentScored || hasOpponentSolvedCurrentRound) {
-            toast.success(
-              `${nextOpponent?.displayName ?? "Seu rival"} acertou!`,
-            );
+          if (previousOpponent && nextOpponent) {
+            const hasOpponentScored =
+              nextOpponent.score > previousOpponent.score;
+            const hasOpponentSolvedCurrentRound =
+              !previousOpponent.solvedCurrentRound &&
+              nextOpponent.solvedCurrentRound;
+
+            if (hasOpponentScored || hasOpponentSolvedCurrentRound) {
+              toast.success(`${nextOpponent.displayName} acertou!`);
+            }
           }
         }
 
