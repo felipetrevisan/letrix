@@ -14,6 +14,7 @@ import type {
   MultiplayerPlayerSnapshot,
   MultiplayerPrivateAttempt,
   MultiplayerRoomSnapshot,
+  MultiplayerSubmitResult,
 } from "@/features/multiplayer/lib/types";
 import type { GameLanguage } from "@/interfaces/game";
 import { getGuessStatuses } from "@/lib/statuses";
@@ -613,7 +614,7 @@ export const submitMultiplayerGuess = async ({
   roomCode: string;
   user: User;
   guess: string;
-}) => {
+}): Promise<MultiplayerSubmitResult> => {
   const { letrix } = ensureServerClients();
   const room = await getRoomByCode(roomCode);
 
@@ -720,7 +721,14 @@ export const submitMultiplayerGuess = async ({
         .eq("id", room.id)
         .eq("status", "active");
 
-      return;
+      return {
+        attempt: nextAttempts[nextAttempts.length - 1]!,
+        solvedCurrentRound: true,
+        score: nextScore,
+        roomStatus: "finished",
+        winnerId: user.id,
+        roundStartsAt: null,
+      };
     }
 
     const nextWord = await pickRandomSolution(
@@ -751,10 +759,26 @@ export const submitMultiplayerGuess = async ({
       await resetRoundForAllPlayers(room.id);
     }
 
-    return;
+    return {
+      attempt: nextAttempts[nextAttempts.length - 1]!,
+      solvedCurrentRound: true,
+      score: nextScore,
+      roomStatus: "active",
+      winnerId: null,
+      roundStartsAt: new Date(Date.now() + ROUND_COUNTDOWN_MS).toISOString(),
+    };
   }
 
   await maybeAdvanceAfterMisses(room);
+
+  return {
+    attempt: nextAttempts[nextAttempts.length - 1]!,
+    solvedCurrentRound: false,
+    score: me.score,
+    roomStatus: "active",
+    winnerId: null,
+    roundStartsAt: null,
+  };
 };
 
 export const requestMultiplayerRematch = async ({

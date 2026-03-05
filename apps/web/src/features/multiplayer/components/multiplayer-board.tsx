@@ -1,10 +1,12 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 import type {
   MultiplayerMaskedAttempt,
   MultiplayerPrivateAttempt,
 } from "@/features/multiplayer/lib/types";
+import { REVEAL_TIME_MS } from "@/config/settings";
 
 type Props = {
   title: string;
@@ -17,6 +19,8 @@ type Props = {
   isInteractive?: boolean;
   maxAttempts: number;
   wordLength: number;
+  animatedAttempt?: MultiplayerPrivateAttempt | null;
+  animation?: "revealing" | null;
 };
 
 const buildMaskedGlyph = (length: number) => "✱".repeat(length);
@@ -32,6 +36,8 @@ export function MultiplayerBoard({
   isInteractive = false,
   maxAttempts,
   wordLength,
+  animatedAttempt = null,
+  animation = null,
 }: Props) {
   const normalizedCurrentLetters = currentGuess.slice(0, wordLength).split("");
 
@@ -47,6 +53,9 @@ export function MultiplayerBoard({
       <div className="grid w-full justify-items-center gap-1.5">
         {Array.from({ length: maxAttempts }, (_, rowIndex) => {
           const attempt = attempts[rowIndex];
+          const isAnimatedRow =
+            Boolean(animatedAttempt) && rowIndex === attempts.length;
+          const displayedAttempt = isAnimatedRow ? animatedAttempt : attempt;
           const isCurrentRow = !attempt && rowIndex === attempts.length;
           const currentMask = buildMaskedGlyph(wordLength).split("");
           const currentLetters = maskLetters
@@ -57,16 +66,16 @@ export function MultiplayerBoard({
             <div
               key={rowIndex}
               className="row flex justify-center"
-              data-animation="idle"
+              data-animation={isAnimatedRow ? animation : "idle"}
             >
               {Array.from({ length: wordLength }, (_, tileIndex) => {
                 const status =
-                  attempt && "statuses" in attempt
-                    ? attempt.statuses[tileIndex]
+                  displayedAttempt && "statuses" in displayedAttempt
+                    ? displayedAttempt.statuses[tileIndex]
                     : undefined;
-                const letter = attempt
-                  ? "guess" in attempt
-                    ? attempt.guess[tileIndex] ?? ""
+                const letter = displayedAttempt
+                  ? "guess" in displayedAttempt
+                    ? displayedAttempt.guess[tileIndex] ?? ""
                     : currentMask[tileIndex] ?? ""
                   : isCurrentRow
                     ? currentLetters[tileIndex] ?? ""
@@ -87,6 +96,13 @@ export function MultiplayerBoard({
                     data-revealed={Boolean(status)}
                     disabled={!isInteractive || !isCurrentRow}
                     onClick={() => onSelectTile?.(tileIndex)}
+                    style={
+                      isAnimatedRow
+                        ? ({
+                            "--reveal-delay": `${REVEAL_TIME_MS * (tileIndex + 1)}ms`,
+                          } as CSSProperties)
+                        : undefined
+                    }
                   >
                     <div className="tile-inner">
                       <div className="tile-face tile-face-front">{letter}</div>

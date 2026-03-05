@@ -43,3 +43,12 @@ export type MultiplayerRoomSnapshot = {
   me: MultiplayerPlayerSnapshot;
   opponent: MultiplayerPlayerSnapshot | null;
 };
+
+export type MultiplayerSubmitResult = {
+  attempt: MultiplayerPrivateAttempt;
+  solvedCurrentRound: boolean;
+  score: number;
+  roomStatus: MultiplayerRoomStatus;
+  winnerId: string | null;
+  roundStartsAt: string | null;
+};

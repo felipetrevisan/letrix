@@ -2,9 +2,10 @@
 
 import { Copy, Crown, RefreshCcw, RotateCcw } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { REVEAL_TIME_MS } from "@/config/settings";
 import { useApp } from "@/contexts/AppContext";
 import {
   getLetrixBrowserClient,
@@ -17,7 +18,10 @@ import {
   requestMultiplayerRematchRequest,
   submitMultiplayerGuessRequest,
 } from "@/features/multiplayer/lib/client";
-import type { MultiplayerRoomSnapshot } from "@/features/multiplayer/lib/types";
+import type {
+  MultiplayerPrivateAttempt,
+  MultiplayerRoomSnapshot,
+} from "@/features/multiplayer/lib/types";
 
 type Props = {
   locale: string;
@@ -64,6 +68,8 @@ const insertLetter = (guess: string, index: number, letter: string) => {
   return letters.join("").trimEnd();
 };
 
+const REVEAL_SETTLE_MS = REVEAL_TIME_MS * 6;
+
 export function MultiplayerRoomPage({ locale, roomCode }: Props) {
   const router = useRouter();
   const { user, isAuthReady, setIsSettingsModalOpen } = useApp();
@@ -77,6 +83,15 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
   const [isRequestingRematch, setIsRequestingRematch] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [countdownMs, setCountdownMs] = useState(0);
+  const [animatedAttempt, setAnimatedAttempt] =
+    useState<MultiplayerPrivateAttempt | null>(null);
+  const [boardAnimation, setBoardAnimation] = useState<"revealing" | null>(
+    null,
+  );
+  const pendingSnapshotRef = useRef<MultiplayerRoomSnapshot | null>(null);
+  const revealTimeoutRef = useRef<number | null>(null);
+  const isRevealLockedRef = useRef(false);
+  const snapshotRef = useRef<MultiplayerRoomSnapshot | null>(null);
 
   const handleSelectTile = (index: number) => {
     const maxSelectableIndex = Math.min(currentGuess.length, 4);
@@ -190,6 +205,64 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
     } satisfies MultiplayerRoomSnapshot;
   }, [roomCode, user]);
 
+  useEffect(() => {
+    snapshotRef.current = snapshot;
+  }, [snapshot]);
+
+  const isStaleSnapshot = useCallback(
+    (nextSnapshot: MultiplayerRoomSnapshot) => {
+      const currentSnapshot = snapshotRef.current;
+
+      if (!currentSnapshot) {
+        return false;
+      }
+
+      return (
+        nextSnapshot.currentRound === currentSnapshot.currentRound &&
+        nextSnapshot.me.score <= currentSnapshot.me.score &&
+        nextSnapshot.me.attemptsUsedCurrentRound <
+          currentSnapshot.me.attemptsUsedCurrentRound
+      );
+    },
+    [],
+  );
+
+  const applySnapshot = useCallback(
+    (nextSnapshot: MultiplayerRoomSnapshot) => {
+      if (isStaleSnapshot(nextSnapshot)) {
+        return;
+      }
+
+      if (isRevealLockedRef.current) {
+        pendingSnapshotRef.current = nextSnapshot;
+        return;
+      }
+
+      setSnapshot((currentSnapshot) => {
+        if (currentSnapshot && currentSnapshot.roomId === nextSnapshot.roomId) {
+          const previousOpponent = currentSnapshot.opponent;
+          const nextOpponent = nextSnapshot.opponent;
+          const hasOpponentScored =
+            Boolean(previousOpponent && nextOpponent) &&
+            nextOpponent.score > previousOpponent.score;
+          const hasOpponentSolvedCurrentRound =
+            Boolean(previousOpponent && nextOpponent) &&
+            !previousOpponent.solvedCurrentRound &&
+            nextOpponent.solvedCurrentRound;
+
+          if (hasOpponentScored || hasOpponentSolvedCurrentRound) {
+            toast.success(
+              `${nextOpponent?.displayName ?? "Seu rival"} acertou!`,
+            );
+          }
+        }
+
+        return nextSnapshot;
+      });
+    },
+    [isStaleSnapshot],
+  );
+
   const loadRoom = useCallback(
     async (silent = false) => {
       if (!user) {
@@ -202,22 +275,34 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
       }
 
       try {
+        if (silent) {
+          const browserSnapshot = await loadRoomFromBrowser();
+
+          if (browserSnapshot) {
+            applySnapshot(browserSnapshot);
+            return;
+          }
+        }
+
         const nextSnapshot = await loadMultiplayerRoomRequest(roomCode);
         if (
           nextSnapshot &&
           (nextSnapshot.opponent || nextSnapshot.status !== "waiting")
         ) {
-          setSnapshot(nextSnapshot);
+          applySnapshot(nextSnapshot);
           return;
         }
 
         const browserSnapshot = await loadRoomFromBrowser();
-        setSnapshot(browserSnapshot ?? nextSnapshot);
+
+        if (browserSnapshot ?? nextSnapshot) {
+          applySnapshot((browserSnapshot ?? nextSnapshot)!);
+        }
       } catch (loadError) {
         const browserSnapshot = await loadRoomFromBrowser();
 
         if (browserSnapshot) {
-          setSnapshot(browserSnapshot);
+          applySnapshot(browserSnapshot);
           return;
         }
 
@@ -234,7 +319,33 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
         }
       }
     },
-    [loadRoomFromBrowser, roomCode, user],
+    [applySnapshot, loadRoomFromBrowser, roomCode, user],
+  );
+
+  const finishReveal = useCallback(
+    (fallbackReload = false) => {
+      if (revealTimeoutRef.current) {
+        window.clearTimeout(revealTimeoutRef.current);
+      }
+
+      revealTimeoutRef.current = window.setTimeout(() => {
+        isRevealLockedRef.current = false;
+        setAnimatedAttempt(null);
+        setBoardAnimation(null);
+
+        if (pendingSnapshotRef.current) {
+          const nextSnapshot = pendingSnapshotRef.current;
+          pendingSnapshotRef.current = null;
+          applySnapshot(nextSnapshot);
+          return;
+        }
+
+        if (fallbackReload) {
+          void loadRoom(true);
+        }
+      }, REVEAL_SETTLE_MS);
+    },
+    [applySnapshot, loadRoom],
   );
 
   useEffect(() => {
@@ -282,7 +393,83 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
           table: "multiplayer_room_players",
           filter: `room_id=eq.${snapshot.roomId}`,
         },
-        reload,
+        (payload) => {
+          const row = payload.new as Partial<BrowserPlayerRow> & {
+            user_id?: string;
+          };
+
+          if (!row.user_id) {
+            reload();
+            return;
+          }
+
+          setSnapshot((previousSnapshot) => {
+            if (
+              !previousSnapshot ||
+              previousSnapshot.roomId !== snapshot.roomId
+            ) {
+              return previousSnapshot;
+            }
+
+            if (row.user_id === previousSnapshot.me.userId) {
+              return {
+                ...previousSnapshot,
+                me: {
+                  ...previousSnapshot.me,
+                  score: row.score ?? previousSnapshot.me.score,
+                  solvedCurrentRound:
+                    row.solved_current_round ??
+                    previousSnapshot.me.solvedCurrentRound,
+                  attemptsUsedCurrentRound:
+                    row.attempts_used_current_round ??
+                    previousSnapshot.me.attemptsUsedCurrentRound,
+                  maskedAttempts: Array.isArray(row.masked_attempts)
+                    ? row.masked_attempts
+                    : previousSnapshot.me.maskedAttempts,
+                },
+              };
+            }
+
+            if (
+              previousSnapshot.opponent &&
+              row.user_id === previousSnapshot.opponent.userId
+            ) {
+              const hasOpponentScored =
+                typeof row.score === "number" &&
+                row.score > previousSnapshot.opponent.score;
+              const hasOpponentSolvedCurrentRound =
+                row.solved_current_round === true &&
+                !previousSnapshot.opponent.solvedCurrentRound;
+
+              if (hasOpponentScored || hasOpponentSolvedCurrentRound) {
+                toast.success(
+                  `${previousSnapshot.opponent.displayName} acertou a palavra!`,
+                );
+              }
+
+              return {
+                ...previousSnapshot,
+                opponent: {
+                  ...previousSnapshot.opponent,
+                  score: row.score ?? previousSnapshot.opponent.score,
+                  solvedCurrentRound:
+                    row.solved_current_round ??
+                    previousSnapshot.opponent.solvedCurrentRound,
+                  attemptsUsedCurrentRound:
+                    row.attempts_used_current_round ??
+                    previousSnapshot.opponent.attemptsUsedCurrentRound,
+                  maskedAttempts: Array.isArray(row.masked_attempts)
+                    ? row.masked_attempts
+                    : previousSnapshot.opponent.maskedAttempts,
+                },
+              };
+            }
+
+            return previousSnapshot;
+          });
+
+          reload();
+        },
       )
       .subscribe();
 
@@ -345,12 +532,21 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
   }, [snapshot?.roundStartsAt]);
 
   useEffect(() => {
+    return () => {
+      if (revealTimeoutRef.current) {
+        window.clearTimeout(revealTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (
         !snapshot ||
         snapshot.status !== "active" ||
         isSubmitting ||
-        countdownMs > 0
+        countdownMs > 0 ||
+        isRevealLockedRef.current
       ) {
         return;
       }
@@ -383,7 +579,8 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
       !snapshot ||
       snapshot.status !== "active" ||
       currentGuess.length >= snapshot.wordLength ||
-      countdownMs > 0
+      countdownMs > 0 ||
+      isRevealLockedRef.current
     ) {
       return;
     }
@@ -393,7 +590,7 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
   };
 
   const handleDeleteLetter = () => {
-    if (!currentGuess.length) {
+    if (!currentGuess.length || isRevealLockedRef.current) {
       return;
     }
 
@@ -402,7 +599,12 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
   };
 
   const handleSubmitGuess = useCallback(async () => {
-    if (!snapshot || snapshot.status !== "active" || isSubmitting) {
+    if (
+      !snapshot ||
+      snapshot.status !== "active" ||
+      isSubmitting ||
+      isRevealLockedRef.current
+    ) {
       return;
     }
 
@@ -411,17 +613,38 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
       return;
     }
 
+    if (currentGuess.length !== snapshot.wordLength) {
+      toast.error(`Preencha as ${snapshot.wordLength} letras antes de enviar.`);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      const nextSnapshot = await submitMultiplayerGuessRequest({
-        roomCode,
-        guess: currentGuess,
-      });
+      const { snapshot: nextSnapshot, submission } =
+        await submitMultiplayerGuessRequest({
+          roomCode,
+          guess: currentGuess,
+        });
 
-      if (nextSnapshot) {
-        setSnapshot(nextSnapshot);
-      }
+      const optimisticSnapshot: MultiplayerRoomSnapshot = {
+        ...(snapshot as MultiplayerRoomSnapshot),
+        status: submission.roomStatus,
+        winnerId: submission.winnerId,
+        roundStartsAt: submission.roundStartsAt,
+        me: {
+          ...snapshot.me,
+          score: submission.score,
+          solvedCurrentRound: submission.solvedCurrentRound,
+        },
+      };
+
+      isRevealLockedRef.current = true;
+      pendingSnapshotRef.current = nextSnapshot;
+      setSnapshot(optimisticSnapshot);
+      setAnimatedAttempt(submission.attempt);
+      setBoardAnimation("revealing");
+      finishReveal(!nextSnapshot);
 
       setCurrentGuess("");
       setSelectedTileIndex(0);
@@ -434,7 +657,14 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
     } finally {
       setIsSubmitting(false);
     }
-  }, [countdownMs, currentGuess, isSubmitting, roomCode, snapshot]);
+  }, [
+    countdownMs,
+    currentGuess,
+    finishReveal,
+    isSubmitting,
+    roomCode,
+    snapshot,
+  ]);
 
   const handleRequestRematch = async () => {
     if (!snapshot || isRequestingRematch) {
@@ -583,20 +813,17 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
         <div className="grid gap-4 lg:grid-cols-[1fr_auto_1fr] lg:items-stretch">
           <div className="surface-panel relative overflow-hidden p-4">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,hsl(var(--primary)/0.12),transparent_42%)]" />
-            <div className="relative flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-foreground">
-                  {snapshot.me.displayName}
-                </p>
-                <p className="text-xs text-muted-foreground">Você</p>
-              </div>
-              <p className="text-3xl font-semibold tabular-nums text-foreground">
-                {snapshot.me.score}
+            <div className="relative text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                Você
+              </p>
+              <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
+                {snapshot.me.displayName}
               </p>
             </div>
           </div>
 
-          <div className="surface-panel hidden min-w-[120px] items-center justify-center p-4 lg:flex">
+          <div className="surface-panel flex min-w-[120px] items-center justify-center p-4">
             <div className="text-center">
               <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/70">
                 versus
@@ -609,20 +836,18 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
 
           <div className="surface-panel relative overflow-hidden p-4">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,hsl(var(--accent)/0.12),transparent_42%)]" />
-            <div className="relative flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-foreground">
-                  {snapshot.opponent?.displayName ?? "Aguardando rival"}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {snapshot.opponent
-                    ? "Oponente"
-                    : "Compartilhe o link da sala"}
-                </p>
-              </div>
-              <p className="text-3xl font-semibold tabular-nums text-foreground">
-                {snapshot.opponent?.score ?? 0}
+            <div className="relative text-center">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                Oponente
               </p>
+              <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
+                {snapshot.opponent?.displayName ?? "Aguardando rival"}
+              </p>
+              {!snapshot.opponent ? (
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Compartilhe o link da sala
+                </p>
+              ) : null}
             </div>
           </div>
         </div>
@@ -684,6 +909,8 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
             title="Seu tabuleiro"
             subtitle={`${snapshot.me.attempts.length}/${snapshot.maxAttempts} tentativas na rodada`}
             attempts={snapshot.me.attempts}
+            animatedAttempt={animatedAttempt}
+            animation={boardAnimation}
             currentGuess={currentGuess}
             selectedTileIndex={selectedTileIndex}
             onSelectTile={handleSelectTile}
@@ -707,7 +934,13 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
         </div>
 
         <MultiplayerKeyboard
-          disabled={isWaiting || isFinished || isSubmitting || isBetweenRounds}
+          disabled={
+            isWaiting ||
+            isFinished ||
+            isSubmitting ||
+            isBetweenRounds ||
+            Boolean(boardAnimation)
+          }
           onType={handleTypeLetter}
           onDelete={handleDeleteLetter}
           onEnter={() => {

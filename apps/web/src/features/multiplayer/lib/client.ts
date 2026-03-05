@@ -1,7 +1,10 @@
 "use client";
 
 import { getSupabaseBrowserClient } from "@/features/auth/lib/supabase-client";
-import type { MultiplayerRoomSnapshot } from "@/features/multiplayer/lib/types";
+import type {
+  MultiplayerRoomSnapshot,
+  MultiplayerSubmitResult,
+} from "@/features/multiplayer/lib/types";
 
 const getAccessToken = async () => {
   const supabase = getSupabaseBrowserClient();
@@ -91,12 +94,13 @@ export const submitMultiplayerGuessRequest = async ({
 }) => {
   const payload = await apiRequest<{
     snapshot: MultiplayerRoomSnapshot | null;
+    submission: MultiplayerSubmitResult;
   }>("/api/multiplayer/submit", {
     method: "POST",
     body: JSON.stringify({ roomCode, guess }),
   });
 
-  return payload.snapshot;
+  return payload;
 };
 
 export const requestMultiplayerRematchRequest = async (roomCode: string) => {

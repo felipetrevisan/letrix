@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import {
   getAuthorizedUserFromRequest,
-  getMultiplayerRoomSnapshot,
   submitMultiplayerGuess,
 } from "@/features/multiplayer/lib/server";
 
@@ -31,10 +30,8 @@ export async function POST(request: Request) {
       );
     }
 
-    await submitMultiplayerGuess({ roomCode, user, guess });
-    const snapshot = await getMultiplayerRoomSnapshot(roomCode, user.id);
-
-    return NextResponse.json({ snapshot });
+    const submission = await submitMultiplayerGuess({ roomCode, user, guess });
+    return NextResponse.json({ snapshot: null, submission });
   } catch (submitError) {
     const message =
       submitError instanceof Error ? submitError.message : "submit-failed";
