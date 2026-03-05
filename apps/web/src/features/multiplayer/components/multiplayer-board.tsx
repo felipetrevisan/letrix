@@ -24,6 +24,15 @@ type Props = {
 };
 
 const buildMaskedGlyph = (length: number) => "✱".repeat(length);
+const isPrivateAttempt = (
+  attempt: MultiplayerPrivateAttempt | MultiplayerMaskedAttempt | null,
+): attempt is MultiplayerPrivateAttempt => {
+  return Boolean(
+    attempt &&
+      "guess" in attempt &&
+      typeof (attempt as { guess?: unknown }).guess === "string",
+  );
+};
 
 export function MultiplayerBoard({
   title,
@@ -74,7 +83,7 @@ export function MultiplayerBoard({
                     ? displayedAttempt.statuses[tileIndex]
                     : undefined;
                 const letter = displayedAttempt
-                  ? "guess" in displayedAttempt
+                  ? isPrivateAttempt(displayedAttempt)
                     ? displayedAttempt.guess[tileIndex] ?? ""
                     : currentMask[tileIndex] ?? ""
                   : isCurrentRow
