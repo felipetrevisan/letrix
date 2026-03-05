@@ -15,6 +15,7 @@ import { MultiplayerBoard } from "@/features/multiplayer/components/multiplayer-
 import { MultiplayerKeyboard } from "@/features/multiplayer/components/multiplayer-keyboard";
 import {
   loadMultiplayerRoomRequest,
+  type MultiplayerApiError,
   requestMultiplayerRematchRequest,
   submitMultiplayerGuessRequest,
 } from "@/features/multiplayer/lib/client";
@@ -22,6 +23,7 @@ import type {
   MultiplayerPrivateAttempt,
   MultiplayerRoomSnapshot,
 } from "@/features/multiplayer/lib/types";
+import type { Status } from "@/lib/statuses";
 
 type Props = {
   locale: string;
@@ -62,13 +64,13 @@ type BrowserPrivateStateRow = {
   attempts: MultiplayerRoomSnapshot["me"]["attempts"];
 };
 
-const insertLetter = (guess: string, index: number, letter: string) => {
-  const letters = guess.padEnd(5, " ").split("");
-  letters[index] = letter;
-  return letters.join("").trimEnd();
-};
-
 const REVEAL_SETTLE_MS = REVEAL_TIME_MS * 6;
+const LETTER_STATUS_PRIORITY: Record<Status, number> = {
+  absent: 1,
+  present: 2,
+  correct: 3,
+};
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export function MultiplayerRoomPage({ locale, roomCode }: Props) {
   const router = useRouter();
@@ -94,7 +96,9 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
   const snapshotRef = useRef<MultiplayerRoomSnapshot | null>(null);
 
   const handleSelectTile = (index: number) => {
-    const maxSelectableIndex = Math.min(currentGuess.length, 4);
+    const maxSelectableIndex = snapshot
+      ? Math.min(currentGuess.length, snapshot.wordLength - 1)
+      : 0;
     setSelectedTileIndex(Math.min(index, maxSelectableIndex));
   };
 
@@ -402,6 +406,7 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
             return;
           }
 
+          let shouldReloadRoom = false;
           setSnapshot((previousSnapshot) => {
             if (
               !previousSnapshot ||
@@ -464,10 +469,22 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
               };
             }
 
+            if (
+              !previousSnapshot.opponent &&
+              row.user_id !== previousSnapshot.me.userId
+            ) {
+              toast.success(
+                `${row.display_name ?? "Seu rival"} entrou na sala!`,
+              );
+              shouldReloadRoom = true;
+            }
+
             return previousSnapshot;
           });
 
-          reload();
+          if (shouldReloadRoom) {
+            reload();
+          }
         },
       )
       .subscribe();
@@ -486,7 +503,7 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
       void loadRoom(true);
     };
 
-    const poller = window.setInterval(reload, 2000);
+    const poller = window.setInterval(reload, 4500);
     const handleFocus = () => reload();
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
@@ -552,8 +569,7 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
 
       if (event.key === "Backspace") {
         event.preventDefault();
-        setCurrentGuess((prev) => prev.slice(0, -1));
-        setSelectedTileIndex((prev) => Math.max(prev - 1, 0));
+        handleDeleteLetter();
         return;
       }
 
@@ -577,24 +593,63 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
     if (
       !snapshot ||
       snapshot.status !== "active" ||
-      currentGuess.length >= snapshot.wordLength ||
       countdownMs > 0 ||
       isRevealLockedRef.current
     ) {
       return;
     }
 
-    setCurrentGuess((prev) => insertLetter(prev, selectedTileIndex, letter));
-    setSelectedTileIndex((prev) => Math.min(prev + 1, snapshot.wordLength - 1));
+    const letters = currentGuess.padEnd(snapshot.wordLength, " ").split("");
+    const targetIndex = Math.min(
+      Math.max(selectedTileIndex, 0),
+      snapshot.wordLength - 1,
+    );
+
+    letters[targetIndex] = letter;
+
+    const nextEmptyAfterCurrent = letters.findIndex(
+      (nextLetter, index) => index > targetIndex && !nextLetter.trim(),
+    );
+    const nextTileIndex =
+      nextEmptyAfterCurrent !== -1 ? nextEmptyAfterCurrent : targetIndex;
+
+    setCurrentGuess(letters.join("").trimEnd());
+    setSelectedTileIndex(nextTileIndex);
   };
 
   const handleDeleteLetter = () => {
-    if (!currentGuess.length || isRevealLockedRef.current) {
+    if (!snapshot || isRevealLockedRef.current) {
       return;
     }
 
-    setCurrentGuess((prev) => prev.slice(0, -1));
-    setSelectedTileIndex((prev) => Math.max(prev - 1, 0));
+    const letters = currentGuess.padEnd(snapshot.wordLength, " ").split("");
+
+    if (!letters.some((letter) => Boolean(letter.trim()))) {
+      setSelectedTileIndex(0);
+      return;
+    }
+
+    let targetIndex = Math.min(
+      Math.max(selectedTileIndex, 0),
+      snapshot.wordLength - 1,
+    );
+
+    if (!letters[targetIndex]?.trim()) {
+      while (targetIndex > 0 && !letters[targetIndex]?.trim()) {
+        targetIndex -= 1;
+      }
+    }
+
+    if (!letters[targetIndex]?.trim()) {
+      const fallbackIndex = letters.findLastIndex((letter) =>
+        Boolean(letter.trim()),
+      );
+      targetIndex = fallbackIndex === -1 ? 0 : fallbackIndex;
+    }
+
+    letters[targetIndex] = "";
+    setCurrentGuess(letters.join("").trimEnd());
+    setSelectedTileIndex(targetIndex);
   };
 
   const handleSubmitGuess = useCallback(async () => {
@@ -617,13 +672,16 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
       return;
     }
 
+    const guessToSubmit = currentGuess;
+    setCurrentGuess("");
+    setSelectedTileIndex(0);
     setIsSubmitting(true);
 
     try {
       const { snapshot: nextSnapshot, submission } =
         await submitMultiplayerGuessRequest({
           roomCode,
-          guess: currentGuess,
+          guess: guessToSubmit,
         });
 
       const optimisticSnapshot: MultiplayerRoomSnapshot = {
@@ -644,15 +702,19 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
       setAnimatedAttempt(submission.attempt);
       setBoardAnimation("revealing");
       finishReveal(!nextSnapshot);
-
-      setCurrentGuess("");
-      setSelectedTileIndex(0);
     } catch (submitError) {
-      toast.error(
-        submitError instanceof Error
-          ? submitError.message
-          : "Não foi possível enviar a tentativa agora.",
-      );
+      setCurrentGuess(guessToSubmit);
+      setSelectedTileIndex(Math.max(guessToSubmit.length - 1, 0));
+      const multiplayerError = submitError as MultiplayerApiError;
+      if (multiplayerError.code === "word-not-found") {
+        toast.error("Essa palavra não existe no dicionário.");
+      } else {
+        toast.error(
+          submitError instanceof Error
+            ? submitError.message
+            : "Não foi possível enviar a tentativa agora.",
+        );
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -711,6 +773,51 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
       toast.error("Não foi possível copiar o link.");
     }
   };
+
+  const keyboardLetterStates = useMemo(() => {
+    const attempts = [...(snapshot?.me.attempts ?? [])];
+
+    if (animatedAttempt) {
+      attempts.push(animatedAttempt);
+    }
+
+    const statusesByLetter = new Map<string, Status>();
+
+    for (const attempt of attempts) {
+      const letters = attempt.guess.toUpperCase().split("");
+      attempt.statuses.forEach((status, index) => {
+        const letter = letters[index];
+
+        if (!letter || !ALPHABET.includes(letter)) {
+          return;
+        }
+
+        const previous = statusesByLetter.get(letter);
+
+        if (
+          !previous ||
+          LETTER_STATUS_PRIORITY[status] > LETTER_STATUS_PRIORITY[previous]
+        ) {
+          statusesByLetter.set(letter, status);
+        }
+      });
+    }
+
+    return Object.fromEntries(
+      ALPHABET.map((letter) => {
+        const status = statusesByLetter.get(letter);
+        const isAbsentOnly = status === "absent";
+
+        return [
+          letter,
+          {
+            status,
+            disabled: isAbsentOnly,
+          },
+        ];
+      }),
+    );
+  }, [animatedAttempt, snapshot?.me.attempts]);
 
   if (!isAuthReady || isLoading) {
     return (
@@ -940,6 +1047,7 @@ export function MultiplayerRoomPage({ locale, roomCode }: Props) {
             isBetweenRounds ||
             Boolean(boardAnimation)
           }
+          letterStates={keyboardLetterStates}
           onType={handleTypeLetter}
           onDelete={handleDeleteLetter}
           onEnter={() => {

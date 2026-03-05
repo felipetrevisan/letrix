@@ -38,7 +38,7 @@ export async function POST(request: Request) {
 
     if (message === "word-not-found") {
       return NextResponse.json(
-        { error: "Essa palavra não existe." },
+        { error: "Essa palavra não existe.", code: "word-not-found" },
         { status: 400 },
       );
     }

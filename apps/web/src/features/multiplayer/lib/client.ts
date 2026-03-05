@@ -6,6 +6,10 @@ import type {
   MultiplayerSubmitResult,
 } from "@/features/multiplayer/lib/types";
 
+export type MultiplayerApiError = Error & {
+  code?: string;
+};
+
 const getAccessToken = async () => {
   const supabase = getSupabaseBrowserClient();
 
@@ -38,10 +42,15 @@ const apiRequest = async <T>(input: string, init?: RequestInit): Promise<T> => {
 
   const payload = (await response.json().catch(() => ({}))) as {
     error?: string;
+    code?: string;
   } & T;
 
   if (!response.ok) {
-    throw new Error(payload.error ?? "A operação falhou.");
+    const error = new Error(
+      payload.error ?? "A operação falhou.",
+    ) as MultiplayerApiError;
+    error.code = payload.code;
+    throw error;
   }
 
   return payload;
